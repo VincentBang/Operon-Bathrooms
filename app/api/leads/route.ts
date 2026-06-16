@@ -1,37 +1,73 @@
 import { NextResponse } from "next/server";
-import { createClient } from "@supabase/supabase-js";
+import { attributionSchema } from "@/lib/attribution";
+import {
+  prepareAndSendBathroomNotifications,
+  publicNotificationSummary,
+  responseStatusForNotification
+} from "@/lib/bathroom-notifications";
 import { EstimateResult, quoteWizardSchema } from "@/lib/estimate-schema";
+import { storeStructuredLead, updateLeadResponse } from "@/lib/lead-store";
 
 export async function POST(request: Request) {
   const body = (await request.json()) as {
     input: unknown;
     result: EstimateResult;
+    attribution?: unknown;
   };
   const parsed = quoteWizardSchema.safeParse(body.input);
+  const attribution = attributionSchema.safeParse(body.attribution);
 
   if (!parsed.success || !body.result?.range) {
     return NextResponse.json({ error: "Invalid lead input" }, { status: 400 });
   }
 
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
-
-  if (!url || !serviceKey) {
-    return NextResponse.json({ ok: false, reason: "Supabase server credentials not configured" });
-  }
-
-  const supabase = createClient(url, serviceKey);
-  const { error } = await supabase.from("bathroom_estimates").insert({
-    user_input: parsed.data,
-    estimate_range: body.result.range,
-    confidence_score: body.result.confidenceScore,
-    risk_flags: body.result.riskFlags,
-    contact_info: parsed.data.contact
+  const stored = await storeStructuredLead({
+    leadType: "estimate",
+    sourceRoute: "/quote",
+    payload: parsed.data,
+    riskFlags: body.result.riskFlags,
+    scoringResult: {
+      estimateRange: body.result.range,
+      confidenceScore: body.result.confidenceScore,
+      confidenceLabel: body.result.confidenceLabel,
+      recommendedNextStep: body.result.recommendedNextStep
+    },
+    privacyAccepted: true,
+    termsAccepted: true,
+    guidanceAccepted: true,
+    attribution: attribution.success ? attribution.data : undefined,
+    request,
+    contact: parsed.data.contact,
+    bathroomType: parsed.data.projectType,
+    timeline: parsed.data.timeline,
+    estimateRange: body.result.range.label,
+    confidenceScore: body.result.confidenceScore,
+    recommendedNextStep: body.result.recommendedNextStep
   });
 
-  if (error) {
-    return NextResponse.json({ ok: false, reason: error.message }, { status: 500 });
+  if (!stored.ok) {
+    return NextResponse.json({ ok: false, stored: false, reason: stored.reason || "Lead storage failed" }, { status: 500 });
   }
 
-  return NextResponse.json({ ok: true });
+  const notification = await prepareAndSendBathroomNotifications(stored.lead);
+  await updateLeadResponse(
+    "estimate",
+    stored.lead.id,
+    {
+      responseStatus: responseStatusForNotification(notification),
+      notificationSentAt: notification.adminNotificationSentAt,
+      acknowledgementSentAt: notification.customerAcknowledgementSentAt,
+      notificationResult: notification
+    },
+    "notification_prepared"
+  );
+
+  return NextResponse.json({
+    ok: true,
+    stored: stored.stored,
+    leadId: stored.lead.id,
+    responsePriority: stored.lead.responsePriority,
+    responseDueAt: stored.lead.responseDueAt,
+    ...publicNotificationSummary(notification)
+  });
 }

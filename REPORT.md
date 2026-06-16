@@ -11,6 +11,8 @@
 - Added Supabase client insertion helper and a draft `bathroom_estimates` migration.
 - Kept public outputs to planning ranges, confidence score, assumptions, exclusions, risk flags and
   compliance prompts.
+- Phase 2 foundation adds quote review, scope review request and site-measure request routes.
+- SEO hardening adds sitemap, robots and JSON-LD structured data.
 
 ## Success criteria
 
@@ -41,3 +43,17 @@ This found no private numeric rates in `.next/static`; matches were limited to s
 references.
 
 No deployment, push, production Supabase changes or production Netlify changes are part of this MVP.
+
+## Phase 1 audit summary
+
+- Routes implemented: `/`, `/quote`, `/bathroom-renovation-cost-sydney`, service pages,
+  `/how-it-works`, `/privacy`, `/terms`, API routes for estimate, PDF and leads.
+- Wizard steps implemented: project basics; property/suburb; age/condition; size/layout;
+  plumbing/electrical; ventilation/waterproofing; tiling; fixtures; access/strata/asbestos;
+  contact; estimate output.
+- Output fields implemented: planning range, confidence score, scope summary, assumptions,
+  exclusions, risk flags, compliance prompts and recommended next step.
+- Hardening completed: added sitemap, robots, JSON-LD, Phase 2 internal links, mobile form layout,
+  focus states, and server-side lead submission path.
+- Public pricing check: private rate card remains server-only and no supplier, labour, margin or
+  lead-scoring data is rendered publicly.

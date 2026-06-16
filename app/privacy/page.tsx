@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Privacy Policy",
+  description:
+    "Privacy placeholder for Operon Bathrooms planning estimates, quote review and site-measure request data.",
   alternates: { canonical: "/privacy" }
 };
 

@@ -34,7 +34,7 @@ export async function POST(request: Request) {
   }
 
   line("Operon Bathrooms planning estimate", 18, true);
-  line("Planning guidance only. Not a final quote, contract, legal advice or compliance advice.");
+  line("Planning guidance only. Not contract pricing, a contract, legal advice or compliance advice.");
   line(`Indicative range: ${result.range.label}`, 16, true);
   line(`Confidence: ${result.confidenceLabel} (${result.confidenceScore}/100)`);
   y -= 8;

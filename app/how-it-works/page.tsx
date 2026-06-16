@@ -4,7 +4,7 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "How It Works",
   description:
-    "How Operon Bathrooms turns planning inputs into guidance-only estimate ranges before any final quote.",
+    "How Operon Bathrooms turns planning inputs into guidance-only estimate ranges before contract pricing.",
   alternates: { canonical: "/how-it-works" }
 };
 
@@ -28,7 +28,7 @@ export default function HowItWorksPage() {
             <li>Answer scope, property, services, finishes and access questions.</li>
             <li>Receive an indicative planning range and confidence score.</li>
             <li>Review assumptions, exclusions, risk flags and NSW compliance prompts.</li>
-            <li>Book a site review before any final quote or contract discussion.</li>
+            <li>Book a site review before contract pricing or contract discussion.</li>
           </ol>
         </div>
       </div>

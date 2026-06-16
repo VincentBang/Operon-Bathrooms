@@ -30,7 +30,7 @@ export function calculateEstimate(rawInput: QuoteWizardInput): EstimateResult {
   const riskFlags: string[] = [];
   const assumptions: string[] = [
     "Planning guidance only, based on supplied answers and typical bathroom renovation variables.",
-    "Final quote requires a site inspection, trade scope review and product selections.",
+    "Contract pricing requires a site inspection, licensed trade review, product selections and written scope confirmation.",
     "Figures are indicative ranges and may change after compliance, strata or latent-condition review."
   ];
 
@@ -52,7 +52,7 @@ export function calculateEstimate(rawInput: QuoteWizardInput): EstimateResult {
 
   if (input.strata) {
     planningTotal += card.adjustments.strata;
-    riskFlags.push("Strata properties may need by-law, work-hours, waterproofing and access approvals.");
+    riskFlags.push("Apartment / strata / Class 2 screening may be required before committing.");
   }
 
   if (input.access === "limited" || input.access === "difficult") {
@@ -63,6 +63,22 @@ export function calculateEstimate(rawInput: QuoteWizardInput): EstimateResult {
   if (input.asbestosConcern !== "no") {
     planningTotal += card.adjustments.asbestosRisk;
     riskFlags.push("Possible asbestos must be assessed by qualified professionals before disturbance.");
+  }
+
+  if (input.plumbingScope !== "like-for-like") {
+    riskFlags.push("Plumbing relocation or upgrade scope should be confirmed by licensed trades.");
+  }
+
+  if (input.electricalScope !== "like-for-like") {
+    riskFlags.push("Electrical relocation or upgrade scope should be confirmed by licensed trades.");
+  }
+
+  if (input.waterproofingComplexity !== "standard") {
+    riskFlags.push("Waterproofing uncertainty can reduce estimate confidence until site review.");
+  }
+
+  if (input.ventilationScope !== "existing-ok") {
+    riskFlags.push("Ventilation scope should be confirmed before written scope confirmation.");
   }
 
   if (input.fixtureLevel === "mid") planningTotal += card.adjustments.midFixtures;
@@ -86,6 +102,10 @@ export function calculateEstimate(rawInput: QuoteWizardInput): EstimateResult {
   const confidenceScore = Math.max(42, 88 - uncertaintySignals * 8);
   const low = roundedHundreds(planningTotal * card.range.lowMultiplier);
   const high = roundedHundreds(planningTotal * card.range.highMultiplier);
+
+  if (high > 20000) {
+    riskFlags.push("HBC/HBCF and deposit prompts should be reviewed for this likely project scale.");
+  }
 
   return {
     estimateId: `bath-${Date.now().toString(36)}`,
@@ -115,6 +135,6 @@ export function calculateEstimate(rawInput: QuoteWizardInput): EstimateResult {
       "NSW prompt: Home Building Compensation Fund (HBCF) cover is generally required for residential building work over $20k before work starts or money is taken. Confirm current obligations."
     ],
     recommendedNextStep:
-      "Book an on-site planning review so Operon Bathrooms can confirm scope, compliance requirements and product selections before issuing any final quote."
+      "Book a site measure so Operon Bathrooms can confirm scope, compliance requirements and product selections before written scope confirmation and contract pricing."
   };
 }

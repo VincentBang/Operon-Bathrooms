@@ -1,13 +1,14 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import Link from "next/link";
+import { readAttribution } from "@/lib/attribution";
 import {
   defaultWizardInput,
   EstimateResult,
   QuoteWizardInput,
   quoteWizardSchema
 } from "@/lib/estimate-schema";
-import { storeBathroomEstimate } from "@/lib/supabase";
 
 type Step = {
   title: string;
@@ -313,12 +314,14 @@ export function QuoteWizard() {
 
     const nextResult = (await response.json()) as EstimateResult;
     setResult(nextResult);
-    await storeBathroomEstimate({
-      user_input: validation.data,
-      estimate_range: nextResult.range,
-      confidence_score: nextResult.confidenceScore,
-      risk_flags: nextResult.riskFlags,
-      contact_info: validation.data.contact
+    await fetch("/api/leads", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        input: validation.data,
+        result: nextResult,
+        attribution: readAttribution("/quote")
+      })
     });
     setIsLoading(false);
   }
@@ -349,12 +352,12 @@ export function QuoteWizard() {
             Edit answers
           </button>
         </aside>
-        <section className="panel">
+        <section className="panel featured">
           <p className="pill">Planning estimate only</p>
           <h2>Your indicative range</h2>
           <p className="estimate-range">{result.range.label}</p>
           <p>
-            This is planning guidance only. It is not a final quote, contract, legal advice or a
+            This is planning guidance only. It is not contract pricing, a contract, legal advice or a
             commitment to complete the work for this amount.
           </p>
           <div className="grid">
@@ -370,15 +373,39 @@ export function QuoteWizard() {
           </div>
           <div className="actions" style={{ justifyContent: "flex-start" }}>
             <button onClick={downloadPdf}>Download PDF</button>
+            <Link className="button secondary" href="/quote/review">
+              Review my bathroom quote
+            </Link>
+            <Link className="button secondary" href="/site-measure">
+              Request site measure
+            </Link>
+            <Link className="button ghost" href="/request-review">
+              Request scope review
+            </Link>
+            <Link className="button ghost" href="/bathroom-renovation-cost-sydney">
+              Read cost guide
+            </Link>
             <a
               className="button secondary"
               href={`mailto:${input.contact.email}?subject=Operon Bathrooms planning estimate&body=${encodeURIComponent(
-                `Your guidance-only planning estimate range is ${result.range.label}. Please book a site review before relying on any final quote.`
+                `Your guidance-only planning estimate range is ${result.range.label}. Please book a site review before relying on contract pricing.`
               )}`}
             >
               Email estimate
             </a>
           </div>
+          {result.riskFlags.length ? (
+            <div className="notice">
+              <strong>High-risk path</strong>
+              <p>
+                Risk flags are present. Request manual review before committing, signing or paying
+                a deposit.
+              </p>
+              <Link className="button secondary" href="/request-review">
+                Request manual review before committing
+              </Link>
+            </div>
+          ) : null}
         </section>
       </div>
     );

@@ -4,6 +4,7 @@ out/
 dist/
 coverage/
 tsconfig.tsbuildinfo
+.local/
 .env
 .env.local
 .env.*.local
