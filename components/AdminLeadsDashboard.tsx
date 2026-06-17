@@ -43,6 +43,44 @@ type Summary = {
   notFit: number;
 };
 
+type ChatbotQualification = {
+  id: string;
+  createdAt: string;
+  status: string;
+  contactInfo: {
+    name?: string;
+    email?: string;
+    phone?: string;
+    suburb?: string;
+  };
+  riskFlags: string[];
+  missingEvidence: string[];
+  recommendedNextAction: string;
+  confidenceScore: number;
+  manualReviewRequired: boolean;
+  chatbotPayload: Record<string, unknown>;
+};
+
+type FollowUpTask = {
+  id: string;
+  createdAt: string;
+  status: string;
+  priority: string;
+  taskType: string;
+  chatbotQualificationId: string;
+  title: string;
+  description: string;
+  dueAt: string;
+  riskFlags: string[];
+};
+
+type ChatbotSummary = {
+  totalQualifications: number;
+  manualReviewNeeded: number;
+  openFollowUps: number;
+  urgentFollowUps: number;
+};
+
 type ReportResponse = {
   ok: boolean;
   report: ManualReviewReport | null;
@@ -113,6 +151,14 @@ export function AdminLeadsDashboard() {
   const [reportPersisted, setReportPersisted] = useState(false);
   const [reportNote, setReportNote] = useState("");
   const [qualificationNote, setQualificationNote] = useState("");
+  const [chatbotQualifications, setChatbotQualifications] = useState<ChatbotQualification[]>([]);
+  const [followUpTasks, setFollowUpTasks] = useState<FollowUpTask[]>([]);
+  const [chatbotSummary, setChatbotSummary] = useState<ChatbotSummary>({
+    totalQualifications: 0,
+    manualReviewNeeded: 0,
+    openFollowUps: 0,
+    urgentFollowUps: 0
+  });
   const [filters, setFilters] = useState({
     view: "",
     leadType: "",
@@ -159,6 +205,7 @@ export function AdminLeadsDashboard() {
     if (!token) return;
     window.localStorage.setItem("operonBathroomsAdminToken", token);
     void loadLeads(token);
+    void loadChatbotQualifications(token);
   }, [token]);
 
   useEffect(() => {
@@ -184,6 +231,19 @@ export function AdminLeadsDashboard() {
     setLeads(json.leads);
     setSummary(json.summary);
     setMessage("");
+  }
+
+  async function loadChatbotQualifications(nextToken = token) {
+    const params = new URLSearchParams({ token: nextToken });
+    const response = await fetch(`/api/admin/chatbot-qualifications?${params.toString()}`);
+    const json = await response.json();
+    if (!response.ok) {
+      setMessage(json.error || "Unable to load chatbot handoffs");
+      return;
+    }
+    setChatbotQualifications(json.qualifications || []);
+    setFollowUpTasks(json.tasks || []);
+    setChatbotSummary(json.summary || { totalQualifications: 0, manualReviewNeeded: 0, openFollowUps: 0, urgentFollowUps: 0 });
   }
 
   function mergeLead(nextLead: NormalizedLead) {
@@ -343,6 +403,7 @@ export function AdminLeadsDashboard() {
             />
           </label>
           <button onClick={() => loadLeads()}>Load leads</button>
+          <button className="secondary" onClick={() => loadChatbotQualifications()}>Load chatbot handoffs</button>
           <button className="secondary" onClick={bulkQualify}>Run qualification on unreviewed</button>
           {message ? <p className="notice">{message}</p> : null}
         </div>
@@ -364,6 +425,49 @@ export function AdminLeadsDashboard() {
           <SummaryCard title="Qualified" value={summary.qualifiedLeads} />
           <SummaryCard title="High-risk high-value" value={summary.highRiskHighValue} />
           <SummaryCard title="Not fit" value={summary.notFit} />
+          <SummaryCard title="Chatbot handoffs" value={chatbotSummary.totalQualifications} />
+          <SummaryCard title="Chat manual review" value={chatbotSummary.manualReviewNeeded} />
+          <SummaryCard title="Open follow-ups" value={chatbotSummary.openFollowUps} />
+          <SummaryCard title="Urgent follow-ups" value={chatbotSummary.urgentFollowUps} />
+        </div>
+
+        <div className="panel">
+          <h2>Chatbot handoffs and follow-up tasks</h2>
+          <p className="muted">
+            Private admin context from consent-based chatbot handoffs. Keep this internal; it is not a public proposal or contract quote.
+          </p>
+          <div className="grid two">
+            <div className="admin-list">
+              <h3>Recent handoffs</h3>
+              {chatbotQualifications.slice(0, 8).map((qualification) => (
+                <div className="admin-row static" key={qualification.id}>
+                  <strong>{qualification.contactInfo.name || qualification.contactInfo.email || "Unnamed chatbot handoff"}</strong>
+                  <span>{qualification.contactInfo.suburb || "suburb not supplied"} · {label(qualification.status)}</span>
+                  <span>{label(qualification.recommendedNextAction)} · confidence {qualification.confidenceScore || "n/a"}</span>
+                  <span>{qualification.manualReviewRequired ? "manual review required" : "normal follow-up"}</span>
+                  <span>Risk: {qualification.riskFlags.length ? qualification.riskFlags.join(", ") : "none recorded"}</span>
+                  <span>Missing: {qualification.missingEvidence.length ? qualification.missingEvidence.join(", ") : "none recorded"}</span>
+                </div>
+              ))}
+              {!chatbotQualifications.length ? <p>No chatbot handoffs loaded.</p> : null}
+            </div>
+            <div className="admin-list">
+              <h3>Open follow-ups</h3>
+              {followUpTasks
+                .filter((task) => task.status === "open" || task.status === "in_progress")
+                .slice(0, 8)
+                .map((task) => (
+                  <div className="admin-row static" key={task.id}>
+                    <strong>{task.title}</strong>
+                    <span>{label(task.taskType)} · {label(task.priority)} · {label(task.status)}</span>
+                    <span>Due {task.dueAt || "not set"}</span>
+                    <span>{task.description}</span>
+                    <span>Risk: {task.riskFlags.length ? task.riskFlags.join(", ") : "none recorded"}</span>
+                  </div>
+                ))}
+              {!followUpTasks.length ? <p>No follow-up tasks loaded.</p> : null}
+            </div>
+          </div>
         </div>
 
         <div className="panel admin-filters">

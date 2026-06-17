@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { FormEvent, useEffect, useRef, useState } from "react";
+import { readAttribution } from "@/lib/attribution";
 import { getBathroomChatbotResponse } from "@/lib/chatbot/bathroomChatbotIntents";
 import { ChatbotResponse, quickPrompts } from "@/lib/chatbot/bathroomChatbotResponses";
 
@@ -28,6 +29,19 @@ export function BathroomChatbot() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [input, setInput] = useState("");
+  const [handoffOpen, setHandoffOpen] = useState(false);
+  const [handoffStatus, setHandoffStatus] = useState("");
+  const [handoff, setHandoff] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    suburb: "",
+    preferredNextStep: "scope_review",
+    privacyAccepted: false,
+    termsAccepted: false,
+    guidanceAccepted: false,
+    company: ""
+  });
   const [messages, setMessages] = useState<ChatMessage[]>([initialAssistantMessage()]);
   const inputRef = useRef<HTMLInputElement>(null);
   const transcriptRef = useRef<HTMLDivElement>(null);
@@ -37,6 +51,9 @@ export function BathroomChatbot() {
   useEffect(() => {
     const saved = window.localStorage.getItem("operon-bathrooms-chat-open");
     if (saved === "true") setOpen(true);
+    if (!window.sessionStorage.getItem("operon_bathrooms_chat_session")) {
+      window.sessionStorage.setItem("operon_bathrooms_chat_session", messageId());
+    }
   }, []);
 
   useEffect(() => {
@@ -67,6 +84,35 @@ export function BathroomChatbot() {
   function onSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     askBot(input);
+  }
+
+  async function onHandoffSubmit(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const lastAssistant = [...messages].reverse().find((message): message is Extract<ChatMessage, { role: "assistant" }> => message.role === "assistant");
+    const lastUser = [...messages].reverse().find((message): message is Extract<ChatMessage, { role: "user" }> => message.role === "user");
+    setHandoffStatus("Sending...");
+    const response = await fetch("/api/chatbot-qualification", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "x-operon-chat-session": window.sessionStorage.getItem("operon_bathrooms_chat_session") || ""
+      },
+      body: JSON.stringify({
+        ...handoff,
+        message: lastUser?.text || input || "Bathroom chatbot handoff request.",
+        latestIntent: lastAssistant?.response.intent,
+        latestAssistantTitle: lastAssistant?.response.title,
+        highRiskTopics: lastAssistant?.response.highRiskTopics || [],
+        attribution: readAttribution("/chatbot")
+      })
+    });
+    const json = await response.json();
+    if (!response.ok) {
+      setHandoffStatus(json.error || "Unable to send request.");
+      return;
+    }
+    setHandoffStatus(json.message || "Request received.");
+    setHandoffOpen(false);
   }
 
   return (
@@ -106,11 +152,86 @@ export function BathroomChatbot() {
                         {cta.label}
                       </Link>
                     ))}
+                    <button className="button secondary" type="button" onClick={() => setHandoffOpen(true)}>
+                      Send to review team
+                    </button>
                   </div>
                 </div>
               )
             )}
           </div>
+
+          {handoffOpen ? (
+            <form className="chatbot-handoff" onSubmit={onHandoffSubmit}>
+              <input
+                className="visually-hidden"
+                tabIndex={-1}
+                autoComplete="off"
+                value={handoff.company}
+                onChange={(event) => setHandoff((current) => ({ ...current, company: event.target.value }))}
+                aria-hidden="true"
+              />
+              <label>
+                Name
+                <input required value={handoff.name} onChange={(event) => setHandoff((current) => ({ ...current, name: event.target.value }))} />
+              </label>
+              <label>
+                Email
+                <input required type="email" value={handoff.email} onChange={(event) => setHandoff((current) => ({ ...current, email: event.target.value }))} />
+              </label>
+              <label>
+                Phone optional
+                <input value={handoff.phone} onChange={(event) => setHandoff((current) => ({ ...current, phone: event.target.value }))} />
+              </label>
+              <label>
+                Suburb
+                <input required value={handoff.suburb} onChange={(event) => setHandoff((current) => ({ ...current, suburb: event.target.value }))} />
+              </label>
+              <label>
+                Preferred next step
+                <select value={handoff.preferredNextStep} onChange={(event) => setHandoff((current) => ({ ...current, preferredNextStep: event.target.value }))}>
+                  <option value="scope_review">Scope review</option>
+                  <option value="quote_review">Quote review</option>
+                  <option value="site_measure">Site measure</option>
+                  <option value="estimate">Planning estimate</option>
+                  <option value="manual_review">Manual review</option>
+                </select>
+              </label>
+              <label className="check-row">
+                <input
+                  required
+                  type="checkbox"
+                  checked={handoff.privacyAccepted}
+                  onChange={(event) => setHandoff((current) => ({ ...current, privacyAccepted: event.target.checked }))}
+                />
+                I accept the privacy policy.
+              </label>
+              <label className="check-row">
+                <input
+                  required
+                  type="checkbox"
+                  checked={handoff.termsAccepted}
+                  onChange={(event) => setHandoff((current) => ({ ...current, termsAccepted: event.target.checked }))}
+                />
+                I accept the terms.
+              </label>
+              <label className="check-row">
+                <input
+                  required
+                  type="checkbox"
+                  checked={handoff.guidanceAccepted}
+                  onChange={(event) => setHandoff((current) => ({ ...current, guidanceAccepted: event.target.checked }))}
+                />
+                I understand this is planning guidance only.
+              </label>
+              <div className="chatbot-ctas">
+                <button type="submit">Send request</button>
+                <button className="secondary" type="button" onClick={() => setHandoffOpen(false)}>Cancel</button>
+              </div>
+            </form>
+          ) : null}
+
+          {handoffStatus ? <p className="chatbot-status">{handoffStatus}</p> : null}
 
           <div className="chatbot-prompts" aria-label="Bathroom assistant quick prompts">
             {quickPrompts.map((prompt) => (

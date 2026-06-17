@@ -1,5 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
+import { GET as getAdminChatbotQualifications } from "../app/api/admin/chatbot-qualifications/route";
+import { POST as postChatbotQualification } from "../app/api/chatbot-qualification/route";
 import { getBathroomChatbotResponse } from "../lib/chatbot/bathroomChatbotIntents";
 
 function responseText(message: string) {
@@ -79,4 +81,64 @@ test("bathroom chatbot refuses private pricing requests", () => {
   assert.match(text, /cannot share internal rates/i);
   assert.match(text, /planning ranges/i);
   assert.doesNotMatch(text, /\$\d+|\d+% margin/i);
+});
+
+test("chatbot qualification handoff stores private follow-up context with consent", async () => {
+  process.env.NEXT_PUBLIC_SUPABASE_URL = "";
+  process.env.SUPABASE_SERVICE_ROLE_KEY = "";
+  process.env.OPERON_BATHROOMS_ADMIN_TOKEN = "chatbot-admin-test";
+
+  const invalid = await postChatbotQualification(
+    new Request("http://localhost/api/chatbot-qualification", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        name: "Chat Test",
+        email: "chat@example.com",
+        suburb: "Bondi",
+        preferredNextStep: "manual_review",
+        message: "Apartment bathroom waterproofing quote looks unclear.",
+        privacyAccepted: true,
+        termsAccepted: true,
+        guidanceAccepted: false
+      })
+    })
+  );
+  assert.equal(invalid.status, 400);
+
+  const valid = await postChatbotQualification(
+    new Request("http://localhost/api/chatbot-qualification", {
+      method: "POST",
+      headers: { "Content-Type": "application/json", "x-operon-chat-session": "test-chat-session" },
+      body: JSON.stringify({
+        name: "Chat Test",
+        email: "chat@example.com",
+        phone: "0400000000",
+        suburb: "Bondi",
+        preferredNextStep: "manual_review",
+        message: "Apartment bathroom waterproofing quote looks unclear.",
+        highRiskTopics: ["apartment / strata", "waterproofing uncertainty"],
+        privacyAccepted: true,
+        termsAccepted: true,
+        guidanceAccepted: true,
+        attribution: { sourceRoute: "/chatbot", landingPage: "/quote", referrer: "", utmSource: "", utmMedium: "", utmCampaign: "", utmContent: "", utmTerm: "" }
+      })
+    })
+  );
+  const validBody = await valid.json();
+  assert.equal(valid.status, 200);
+  assert.equal(validBody.manualReviewRequired, true);
+  assert.match(validBody.message, /planning context only/i);
+
+  const unauth = await getAdminChatbotQualifications(new Request("http://localhost/api/admin/chatbot-qualifications"));
+  assert.equal(unauth.status, 401);
+
+  const admin = await getAdminChatbotQualifications(
+    new Request("http://localhost/api/admin/chatbot-qualifications?token=chatbot-admin-test")
+  );
+  const adminBody = await admin.json();
+  assert.equal(admin.status, 200);
+  assert.ok(adminBody.summary.totalQualifications >= 1);
+  assert.ok(adminBody.summary.openFollowUps >= 1);
+  assert.ok(adminBody.qualifications.some((qualification: { id: string }) => qualification.id === validBody.qualificationId));
 });

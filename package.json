@@ -9,7 +9,9 @@
     "lint": "eslint .",
     "format": "prettier --check .",
     "test": "node --import tsx --test --test-concurrency=1 tests/*.test.tsx tests/*.test.ts",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "verify:supabase:migrations": "node scripts/verify-supabase-migrations.mjs",
+    "qa:crawl": "node scripts/local-public-crawl.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.45.4",

@@ -12,6 +12,16 @@ This log records local implementation and QA progress. It is not a deployment re
 - Ran local checks only. No deployment, no push, no production Supabase changes and no production
   Netlify changes were performed.
 
+## 2026-06-17 Stage 3 Supabase And Chatbot Handoff Pass
+
+- Applied the additive Stage 3 schema to the approved Operon Bathrooms Supabase project.
+- Created `operon_chatbot_qualifications` and `operon_follow_up_tasks`.
+- Tightened anon grants so anon has insert-only access to `bathroom_estimates` and no read/update/delete access.
+- Verified RLS, policies, grants, preview insert/read and cleanup for chatbot qualification and follow-up tasks.
+- Added a consent-based chatbot handoff endpoint and admin-only chatbot/follow-up read endpoint.
+- Added a private admin dashboard panel for chatbot handoffs and open follow-up tasks.
+- No Netlify deployment or production Netlify setting changes were performed.
+
 ## Operating Notes
 
 - Use `npm run lint`, `npm run typecheck`, `npm run test` and `npm run build` before handoff.
