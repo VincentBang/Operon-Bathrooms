@@ -15,6 +15,8 @@ Last local QA run: 2026-06-18.
 - Public route crawl passed for titles, one H1, canonicals and obvious forbidden wording.
 - Public safety crawl passed for admin links, sitemap/robots exclusions, planning-only conversion copy and
   private-pricing leak patterns.
+- Client bundle safety scan passed for service-role markers, private-pricing markers, internal notes,
+  manual report internals and private qualification markers.
 - Public API response tests passed for quote review, request review, site measure and chatbot handoff.
 - Responsive visual QA still needs a human browser pass at 1440px, 1280px, 768px and 390px because the
   local environment does not include Playwright and Chrome blocks AppleScript JavaScript probes.

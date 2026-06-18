@@ -44,6 +44,7 @@ npm run lint
 npm run typecheck
 npm run build
 npm run verify:supabase:migrations
+npm run qa:bundle-safety
 npm run qa:local
 ```
 

@@ -26,6 +26,7 @@ This log records local implementation and QA progress. It is not a deployment re
 
 - Created `docs/next-100-big-tasks-2026-06-18.md` for the next local QA/security/integration queue.
 - Added `scripts/qa-public-safety.mjs` and `npm run qa:public-safety`.
+- Added `scripts/qa-client-bundle-safety.mjs` and `npm run qa:bundle-safety`.
 - Added `npm run qa:local` to group lint, typecheck, tests, build and migration verification.
 - Added public API response safety tests for quote review, request review, site measure and chatbot handoff.
 - Added admin-boundary tests for noindex/nofollow metadata and unauthenticated admin API rejection.
