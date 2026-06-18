@@ -11,7 +11,9 @@
     "test": "node --import tsx --test --test-concurrency=1 tests/*.test.tsx tests/*.test.ts",
     "typecheck": "tsc --noEmit",
     "verify:supabase:migrations": "node scripts/verify-supabase-migrations.mjs",
-    "qa:crawl": "node scripts/local-public-crawl.mjs"
+    "qa:crawl": "node scripts/local-public-crawl.mjs",
+    "qa:public-safety": "node scripts/qa-public-safety.mjs",
+    "qa:local": "npm run lint && npm run typecheck && npm run test && npm run build && npm run verify:supabase:migrations"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.45.4",

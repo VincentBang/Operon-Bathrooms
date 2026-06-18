@@ -35,8 +35,22 @@ and build checks pass. Production Supabase, Netlify and deployment actions were 
 
 - `npm run lint`: passed.
 - `npm run typecheck`: passed.
-- `npm run test`: passed, 35/35.
-- `npm run build`: passed, 45 static pages generated.
+- `npm run test`: passed, 41/41.
+- `npm run build`: passed, 47 static pages generated.
+- `npm run verify:supabase:migrations`: passed.
+- `npm run qa:crawl -- http://127.0.0.1:3000`: passed after a clean dev-server restart.
+- `npm run qa:public-safety -- http://127.0.0.1:3000`: passed after tightening one public phrase on `/bathroom-quote-sydney`.
+
+## 2026-06-18 Follow-Up
+
+- Added `docs/next-100-big-tasks-2026-06-18.md` as the next QA/security/integration hardening queue.
+- Added `npm run qa:local` for local release gates that do not need a running server.
+- Added `npm run qa:public-safety` for rendered public route, sitemap, robots, admin-link and copy-safety checks.
+- Added public API response safety tests so customer-facing lead responses do not return internal notes,
+  qualification internals, manual review reports, service-role markers or private pricing markers.
+- Added admin-boundary tests for noindex/nofollow metadata and remaining unauthenticated admin endpoints.
+- Noted that running `next build` while `next dev` is active can corrupt the dev manifest; restart the dev
+  server before server-based crawls.
 
 ## Safety Confirmation
 

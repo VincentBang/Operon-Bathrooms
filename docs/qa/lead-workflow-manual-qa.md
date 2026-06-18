@@ -1,20 +1,23 @@
 # Operon Bathrooms Lead Workflow Manual QA
 
-Status: local smoke passed for public-to-admin structure; production database persistence remains
-unverified without local/staging Supabase credentials.
+Status: local automated smoke passed for public-to-admin structure; production database persistence
+remains unverified without approved local/staging Supabase credentials.
 
-Last local QA run: 2026-06-17.
+Last local QA run: 2026-06-18.
 
 ## Local QA Result Summary
 
 - Public lead routes checked: `/quote`, `/quote/review`, `/request-review`, `/site-measure`.
-- Admin route checked: `/admin/leads` exists and is token guarded. Without `OPERON_BATHROOMS_ADMIN_TOKEN`,
-  admin APIs return a safe `503` instead of exposing lead data.
+- Admin route checked: `/admin/leads` exists, is noindex/nofollow and admin APIs reject unauthenticated
+  access instead of exposing lead data.
 - Supabase persistence checked in local safe mode only; without server Supabase env vars, submissions use
   safe local fallback files where implemented and do not require production settings.
-- Responsive smoke checked at 1440px, 1280px, 768px and 390px for `/`, `/quote`, `/quote/review`, `/request-review` and `/site-measure`; no horizontal overflow found.
-- Public copy smoke checked for planning-guidance language and obvious over-promising phrases; no fixed-price guarantee or guaranteed-compliance wording found in the checked pages.
-- Public bundle smoke checked for service-role and private rate-card markers; no matches found in static output during QA.
+- Public route crawl passed for titles, one H1, canonicals and obvious forbidden wording.
+- Public safety crawl passed for admin links, sitemap/robots exclusions, planning-only conversion copy and
+  private-pricing leak patterns.
+- Public API response tests passed for quote review, request review, site measure and chatbot handoff.
+- Responsive visual QA still needs a human browser pass at 1440px, 1280px, 768px and 390px because the
+  local environment does not include Playwright and Chrome blocks AppleScript JavaScript probes.
 
 ## API Smoke Results
 
@@ -24,12 +27,15 @@ Last local QA run: 2026-06-17.
 - Quote review submission: `/api/quote-review` returned `200` with clarity scoring, risk flags, upload metadata placeholder handling and attribution.
 - Request review submission: `/api/request-review` returned `200` with attribution and safe local no-storage behavior.
 - Site measure submission: `/api/site-measure` returned `200` with attribution and safe local no-storage behavior.
+- Chatbot handoff submission: `/api/chatbot-qualification` returned `200` with a safe public confirmation
+  and no private qualification internals.
 
 ## Current Blockers
 
 - No local or staging Supabase credentials were configured for this QA run, so database persistence was not verified.
 - Upload storage is intentionally placeholder-safe only; uploaded files are not publicly exposed, but secure private storage was not configured or tested.
 - Email delivery env vars were not configured; notification payload preparation is tested without sending provider email.
+- Pixel-level responsive QA remains manual until a browser automation dependency is approved.
 
 ## Scope
 
@@ -218,3 +224,4 @@ Internal notes:
 - Internal notes never appear outside admin.
 - Upload paths are not public.
 - Public estimate output does not expose private rate-card logic.
+- Run `npm run qa:public-safety -- http://127.0.0.1:3000` against a clean local dev server before merge.

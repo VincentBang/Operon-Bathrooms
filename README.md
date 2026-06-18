@@ -43,7 +43,20 @@ npm run test
 npm run lint
 npm run typecheck
 npm run build
+npm run verify:supabase:migrations
+npm run qa:local
 ```
+
+Rendered public-route checks require a running local server:
+
+```bash
+npm run dev -- --hostname 127.0.0.1 --port 3000
+npm run qa:crawl -- http://127.0.0.1:3000
+npm run qa:public-safety -- http://127.0.0.1:3000
+```
+
+Restart `next dev` after running `npm run build` before server-based crawls. Keeping a dev server
+open while `.next` is rewritten can cause transient Next.js dev-manifest errors unrelated to app code.
 
 ## Private estimate data
 

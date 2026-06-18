@@ -47,7 +47,7 @@ export default function BathroomQuoteSydneyPage() {
         <div className="card">
           <h2>Need budgeting context?</h2>
           <p>
-            The Sydney cost guide explains planning factors without fixed-price promises or
+            The Sydney cost guide explains planning factors without package-price promises or
             internal rate-card details.
           </p>
           <Link className="button secondary" href="/bathroom-renovation-cost-sydney">Read cost guide</Link>

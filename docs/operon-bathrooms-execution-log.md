@@ -22,9 +22,23 @@ This log records local implementation and QA progress. It is not a deployment re
 - Added a private admin dashboard panel for chatbot handoffs and open follow-up tasks.
 - No Netlify deployment or production Netlify setting changes were performed.
 
+## 2026-06-18 PR QA And Hardening Pass
+
+- Created `docs/next-100-big-tasks-2026-06-18.md` for the next local QA/security/integration queue.
+- Added `scripts/qa-public-safety.mjs` and `npm run qa:public-safety`.
+- Added `npm run qa:local` to group lint, typecheck, tests, build and migration verification.
+- Added public API response safety tests for quote review, request review, site measure and chatbot handoff.
+- Added admin-boundary tests for noindex/nofollow metadata and unauthenticated admin API rejection.
+- Tightened `/bathroom-quote-sydney` copy from fixed-price wording to package-price wording.
+- Ran local checks only. No deployment, no push to main, no production Supabase changes and no production
+  Netlify changes were performed.
+
 ## Operating Notes
 
-- Use `npm run lint`, `npm run typecheck`, `npm run test` and `npm run build` before handoff.
+- Use `npm run qa:local` before handoff.
+- For rendered public route checks, start a clean dev server and run `npm run qa:crawl -- http://127.0.0.1:3000`
+  plus `npm run qa:public-safety -- http://127.0.0.1:3000`.
+- Restart `next dev` after `next build` before running server-based crawls.
 - Treat Supabase migrations as local files until Vincent explicitly approves applying them to a local
   or staging project.
 - Keep private rates, lead qualification logic, internal notes and manual review reports out of public pages.

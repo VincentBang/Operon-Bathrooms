@@ -25,3 +25,7 @@
 ## Current Recommended Next Task
 
 Run browser QA for the public lead flows, admin dashboard, chatbot handoff form and Stage 3 follow-up panel at desktop, laptop, tablet and mobile widths.
+
+## Overnight Follow-Up Queue
+
+Continue from `docs/next-100-big-tasks-2026-06-18.md` before starting Quote OS. The current priority is repeatable public safety checks, public API response leak checks, admin-token boundary checks and responsive QA evidence.
