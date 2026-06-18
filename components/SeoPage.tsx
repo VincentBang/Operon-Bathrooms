@@ -1,0 +1,68 @@
+import Link from "next/link";
+import React from "react";
+
+type SeoPageProps = {
+  title: string;
+  intro: string;
+  bullets: string[];
+  primaryHref?: string;
+  primaryLabel?: string;
+  children?: React.ReactNode;
+};
+
+export function SeoPage({
+  title,
+  intro,
+  bullets,
+  primaryHref = "/quote",
+  primaryLabel = "Start planning estimate",
+  children
+}: SeoPageProps) {
+  return (
+    <>
+      <section className="hero">
+        <div className="container hero-grid">
+          <div>
+            <p className="pill">Sydney bathroom planning</p>
+            <h1>{title}</h1>
+            <p className="lead">{intro}</p>
+            <Link className="button" href={primaryHref}>
+              {primaryLabel}
+            </Link>
+            <Link className="button secondary" href="/site-measure">
+              Prepare site measure
+            </Link>
+          </div>
+          <div className="panel">
+            <h2>Planning guide only</h2>
+            <p>
+              The wizard provides an indicative range and confidence score. It is not contract pricing,
+              contract, compliance certificate or legal advice.
+            </p>
+            <ul>
+              <li>NSW licence prompt for work over $5k.</li>
+              <li>NSW deposit prompt: generally limited to 10%.</li>
+              <li>NSW HBCF prompt for residential work over $20k.</li>
+            </ul>
+            <Link className="button secondary" href="/quote/review">
+              Check a builder quote
+            </Link>
+          </div>
+        </div>
+      </section>
+      <section className="page-section">
+        <div className="container two-col">
+          <div>
+            <h2>What this page covers</h2>
+            <ul>
+              {bullets.map((bullet) => (
+                <li key={bullet}>{bullet}</li>
+              ))}
+            </ul>
+          </div>
+          <div>{children}</div>
+        </div>
+      </section>
+    </>
+  );
+}
