@@ -18,6 +18,8 @@ Last local QA run: 2026-06-19.
 - Client bundle safety scan passed for service-role markers, private-pricing markers, internal notes,
   manual report internals and private qualification markers.
 - Public API response tests passed for quote review, request review, site measure and chatbot handoff.
+- Public API response tests now inject fake upload public URLs, signed URLs, storage paths and bucket names
+  into quote-review input and confirm those fields are not returned publicly.
 - Authorised admin workflow tests passed for lead list filtering, manual-review queue reads, bulk qualification,
   response template generation, manual review report preview/persist/update, qualification override and chatbot
   follow-up reads using the safe local fallback store.
@@ -42,7 +44,8 @@ Last local QA run: 2026-06-19.
 ## Current Blockers
 
 - No local or staging Supabase credentials were configured for this QA run, so database persistence was not verified.
-- Upload storage is intentionally placeholder-safe only; uploaded files are not publicly exposed, but secure private storage was not configured or tested.
+- Upload storage is intentionally placeholder-safe only; uploaded files are not publicly exposed. Public API
+  leak tests cover fake storage URL/path fields, but secure private storage was not configured or tested.
 - Email delivery env vars were not configured; notification payload preparation is tested without sending provider email.
 - A final human visual review is still recommended before merge, but the local automated viewport checks
   now cover H1 presence, horizontal overflow, chatbot/admin visibility and launcher overlap.

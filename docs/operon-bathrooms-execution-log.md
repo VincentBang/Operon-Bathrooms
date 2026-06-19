@@ -64,6 +64,13 @@ This log records local implementation and QA progress. It is not a deployment re
 - It is intentionally not included in `npm run qa:local` because it requires explicit non-production
   Supabase credentials and approval.
 
+## 2026-06-19 Upload Boundary QA
+
+- Strengthened public API safety tests so quote-review input with fake public upload URLs, signed URLs,
+  storage paths and bucket names does not return those values in public responses.
+- Confirmed upload storage remains placeholder-safe only; private storage implementation still requires an
+  approved Supabase Storage design and policies.
+
 ## Operating Notes
 
 - Use `npm run qa:local` before handoff.

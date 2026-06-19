@@ -19,6 +19,7 @@ function assertPublicResponseIsSafe(payload: unknown) {
   assert.doesNotMatch(json, /leadfitscore|lead_fit_score|leadfittier|lead_fit_tier/);
   assert.doesNotMatch(json, /manualreviewreport|manual_review_report|reportbody|report_body/);
   assert.doesNotMatch(json, /service_role|service role key|supplier cost|labou?r rate|margin logic|rate card/);
+  assert.doesNotMatch(json, /publicurl|public_url|signedurl|signed_url|storage_path|bucket|\.supabase\.co\/storage/i);
 }
 
 test("public quote review response stays customer-safe", async () => {
@@ -74,7 +75,15 @@ test("public quote review response stays customer-safe", async () => {
             fixtureAllowanceAmount: "",
             exclusionsClearlyListed: "unclear"
           },
-          upload: { fileName: "", fileType: "", fileSize: 0 },
+          upload: {
+            fileName: "quote.pdf",
+            fileType: "application/pdf",
+            fileSize: 1000,
+            publicUrl: "https://example.supabase.co/storage/v1/object/public/bathroom-quotes/quote.pdf",
+            signedUrl: "https://example.supabase.co/storage/v1/object/sign/bathroom-quotes/quote.pdf",
+            storagePath: "bathroom-quotes/private/quote.pdf",
+            bucket: "bathroom-quotes"
+          },
           consent: { privacyAccepted: true, termsAccepted: true, guidanceAccepted: true },
           company: "",
           attribution: {
