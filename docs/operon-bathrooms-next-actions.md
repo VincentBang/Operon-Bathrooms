@@ -25,8 +25,12 @@
 
 ## Current Recommended Next Task
 
-Run responsive QA for the public lead flows, admin dashboard, chatbot handoff form and Stage 3 follow-up panel at desktop, laptop, tablet and mobile widths.
+Run the approved local/staging Supabase verification harness with non-production credentials:
+
+```bash
+npm run qa:supabase:staging
+```
 
 ## Overnight Follow-Up Queue
 
-Continue from `docs/next-100-big-tasks-2026-06-18.md` before starting Quote OS. The current priority is repeatable public safety checks, public API response leak checks, admin-token boundary checks and responsive QA evidence.
+Continue from `docs/next-100-tasks-2026-06-19.md` before starting Quote OS. The current priority is approved local/staging Supabase verification, final PR readiness, public lead flow QA, admin workflow QA, staging email checks and the private upload storage decision.
