@@ -3,7 +3,7 @@
 Status: local automated smoke passed for public-to-admin structure; production database persistence
 remains unverified without approved local/staging Supabase credentials.
 
-Last local QA run: 2026-06-18.
+Last local QA run: 2026-06-19.
 
 ## Local QA Result Summary
 
@@ -18,8 +18,9 @@ Last local QA run: 2026-06-18.
 - Client bundle safety scan passed for service-role markers, private-pricing markers, internal notes,
   manual report internals and private qualification markers.
 - Public API response tests passed for quote review, request review, site measure and chatbot handoff.
-- Responsive visual QA still needs a human browser pass at 1440px, 1280px, 768px and 390px because the
-  local environment does not include Playwright and Chrome blocks AppleScript JavaScript probes.
+- Responsive QA passed through the local headless Chrome CDP harness for `/`, `/quote`, `/quote/review`,
+  `/request-review`, `/site-measure` and `/admin/leads` at 1440px, 1280px, 768px and 390px.
+- Responsive screenshots are generated locally in `.local/qa-responsive` and are intentionally ignored by git.
 
 ## API Smoke Results
 
@@ -37,7 +38,8 @@ Last local QA run: 2026-06-18.
 - No local or staging Supabase credentials were configured for this QA run, so database persistence was not verified.
 - Upload storage is intentionally placeholder-safe only; uploaded files are not publicly exposed, but secure private storage was not configured or tested.
 - Email delivery env vars were not configured; notification payload preparation is tested without sending provider email.
-- Pixel-level responsive QA remains manual until a browser automation dependency is approved.
+- A final human visual review is still recommended before merge, but the local automated viewport checks
+  now cover H1 presence, horizontal overflow, chatbot/admin visibility and launcher overlap.
 
 ## Scope
 

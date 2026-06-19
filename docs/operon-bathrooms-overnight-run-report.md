@@ -41,6 +41,7 @@ and build checks pass. Production Supabase, Netlify and deployment actions were 
 - `npm run qa:bundle-safety`: passed.
 - `npm run qa:crawl -- http://127.0.0.1:3000`: passed after a clean dev-server restart.
 - `npm run qa:public-safety -- http://127.0.0.1:3000`: passed after tightening one public phrase on `/bathroom-quote-sydney`.
+- `npm run qa:responsive -- http://127.0.0.1:3000`: passed for 6 routes at 4 viewport sizes.
 
 ## 2026-06-18 Follow-Up
 
@@ -48,6 +49,7 @@ and build checks pass. Production Supabase, Netlify and deployment actions were 
 - Added `npm run qa:local` for local release gates that do not need a running server.
 - Added `npm run qa:bundle-safety` for built client asset private-marker scanning.
 - Added `npm run qa:public-safety` for rendered public route, sitemap, robots, admin-link and copy-safety checks.
+- Added `npm run qa:responsive` for headless Chrome viewport checks and local screenshots.
 - Added public API response safety tests so customer-facing lead responses do not return internal notes,
   qualification internals, manual review reports, service-role markers or private pricing markers.
 - Added admin-boundary tests for noindex/nofollow metadata and remaining unauthenticated admin endpoints.

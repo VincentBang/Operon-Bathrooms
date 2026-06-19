@@ -34,11 +34,22 @@ This log records local implementation and QA progress. It is not a deployment re
 - Ran local checks only. No deployment, no push to main, no production Supabase changes and no production
   Netlify changes were performed.
 
+## 2026-06-19 Responsive QA Harness
+
+- Added `scripts/qa-responsive.mjs` and `npm run qa:responsive`.
+- The script uses local headless Chrome through the DevTools protocol, not a paid service or deployed site.
+- Checked `/`, `/quote`, `/quote/review`, `/request-review`, `/site-measure` and `/admin/leads` at
+  1440px, 1280px, 768px and 390px.
+- Verified one H1, no horizontal overflow, chatbot hidden on admin, chatbot visible on public routes and
+  no chatbot launcher overlap with submit controls.
+- Generated local screenshots in `.local/qa-responsive`; screenshots are not committed.
+
 ## Operating Notes
 
 - Use `npm run qa:local` before handoff.
 - For rendered public route checks, start a clean dev server and run `npm run qa:crawl -- http://127.0.0.1:3000`
-  plus `npm run qa:public-safety -- http://127.0.0.1:3000`.
+  plus `npm run qa:public-safety -- http://127.0.0.1:3000` and
+  `npm run qa:responsive -- http://127.0.0.1:3000`.
 - Restart `next dev` after `next build` before running server-based crawls.
 - Treat Supabase migrations as local files until Vincent explicitly approves applying them to a local
   or staging project.

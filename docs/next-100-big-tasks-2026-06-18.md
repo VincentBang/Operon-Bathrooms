@@ -131,4 +131,7 @@ Status: active local execution queue. No deployment, no push to main, no product
 
 - PR #1 exists as a draft and points to `codex/bathrooms-stage3-chatbot-follow-up`.
 - Automated lint, typecheck, tests, build, public crawl and migration verification have passed locally.
-- Remaining high-value work is to make the QA gates repeatable and reduce manual release risk before merge.
+- `npm run qa:responsive -- http://127.0.0.1:3000` now covers Batch E routes at 1440px, 1280px,
+  768px and 390px with screenshots in `.local/qa-responsive`.
+- Remaining high-value work is authorised admin QA with a real local token and approved local/staging
+  persistence/email checks, without merging or deploying.

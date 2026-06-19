@@ -54,6 +54,7 @@ Rendered public-route checks require a running local server:
 npm run dev -- --hostname 127.0.0.1 --port 3000
 npm run qa:crawl -- http://127.0.0.1:3000
 npm run qa:public-safety -- http://127.0.0.1:3000
+npm run qa:responsive -- http://127.0.0.1:3000
 ```
 
 Restart `next dev` after running `npm run build` before server-based crawls. Keeping a dev server

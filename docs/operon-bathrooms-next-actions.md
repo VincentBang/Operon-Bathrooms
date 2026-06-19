@@ -3,8 +3,9 @@
 ## Immediate QA
 
 1. Run `npm run qa:crawl -- http://localhost:3000` against a local dev server and confirm titles, H1s, canonicals and forbidden wording checks.
-2. Run browser QA for `/`, `/quote`, `/quote/review`, `/request-review`, `/site-measure`,
-   `/admin/leads` and the chatbot at 1440px, 1280px, 768px and 390px.
+2. Run `npm run qa:responsive -- http://127.0.0.1:3000` for `/`, `/quote`,
+   `/quote/review`, `/request-review`, `/site-measure`, `/admin/leads` and chatbot launcher checks
+   at 1440px, 1280px, 768px and 390px.
 3. Confirm no public page exposes admin links, internal notes, manual review reports, private rates or
    lead qualification fields.
 
@@ -24,7 +25,7 @@
 
 ## Current Recommended Next Task
 
-Run browser QA for the public lead flows, admin dashboard, chatbot handoff form and Stage 3 follow-up panel at desktop, laptop, tablet and mobile widths.
+Run responsive QA for the public lead flows, admin dashboard, chatbot handoff form and Stage 3 follow-up panel at desktop, laptop, tablet and mobile widths.
 
 ## Overnight Follow-Up Queue
 

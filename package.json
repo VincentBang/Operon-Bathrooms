@@ -14,6 +14,7 @@
     "qa:crawl": "node scripts/local-public-crawl.mjs",
     "qa:public-safety": "node scripts/qa-public-safety.mjs",
     "qa:bundle-safety": "node scripts/qa-client-bundle-safety.mjs",
+    "qa:responsive": "node scripts/qa-responsive.mjs",
     "qa:local": "npm run lint && npm run typecheck && npm run test && npm run build && npm run verify:supabase:migrations && npm run qa:bundle-safety"
   },
   "dependencies": {
