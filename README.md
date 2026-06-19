@@ -44,6 +44,7 @@ npm run lint
 npm run typecheck
 npm run build
 npm run verify:supabase:migrations
+npm run qa:supabase:staging
 npm run qa:bundle-safety
 npm run qa:local
 ```
@@ -70,6 +71,13 @@ exclusions, risk flags and compliance prompts.
 
 The draft migration is in `supabase/migrations/202606170001_create_bathroom_estimates.sql`.
 Apply it only to a new bathroom-specific development project after review.
+
+`npm run verify:supabase:migrations` statically checks the local migration files for RLS and anon-policy
+boundaries. `npm run qa:supabase:staging` is a live, opt-in local/staging verification harness. It requires
+`OPERON_BATHROOMS_SUPABASE_QA_APPROVED=true`, `OPERON_BATHROOMS_SUPABASE_QA_TARGET=local` or `staging`,
+`NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY` and `SUPABASE_SERVICE_ROLE_KEY`. It refuses
+production-looking targets, verifies anon insert/read/mutation boundaries and checks service-role-only
+chatbot qualification/follow-up task access with marked rows that are cleaned up after the run.
 
 Phase 2 draft intake tables are documented in
 `supabase/migrations/202606170002_create_bathroom_phase2_intake_tables.sql`. They are local SQL

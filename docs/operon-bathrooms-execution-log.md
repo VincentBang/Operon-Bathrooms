@@ -54,9 +54,20 @@ This log records local implementation and QA progress. It is not a deployment re
 - Confirmed public response copy remains planning guidance only while internal report and follow-up data remain
   behind token-gated admin APIs.
 
+## 2026-06-19 Supabase Staging Contract Harness
+
+- Added `npm run qa:supabase:staging` as an opt-in live verification harness for approved local/staging
+  Supabase projects.
+- The harness refuses production-looking targets, does not print keys, verifies anon insert/read/mutation
+  boundaries and checks service-role-only chatbot qualification/follow-up task access.
+- The harness creates marked QA rows and cleans them up after the run.
+- It is intentionally not included in `npm run qa:local` because it requires explicit non-production
+  Supabase credentials and approval.
+
 ## Operating Notes
 
 - Use `npm run qa:local` before handoff.
+- Use `npm run qa:supabase:staging` only after an approved local/staging Supabase target is configured.
 - For rendered public route checks, start a clean dev server and run `npm run qa:crawl -- http://127.0.0.1:3000`
   plus `npm run qa:public-safety -- http://127.0.0.1:3000` and
   `npm run qa:responsive -- http://127.0.0.1:3000`.

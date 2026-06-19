@@ -11,6 +11,7 @@
     "test": "node --import tsx --test --test-concurrency=1 tests/*.test.tsx tests/*.test.ts",
     "typecheck": "tsc --noEmit",
     "verify:supabase:migrations": "node scripts/verify-supabase-migrations.mjs",
+    "qa:supabase:staging": "node scripts/qa-supabase-staging-contract.mjs",
     "qa:crawl": "node scripts/local-public-crawl.mjs",
     "qa:public-safety": "node scripts/qa-public-safety.mjs",
     "qa:bundle-safety": "node scripts/qa-client-bundle-safety.mjs",

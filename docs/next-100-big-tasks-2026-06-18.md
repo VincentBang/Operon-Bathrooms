@@ -136,5 +136,7 @@ Status: active local execution queue. No deployment, no push to main, no product
 - Authorised admin workflow QA now has repeatable local-store test coverage for lead list filtering,
   manual-review reads, bulk qualification, response templates, manual report preview/persist/update,
   qualification overrides and chatbot follow-up reads.
-- Remaining high-value work is approved local/staging Supabase persistence verification, private upload storage
-  verification and email-provider preview/send checks, without merging or deploying.
+- Approved local/staging Supabase persistence verification now has an opt-in harness:
+  `npm run qa:supabase:staging`.
+- Remaining high-value work is running that harness against an approved local/staging Supabase project,
+  private upload storage verification and email-provider preview/send checks, without merging or deploying.

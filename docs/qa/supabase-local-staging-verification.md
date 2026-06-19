@@ -31,6 +31,30 @@ Expected result:
 - Manual review, admin notification, lead qualification, chatbot qualification and follow-up task tables have no anonymous policy.
 - No public storage, public bathroom views, broad anon grants or security-definer patterns are introduced without review.
 
+## Live Local/Staging Contract Harness
+
+After migrations are applied to an approved non-production project, run:
+
+```bash
+OPERON_BATHROOMS_SUPABASE_QA_APPROVED=true \
+OPERON_BATHROOMS_SUPABASE_QA_TARGET=staging \
+NEXT_PUBLIC_SUPABASE_URL=<approved-local-or-staging-url> \
+NEXT_PUBLIC_SUPABASE_ANON_KEY=<approved-local-or-staging-anon-key> \
+SUPABASE_SERVICE_ROLE_KEY=<approved-local-or-staging-service-role-key> \
+npm run qa:supabase:staging
+```
+
+The harness:
+
+- Refuses production-looking targets.
+- Does not print keys.
+- Inserts one marked anon planning estimate row and cleans it up.
+- Confirms anon cannot update or delete the planning estimate row.
+- Confirms anon reads from lead, admin, manual-review, chatbot and follow-up tables return no data or are blocked.
+- Confirms anon inserts are blocked on quote review, request review, site measure, chatbot qualification and follow-up tables.
+- Confirms service-role access can insert/read private chatbot qualification and follow-up task rows.
+- Cleans up marked QA rows after the run.
+
 ## Apply To Approved Local/Staging Only
 
 Use one of these paths after an approved non-production target is provided.
