@@ -133,5 +133,8 @@ Status: active local execution queue. No deployment, no push to main, no product
 - Automated lint, typecheck, tests, build, public crawl and migration verification have passed locally.
 - `npm run qa:responsive -- http://127.0.0.1:3000` now covers Batch E routes at 1440px, 1280px,
   768px and 390px with screenshots in `.local/qa-responsive`.
-- Remaining high-value work is authorised admin QA with a real local token and approved local/staging
-  persistence/email checks, without merging or deploying.
+- Authorised admin workflow QA now has repeatable local-store test coverage for lead list filtering,
+  manual-review reads, bulk qualification, response templates, manual report preview/persist/update,
+  qualification overrides and chatbot follow-up reads.
+- Remaining high-value work is approved local/staging Supabase persistence verification, private upload storage
+  verification and email-provider preview/send checks, without merging or deploying.

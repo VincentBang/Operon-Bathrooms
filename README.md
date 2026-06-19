@@ -111,6 +111,10 @@ response tracking, manual review queue filtering, system qualification, manual q
 overrides, evidence checklist updates and copyable response templates. The admin page is marked
 noindex,nofollow and admin routes are excluded from sitemap and public navigation.
 
+`npm test` includes safe local-store admin workflow coverage for token-gated lead reads, manual review
+report generation/update, response templates, qualification overrides and chatbot follow-up reads. These
+tests blank Supabase service env vars inside the test process and do not touch production services.
+
 Protected Phase 3a API routes include `/api/admin/leads`, `/api/admin/lead-detail`,
 `/api/admin/lead-update`, `/api/admin/lead-response-update`, `/api/admin/response-template` and
 `/api/admin/notification-preview`. They require the admin token and return safe normalized lead data

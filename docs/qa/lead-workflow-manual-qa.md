@@ -18,6 +18,9 @@ Last local QA run: 2026-06-19.
 - Client bundle safety scan passed for service-role markers, private-pricing markers, internal notes,
   manual report internals and private qualification markers.
 - Public API response tests passed for quote review, request review, site measure and chatbot handoff.
+- Authorised admin workflow tests passed for lead list filtering, manual-review queue reads, bulk qualification,
+  response template generation, manual review report preview/persist/update, qualification override and chatbot
+  follow-up reads using the safe local fallback store.
 - Responsive QA passed through the local headless Chrome CDP harness for `/`, `/quote`, `/quote/review`,
   `/request-review`, `/site-measure` and `/admin/leads` at 1440px, 1280px, 768px and 390px.
 - Responsive screenshots are generated locally in `.local/qa-responsive` and are intentionally ignored by git.
@@ -32,6 +35,9 @@ Last local QA run: 2026-06-19.
 - Site measure submission: `/api/site-measure` returned `200` with attribution and safe local no-storage behavior.
 - Chatbot handoff submission: `/api/chatbot-qualification` returned `200` with a safe public confirmation
   and no private qualification internals.
+- Authorised admin workflow test: local fallback lead data returned only after the configured admin token,
+  response copy stayed planning-only, manual review report internals stayed behind admin APIs, and chatbot
+  qualification/follow-up records were readable only through the admin endpoint.
 
 ## Current Blockers
 
@@ -200,6 +206,9 @@ Authorised:
 - Detail view shows contact, project summary, payload, risk flags, confidence or clarity score, recommended next step and attribution.
 - Uploaded file metadata is visible only if secure handling exists.
 - Internal notes are admin-only.
+- Local automated coverage now confirms authorised reads for lead list filtering, manual-review view,
+  response templates, manual review report generation/update, qualification overrides, chatbot qualifications
+  and open follow-up tasks.
 
 Status transitions:
 - new -> reviewed

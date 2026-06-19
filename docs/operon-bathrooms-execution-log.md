@@ -44,6 +44,16 @@ This log records local implementation and QA progress. It is not a deployment re
   no chatbot launcher overlap with submit controls.
 - Generated local screenshots in `.local/qa-responsive`; screenshots are not committed.
 
+## 2026-06-19 Authorised Admin Workflow QA
+
+- Added local-store authorised admin workflow tests for the main private operator path.
+- Covered admin lead list filtering, manual-review queue reads, bulk qualification, safe response templates,
+  manual review report preview/persist/update, qualification overrides and chatbot qualification/follow-up reads.
+- Kept the test in safe local mode by blanking Supabase service env vars and using `OPERON_BATHROOMS_ADMIN_TOKEN`
+  only inside the test process.
+- Confirmed public response copy remains planning guidance only while internal report and follow-up data remain
+  behind token-gated admin APIs.
+
 ## Operating Notes
 
 - Use `npm run qa:local` before handoff.
