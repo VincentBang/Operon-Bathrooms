@@ -71,6 +71,13 @@ This log records local implementation and QA progress. It is not a deployment re
 - Confirmed upload storage remains placeholder-safe only; private storage implementation still requires an
   approved Supabase Storage design and policies.
 
+## 2026-06-19 Notification Failure QA
+
+- Added route-level public API safety coverage for a configured email provider returning a delivery error.
+- Confirmed lead capture still returns a safe public success response and does not expose provider keys,
+  authorization headers or private notification internals.
+- Real email sending remains a staging-only verification task once approved email env vars are configured.
+
 ## Operating Notes
 
 - Use `npm run qa:local` before handoff.

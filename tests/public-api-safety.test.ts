@@ -167,6 +167,55 @@ test("public request review and site measure responses stay customer-safe", asyn
   assertPublicResponseIsSafe(measureBody);
 });
 
+test("public lead route survives email provider failure without leaking secrets", async () => {
+  useLocalStorageOnly();
+  const previousFetch = globalThis.fetch;
+  process.env.RESEND_API_KEY = "test-resend-secret-should-not-leak";
+  process.env.OPERON_BATHROOMS_ADMIN_EMAIL = "admin@example.com";
+  process.env.OPERON_BATHROOMS_FROM_EMAIL = "bathrooms@example.com";
+  process.env.OPERON_BATHROOMS_NOTIFICATION_MODE = "send";
+  globalThis.fetch = (async () => new Response("{}", { status: 500 })) as typeof fetch;
+
+  try {
+    const response = await postRequestReview(
+      new Request("http://localhost/api/request-review", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: "Provider Failure Test",
+          email: "provider-failure@example.com",
+          phone: "0400000000",
+          suburb: "Ryde",
+          propertyType: "house",
+          bathroomType: "main-bathroom",
+          projectStage: "planning",
+          budgetRange: "40k-60k",
+          timeline: "one-to-three-months",
+          hasPhotosPlans: true,
+          hasBuilderQuote: false,
+          preferredNextStep: "email-review",
+          message: "Please review my scope even if email provider delivery fails.",
+          privacyAccepted: true,
+          termsAccepted: true,
+          company: ""
+        })
+      })
+    );
+    const body = await response.json();
+    assert.equal(response.status, 200);
+    assert.equal(body.ok, true);
+    assert.equal(body.notificationPrepared, true);
+    assert.equal(body.adminNotificationSent, false);
+    assert.equal(body.customerAcknowledgementSent, false);
+    assert.match(body.notificationWarning, /provider returned a delivery error/i);
+    assert.doesNotMatch(JSON.stringify(body), /test-resend-secret-should-not-leak|authorization|bearer/i);
+    assertPublicResponseIsSafe(body);
+  } finally {
+    globalThis.fetch = previousFetch;
+    useLocalStorageOnly();
+  }
+});
+
 test("public chatbot handoff response stays customer-safe and rejects honeypot", async () => {
   useLocalStorageOnly();
   const spam = await postChatbotQualification(

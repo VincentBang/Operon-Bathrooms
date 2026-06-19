@@ -138,5 +138,7 @@ Status: active local execution queue. No deployment, no push to main, no product
   qualification overrides and chatbot follow-up reads.
 - Approved local/staging Supabase persistence verification now has an opt-in harness:
   `npm run qa:supabase:staging`.
+- Public upload leak and email-provider failure paths now have automated public API tests.
 - Remaining high-value work is running that harness against an approved local/staging Supabase project,
-  private upload storage verification and email-provider preview/send checks, without merging or deploying.
+  private upload storage implementation/verification and real email-provider preview/send checks, without
+  merging or deploying.
