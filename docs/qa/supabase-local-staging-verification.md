@@ -1,6 +1,6 @@
 # Supabase Local/Staging Verification
 
-Status: completed against the approved Operon Bathrooms Supabase project on 2026-06-17.
+Status: re-verified against the approved Operon Bathrooms Supabase project on 2026-06-19.
 
 This runbook is for applying Operon Bathrooms migrations to an approved local, staging or explicitly approved Bathrooms Supabase project only. Do not expose service-role keys in browser code, logs, screenshots or committed files.
 
@@ -104,12 +104,19 @@ Expected:
 
 ## Completed Verification Snapshot
 
+- Project checked: `qulwdtpsljleyqkjfvji` (`Operon Bathrooms`).
 - RLS was true for all checked Bathrooms and Stage 3 tables.
 - Only one anon policy existed: INSERT on `public.bathroom_estimates`.
-- Anon SELECT/UPDATE/DELETE grants were zero across the checked tables.
+- Only one anon grant existed: INSERT on `public.bathroom_estimates`.
+- Anon SELECT on `bathroom_estimates` was blocked with permission denied.
+- Anon SELECT on `operon_chatbot_qualifications` was blocked with permission denied.
+- Anon UPDATE and DELETE on `bathroom_estimates` were blocked with permission denied.
+- Anon INSERT into `bathroom_estimates` succeeded inside a transaction and was rolled back.
 - Service-role grants existed for lead/admin/manual-review/chatbot/follow-up tables.
-- Preview insert/read worked for `operon_chatbot_qualifications` and `operon_follow_up_tasks`.
-- Preview rows were cleaned up after verification.
+- Service-role preview insert/read worked for `operon_chatbot_qualifications` and `operon_follow_up_tasks`.
+- Preview rows were cleaned up after verification; remaining QA task/qualification rows were `0`.
+- Security advisors returned expected notices only: private tables have RLS enabled with no policies, and
+  `bathroom_estimates` has the approved permissive anon INSERT policy.
 
 ## Public Lead Flow Checks
 

@@ -78,6 +78,17 @@ This log records local implementation and QA progress. It is not a deployment re
   authorization headers or private notification internals.
 - Real email sending remains a staging-only verification task once approved email env vars are configured.
 
+## 2026-06-19 Supabase Contract Re-Verification
+
+- Re-verified the approved Operon Bathrooms Supabase project `qulwdtpsljleyqkjfvji`.
+- Confirmed all Bathrooms and Operon Stage 3 tables have RLS enabled.
+- Confirmed anon has only INSERT on `bathroom_estimates`; anon SELECT/UPDATE/DELETE checks were blocked.
+- Confirmed service-role grants are present for lead, admin, manual-review, chatbot qualification and follow-up tables.
+- Created marked chatbot qualification and follow-up task QA rows through service-role access, read them back,
+  then cleaned them up. Remaining marked rows: `0`.
+- Security advisor notices matched the intended contract: private RLS tables have no public policies, and the
+  estimate table has the approved anon insert-only policy.
+
 ## Operating Notes
 
 - Use `npm run qa:local` before handoff.
