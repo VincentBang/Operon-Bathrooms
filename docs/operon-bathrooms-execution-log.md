@@ -123,6 +123,14 @@ This log records local implementation and QA progress. It is not a deployment re
 - Re-ran `npm run qa:local && git diff --check`; lint, typecheck, 47 tests, build, migration verification,
   client bundle safety and whitespace checks passed.
 
+## 2026-06-20 Private Upload Storage Decision Brief
+
+- Added `docs/qa/private-upload-storage-decision.md`.
+- Confirmed current MVP upload handling remains placeholder-safe: local file type/size validation and metadata
+  only, with no public storage path or signed URL returned.
+- Documented future private bucket, object path, signed URL, metadata table, RLS and QA requirements.
+- Storage implementation remains deferred until explicitly approved.
+
 ## Operating Notes
 
 - Use `npm run qa:local` before handoff.

@@ -134,6 +134,10 @@ internal only, must not be sent to customers as proposals or quotes, and intenti
 pricing, contract terms, legal advice, compliance certification, rate cards, supplier costs and
 margins.
 
+Quote-review file upload remains placeholder-safe. The future private storage decision brief is in
+`docs/qa/private-upload-storage-decision.md`; do not implement public or private storage until explicitly
+approved.
+
 ## Public disclaimer
 
 All estimate copy must remain clear that outputs are planning guidance only, not final quotes,
