@@ -89,6 +89,31 @@ This log records local implementation and QA progress. It is not a deployment re
 - Security advisor notices matched the intended contract: private RLS tables have no public policies, and the
   estimate table has the approved anon insert-only policy.
 
+## 2026-06-20 Final Local And Browser Readiness QA
+
+- Ran `npm run qa:local && git diff --check`; lint, typecheck, 44 tests, build, migration verification,
+  client bundle safety and whitespace checks passed.
+- Started a fresh local dev server at `http://127.0.0.1:3000`.
+- Ran `npm run qa:crawl -- http://127.0.0.1:3000`; all checked public routes returned 200 with title,
+  one H1 and canonical.
+- Ran `npm run qa:public-safety -- http://127.0.0.1:3000`; public routes, sitemap, robots and copy safety
+  stayed inside the approved public boundary.
+- Ran `npm run qa:responsive -- http://127.0.0.1:3000`; 6 routes passed at desktop, laptop, tablet and
+  mobile sizes with no horizontal overflow. Chatbot was visible on public routes and hidden on admin.
+- Stopped the local dev server after QA.
+
+## 2026-06-20 PR Scope Review
+
+- Ran `git diff --name-status origin/main...HEAD`; changed files are scoped to the Operon Bathrooms app,
+  documentation, tests, scripts, migrations and configuration in this repository.
+- Confirmed no generated `.local` QA artifacts are tracked.
+- Confirmed no `.env` files are tracked.
+- Ran a quick secret/boundary scan for Supabase service-role placeholders, anon key assignments, private key
+  markers and production-setting language. Matches were expected placeholders, docs, migration comments or
+  safety wording; no committed secret values were found.
+- Re-ran `npm run test -- --runInBand`; all 44 public lead-flow, admin workflow, chatbot, notification,
+  manual review and validation tests passed.
+
 ## Operating Notes
 
 - Use `npm run qa:local` before handoff.

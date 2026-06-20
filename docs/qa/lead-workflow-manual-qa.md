@@ -5,6 +5,8 @@ remains unverified without approved local/staging Supabase credentials.
 
 Last local QA run: 2026-06-19.
 
+Latest local/browser QA run: 2026-06-20.
+
 ## Local QA Result Summary
 
 - Public lead routes checked: `/quote`, `/quote/review`, `/request-review`, `/site-measure`.
@@ -28,6 +30,8 @@ Last local QA run: 2026-06-19.
 - Responsive QA passed through the local headless Chrome CDP harness for `/`, `/quote`, `/quote/review`,
   `/request-review`, `/site-measure` and `/admin/leads` at 1440px, 1280px, 768px and 390px.
 - Responsive screenshots are generated locally in `.local/qa-responsive` and are intentionally ignored by git.
+- Final readiness rerun passed on 2026-06-20: `npm run qa:local && git diff --check`,
+  `npm run qa:crawl`, `npm run qa:public-safety` and `npm run qa:responsive`.
 
 ## API Smoke Results
 
