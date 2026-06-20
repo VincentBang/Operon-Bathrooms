@@ -120,6 +120,132 @@ test("manual review report flags bad-fit lead internally", () => {
   assert.doesNotMatch(report.copyTemplates.customerFollowUpMessage, /not fit|do not quote/i);
 });
 
+test("manual review report asks for missing evidence and high-risk clarifications", () => {
+  const report = buildManualReviewReport(
+    lead({
+      riskFlags: [
+        "Waterproofing scope is unclear.",
+        "Apartment / strata approval may be required.",
+        "Suspected asbestos should be assessed before demolition.",
+        "Access restrictions may affect site measure.",
+        "Deposit/HBCF prompt should be clarified."
+      ],
+      evidenceChecklist: {
+        quotePdf: "missing",
+        inclusionsExclusions: "missing",
+        pcSums: "missing",
+        provisionalSums: "missing",
+        builderDetails: "received",
+        builderLicence: "missing",
+        quoteDate: "missing",
+        gstStatus: "missing",
+        depositRequested: "received",
+        photosPlans: "missing",
+        timeline: "missing"
+      }
+    })
+  );
+
+  const questions = report.customerFollowUpQuestions.join(" ");
+  const compliance = report.compliancePromptSummary.join(" ");
+  const checklist = report.nextStepChecklist.join(" ");
+
+  assert.match(questions, /photos/i);
+  assert.match(questions, /full quote PDF/i);
+  assert.match(questions, /strata/i);
+  assert.match(questions, /asbestos/i);
+  assert.match(questions, /parking|lift|access/i);
+  assert.match(compliance, /waterproofing/i);
+  assert.match(compliance, /strata/i);
+  assert.match(compliance, /asbestos/i);
+  assert.match(compliance, /HBC|HBCF|deposit/i);
+  assert.match(checklist, /strata/i);
+  assert.match(checklist, /asbestos/i);
+  assert.match(checklist, /waterproofing/i);
+  assert.equal(report.reportConfidence, "low");
+});
+
+test("manual review report distinguishes site-measure readiness states", () => {
+  const readyReport = buildManualReviewReport(
+    lead({
+      leadType: "site_measure",
+      table: "bathroom_site_measure_requests",
+      recommendedNextAction: "book_site_measure",
+      riskLevel: "medium",
+      evidenceQuality: "complete",
+      manualReviewRequired: false,
+      manualReviewReason: [],
+      disqualificationFlags: [],
+      evidenceChecklist: {
+        addressOrSuburb: "received",
+        phone: "received",
+        preferredWindow: "received",
+        accessNotes: "received",
+        parkingLiftStairs: "received",
+        strataStatus: "not_required",
+        knownIssues: "received",
+        photosPlans: "received"
+      }
+    })
+  );
+  assert.equal(readyReport.siteMeasureReadiness, "Ready to book site measure.");
+  assert.equal(readyReport.recommendedAdminStatus, "site_measure_requested");
+
+  const riskyReport = buildManualReviewReport(
+    lead({
+      leadType: "site_measure",
+      table: "bathroom_site_measure_requests",
+      recommendedNextAction: "book_site_measure",
+      riskLevel: "high",
+      evidenceQuality: "adequate",
+      manualReviewRequired: true,
+      evidenceChecklist: {
+        addressOrSuburb: "received",
+        phone: "received",
+        preferredWindow: "received",
+        accessNotes: "received",
+        parkingLiftStairs: "received",
+        strataStatus: "not_required",
+        knownIssues: "received",
+        photosPlans: "received"
+      }
+    })
+  );
+  assert.match(riskyReport.siteMeasureReadiness, /Manual review required/i);
+
+  const blockedReport = buildManualReviewReport(
+    lead({
+      leadType: "site_measure",
+      table: "bathroom_site_measure_requests",
+      leadFitTier: "not_fit",
+      recommendedNextAction: "refer_out",
+      disqualificationFlags: ["Emergency repair-only request is outside the preferred renovation workflow."]
+    })
+  );
+  assert.match(blockedReport.siteMeasureReadiness, /Not ready for site measure/i);
+  assert.equal(blockedReport.recommendedAdminStatus, "not_fit");
+});
+
+test("manual review report copy remains internal and not a customer proposal", () => {
+  const report = buildManualReviewReport(
+    lead({
+      disqualificationFlags: ["Supply-only fixture request is outside scope."],
+      payload: { message: "I need supply only fixtures and a final quote without site measure." }
+    })
+  );
+  const internalText = report.internalReviewNotes.join(" ");
+  const customerText = report.copyTemplates.customerFollowUpMessage;
+  const serialized = JSON.stringify(report);
+
+  assert.ok(report.doNotQuoteReasons.length >= 1);
+  assert.match(internalText, /Internal report only/i);
+  assert.match(internalText, /Do not send to customer as a proposal or quote/i);
+  assert.match(customerText, /planning guidance only/i);
+  assert.match(customerText, /site measure, selections, licensed trade checks and written scope confirmation/i);
+  assert.doesNotMatch(customerText, /do not quote|not fit|supplier cost|margin|rate card/i);
+  assert.doesNotMatch(serialized, /labou?r rate|supplier cost|margin|rate card/i);
+});
+
 test("manual review report admin routes require token, preview and persist locally", async () => {
   useLocalStore();
   const stored = await storeStructuredLead({

@@ -231,9 +231,11 @@ function projectSummaryFor(lead: NormalizedLead) {
 
 function siteMeasureReadiness(lead: NormalizedLead, evidence: EvidenceSummary, reasons: string[]) {
   if (reasons.length) return "Not ready for site measure until do-not-quote reasons are resolved or lead is marked suitable.";
+  if (lead.manualReviewRequired || lead.riskLevel === "high" || lead.riskLevel === "critical") {
+    return "Manual review required before site measure due to risk.";
+  }
   if (lead.recommendedNextAction === "book_site_measure" && !evidence.missing.length) return "Ready to book site measure.";
   if (lead.recommendedNextAction === "book_site_measure") return "Potentially ready, but resolve evidence gaps before booking.";
-  if (lead.riskLevel === "high" || lead.riskLevel === "critical") return "Manual review required before site measure due to risk.";
   return "Not yet ready for site measure; confirm scope, evidence and next step first.";
 }
 

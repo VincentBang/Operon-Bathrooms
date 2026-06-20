@@ -114,6 +114,15 @@ This log records local implementation and QA progress. It is not a deployment re
 - Re-ran `npm run test -- --runInBand`; all 44 public lead-flow, admin workflow, chatbot, notification,
   manual review and validation tests passed.
 
+## 2026-06-20 Phase 5 Manual Review Report Polish
+
+- Added manual review report tests for missing evidence questions, strata/asbestos/waterproofing prompts,
+  site-measure readiness states and customer-proposal boundary language.
+- Fixed site-measure readiness logic so high/critical risk or manual-review-required leads cannot be marked
+  "Ready to book site measure" merely because evidence is complete.
+- Re-ran `npm run qa:local && git diff --check`; lint, typecheck, 47 tests, build, migration verification,
+  client bundle safety and whitespace checks passed.
+
 ## Operating Notes
 
 - Use `npm run qa:local` before handoff.
