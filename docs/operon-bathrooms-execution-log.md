@@ -131,6 +131,16 @@ This log records local implementation and QA progress. It is not a deployment re
 - Documented future private bucket, object path, signed URL, metadata table, RLS and QA requirements.
 - Storage implementation remains deferred until explicitly approved.
 
+## 2026-06-20 Email Staging QA Harness
+
+- Added `npm run qa:email:staging` and `docs/qa/email-staging-verification.md`.
+- The harness verifies preview payload preparation, customer acknowledgement safety, admin attribution/risk
+  details and provider-failure handling without requiring real email delivery.
+- Real staging email send is explicitly opt-in with `OPERON_BATHROOMS_EMAIL_QA_SEND_APPROVED=true` and
+  approved provider env vars.
+- Ran `npm run qa:email:staging`; preview and provider-failure contracts passed. Real send was not run because
+  provider env vars were not present.
+
 ## Operating Notes
 
 - Use `npm run qa:local` before handoff.

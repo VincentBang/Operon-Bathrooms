@@ -36,6 +36,10 @@ does not send email. If email vars are absent or provider delivery fails after s
 still succeeds and public responses include only the safe flags `notificationPrepared`,
 `adminNotificationSent`, `customerAcknowledgementSent` and a safe warning.
 
+`npm run qa:email:staging` verifies preview and provider-failure notification contracts locally. Real
+staging email sending remains opt-in and requires `OPERON_BATHROOMS_EMAIL_QA_SEND_APPROVED=true` plus
+approved provider env vars. See `docs/qa/email-staging-verification.md`.
+
 ## Scripts
 
 ```bash
@@ -45,6 +49,7 @@ npm run typecheck
 npm run build
 npm run verify:supabase:migrations
 npm run qa:supabase:staging
+npm run qa:email:staging
 npm run qa:bundle-safety
 npm run qa:local
 ```
