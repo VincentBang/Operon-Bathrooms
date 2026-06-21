@@ -25,12 +25,14 @@
 
 ## Current Recommended Next Task
 
-Run the approved local/staging Supabase verification harness with non-production credentials:
+Final PR readiness review before merge approval:
 
-```bash
-npm run qa:supabase:staging
-```
+1. Confirm PR #1 comments match the latest local QA and known limitations.
+2. Confirm changed files remain scoped to Operon Bathrooms.
+3. Confirm no `.env`, `.local`, keys, secrets, generated QA artifacts or production setting changes are tracked.
+4. Confirm the merge sequence is review, manual QA/crawl, then merge approval only; no deployment from this task.
+5. If approved email provider env vars become available, run the real staging send path before merge.
 
 ## Overnight Follow-Up Queue
 
-Continue from `docs/next-100-tasks-2026-06-19.md` before starting Quote OS. The current priority is approved local/staging Supabase verification, final PR readiness, public lead flow QA, admin workflow QA, staging email checks and the private upload storage decision.
+Continue from `docs/next-100-tasks-2026-06-19.md` and then `docs/next-200-continuation-tasks-2026-06-21.md` before starting Quote OS. The current priority is final PR readiness, manual QA/crawl review, staging email send only if approved env vars are supplied, and private upload storage only after explicit policy approval.
