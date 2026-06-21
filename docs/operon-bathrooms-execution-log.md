@@ -157,6 +157,21 @@ This log records local implementation and QA progress. It is not a deployment re
   task remains approved manual QA and PR merge decision; real staging email send and private upload storage
   remain approval-gated.
 
+## 2026-06-21 Final Local Crawl And Manual QA Pass
+
+- Rechecked PR #1 comments through the GitHub connector; latest PR comment reflects the final readiness update
+  after `1b91041`.
+- Re-ran the changed-file scope check; the PR remains scoped to Operon Bathrooms and tracked env-like files are
+  limited to `.env.example`.
+- Started a fresh local dev server at `http://127.0.0.1:3000`.
+- Ran `npm run qa:crawl -- http://127.0.0.1:3000`; all checked public routes returned 200 with title,
+  one H1 and canonical metadata.
+- Ran `npm run qa:public-safety -- http://127.0.0.1:3000`; public routes, sitemap, robots and copy safety
+  stayed inside the approved public boundary with no public admin links.
+- Ran `npm run qa:responsive -- http://127.0.0.1:3000`; 6 routes passed at desktop, laptop, tablet and
+  mobile sizes with no horizontal overflow. Chatbot was visible on public routes and hidden on admin.
+- Stopped the local dev server after QA.
+
 ## Operating Notes
 
 - Use `npm run qa:local` before handoff.
