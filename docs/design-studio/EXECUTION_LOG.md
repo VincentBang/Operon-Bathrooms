@@ -1,0 +1,154 @@
+# Design Studio Execution Log
+
+## 2026-06-23 Stage 0A Audit
+
+- Created local branch `codex/bathroom-design-studio-phase-0-1` from merged `origin/main`.
+- Located source documents in `/Users/daibang/Downloads`.
+- Read the Phase 0/1 Codex prompt, product plan and research model summaries.
+- Inspected package scripts, route structure, layout navigation, sitemap, quote wizard, CSS tokens and test conventions.
+- Existing local `.local/*`, `.next/*` and `.DS_Store` files are pre-existing/generated and not part of this implementation.
+
+## 2026-06-23 Stage 0B Execution Spine
+
+- Initialised `docs/design-studio/*`.
+- Set Phase 0/1 to `IN_PROGRESS`.
+- Left Phase 2 and later as `NOT_STARTED`.
+
+## 2026-06-23 Phase 0/1 Implementation
+
+- Added the feature-flagged `/design-studio` route using `NEXT_PUBLIC_ENABLE_BATHROOM_DESIGN_STUDIO`.
+- Added Quick Mode inputs for bathroom type, style, palette, finish level, layout intent and constraints.
+- Added browser-memory-only photo preview with local object URLs and cleanup.
+- Added deterministic concept variants, compare controls, local structured draft save, copy summary and print/export support.
+- Added non-price estimate handoff into `/quote?designContext=1`.
+- Added typed local/no-op event abstraction for future measurement.
+- Kept source imagery, external uploads, verified products, real supplier data, pricing and Quote OS out of scope.
+
+## 2026-06-23 Local QA
+
+- `npm run lint` passed.
+- `npm run typecheck` passed.
+- `npm run test` passed with 56 tests.
+- `npm run build` passed. Expected warning: Next.js ESLint plugin not detected.
+- `npm run qa:bundle-safety` passed with expected protected-admin terminology warnings only.
+- `npm run qa:local && git diff --check` passed.
+- Feature-flag preview on port 3010 returned 200 for `/design-studio`, `/sitemap.xml` and `/quote?designContext=1`.
+- Port 3000 was already in use, so preview QA used port 3010.
+
+## 2026-06-23 Phase 2 Start
+
+- Vincent approved Phase 2 Structured Planner to start.
+- Created branch `codex/bathroom-design-studio-phase-2`.
+- Defined acceptance criteria before implementation.
+- Phase 3 and later remain locked.
+
+## 2026-06-23 Stage 2C Schema Contract
+
+- Extended `BathroomDesignDraft` to schema version `0.2`.
+- Added bounded `layoutPlanning` data for room shape, approximate size band, entry position, fixture zones, constraints and planning-only labels.
+- Added the same safe layout subset to the estimate handoff contract.
+- Added tests that reject measured-plan labels and oversized fixture-zone payloads.
+- No measured dimensions, pricing, supplier data, compliance claims or construction-document output were added.
+
+## 2026-06-23 Stage 2D Layout Inputs
+
+- Added a bounded `layout` step to the Design Studio flow.
+- Added user-selectable approximate room shape, size band and door-entry position controls.
+- Bathroom type selection now seeds safe shape/size defaults for small and laundry-bathroom combinations.
+- Copy remains planning-only and explicitly avoids measured dimensions, construction drawings and buildability claims.
+
+## 2026-06-23 Stage 2E Approximate 2D Preview
+
+- Added an accessible approximate layout preview component driven by the v0.2 `layoutPlanning` contract.
+- Implemented the visual with bounded HTML/CSS only, including shape, entry and fixture-zone classes.
+- Added semantic captioning, `role="img"` labelling and text summaries for screen-reader context.
+- Repeated planning-only boundaries: not a measured plan, construction drawing, compliance check or build-ready layout.
+- Added tests to guard against CAD, dimensioned, final-price and compliance drift.
+
+## 2026-06-23 Stage 2F Fixture-Zone Controls
+
+- Added bounded controls for fixture-zone approximate position, zone status and service-change intent.
+- Kept controls to structured selects only; no free-text scope capture was added.
+- Bathroom type selection resets fixture zones to safe defaults for that bathroom category.
+- Layout preview, local draft storage and estimate handoff now use the user-selected fixture-zone values.
+- Public copy continues to avoid measured plans, construction drawings, confirmed trade scope and final-pricing claims.
+
+## 2026-06-23 Stage 2G Layout-Risk Guidance
+
+- Added a deterministic layout-risk prompt engine for approximate planner data.
+- Added safe planning prompts for unknown layout basics, strata/Class 2, waterproofing uncertainty, drainage/falls, ventilation, suspected asbestos, access constraints and service-change intent.
+- Displayed prompts in the approximate layout preview and printable summary.
+- Kept copy to clarify/check/confirm/site-review language with no legal advice, compliance certification, final pricing or guarantee language.
+- Added tests for prompt generation and safe summary copy.
+
+## 2026-06-23 Stage 2H Safe Prompt Persistence
+
+- Added `layoutRiskPrompts` to the versioned draft and estimate handoff contracts.
+- Preserved public prompt context in local draft save, copy/print summary and session handoff.
+- Kept prompt context explanatory only; no hidden score, rate, margin, supplier cost, admin note or final-pricing logic was added.
+- Added tests that saved drafts and handoffs preserve prompt IDs while rejecting private scoring/pricing markers.
+
+## 2026-06-23 Phase 2 Gate Review
+
+- Completed the Phase 2 gate review document.
+- Marked Phase 2 as `GATE_REVIEW_READY`.
+- Marked Stage 2I and Stage 2J complete.
+- Recorded local QA evidence: `npm run qa:local` passed with 63 tests, and `git diff --check` passed.
+- Confirmed Phase 3 remains locked and not approved.
+
+## 2026-06-23 Phase 2 Approval
+
+- Vincent approved the completed Phase 2 Structured Planner gate.
+- Marked Phase 2 as `APPROVED`.
+- Left Phase 3 and later stages as `NOT_STARTED` and not approved.
+
+## 2026-06-23 Phase 2 Manual QA
+
+- Ran local browser QA with Design Studio feature flag enabled at `/design-studio`.
+- Checked 1440 x 1000, 1280 x 900, 768 x 1024 and 390 x 844 viewports.
+- Verified no horizontal overflow in checked viewports.
+- Verified layout step, approximate preview, fixture controls, risk prompt update and mobile result actions.
+- Ran accessibility proxy checks for fieldsets, legends, fixture select labels, preview `role="img"` labelling and unlabeled controls.
+- Recorded detailed evidence in `docs/design-studio/PHASE_2_MANUAL_QA.md`.
+
+## 2026-06-23 Phase 2 Release Polish Approval
+
+- Vincent approved Phase 2 release polish as the next scope.
+- Scope is limited to release-readiness polish and QA documentation.
+- Phase 3 and later stages remain locked and not approved.
+
+## 2026-06-23 Phase 2 Release Polish
+
+- Updated Design Studio copy from internal proof-of-concept wording to gated planning-preview wording.
+- Preserved public safety boundaries: planning-only output, no measured plans, no specifications, no quotes and no construction documents.
+- Added current-step semantics with `aria-current="step"`.
+- Removed inline result-action styling and added scoped release-polish CSS for result actions, focus states and compact responsive layout spacing.
+- Added a metadata regression test confirming `/design-studio` remains noindex/nofollow while feature-flagged.
+- Updated responsive QA harness to include `/design-studio` only when `NEXT_PUBLIC_ENABLE_BATHROOM_DESIGN_STUDIO=true`.
+- Fixed a macOS Chrome temp-directory cleanup race in the responsive QA harness.
+- `npm run qa:local` passed with 64 tests.
+- `NEXT_PUBLIC_ENABLE_BATHROOM_DESIGN_STUDIO=true npm run qa:responsive -- http://127.0.0.1:3010` passed across 7 routes and 4 viewports.
+- Phase 3 and later stages remain locked and not approved.
+
+## 2026-06-23 Design Studio Accessibility Harness
+
+- Added `npm run qa:design-studio:a11y`.
+- The harness runs against a local feature-flagged `/design-studio` route.
+- It checks noindex/nofollow metadata, one H1, active-step semantics, named visible controls, layout fieldset legends, approximate layout ARIA, result actions and Design Studio scoped unsafe wording.
+- It drives the flow through focusable step controls to reach the result brief on desktop and mobile viewports.
+- `NEXT_PUBLIC_ENABLE_BATHROOM_DESIGN_STUDIO=true npm run qa:design-studio:a11y -- http://127.0.0.1:3010` passed.
+- This is a repeatable assistive-technology proxy harness, not a replacement for a human VoiceOver pass.
+
+## 2026-06-23 Phase 2 Release Readiness Summary
+
+- Added `docs/design-studio/PHASE_2_RELEASE_READINESS_SUMMARY.md`.
+- Summarised included scope, explicit out-of-scope items, safety boundaries, local QA evidence and remaining human screen-reader gate.
+- Kept Phase 3 locked and separate from any release-readiness decision.
+
+## 2026-06-24 Phase 2 PR Preparation
+
+- Reran `npm run qa:local`; passed with 64 tests.
+- Reran `NEXT_PUBLIC_ENABLE_BATHROOM_DESIGN_STUDIO=true npm run qa:design-studio:a11y -- http://127.0.0.1:3010`; passed.
+- Reran `NEXT_PUBLIC_ENABLE_BATHROOM_DESIGN_STUDIO=true npm run qa:responsive -- http://127.0.0.1:3010`; passed across 7 routes and 4 viewport sizes.
+- Added `docs/design-studio/VOICEOVER_SCREEN_READER_CHECKLIST.md`.
+- Confirmed a human VoiceOver or equivalent pass remains recommended before public release exposure.

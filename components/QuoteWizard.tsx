@@ -1,8 +1,10 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { readAttribution } from "@/lib/attribution";
+import { mapHandoffToQuoteDefaults, readEstimateHandoff } from "@/lib/bathroom-design/handoff";
+import type { BathroomDesignHandoff } from "@/lib/bathroom-design/schema";
 import {
   defaultWizardInput,
   EstimateResult,
@@ -282,9 +284,22 @@ export function QuoteWizard() {
   const [result, setResult] = useState<EstimateResult | null>(null);
   const [error, setError] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [designHandoff, setDesignHandoff] = useState<BathroomDesignHandoff | null>(null);
 
   const activeStep = steps[stepIndex];
   const parsed = useMemo(() => quoteWizardSchema.safeParse(input), [input]);
+
+  useEffect(() => {
+    const handoff = readEstimateHandoff(window.sessionStorage);
+    if (!handoff) return;
+    const defaults = mapHandoffToQuoteDefaults(handoff);
+    setInput((current) => ({
+      ...current,
+      projectType: defaults.projectType,
+      fixtureLevel: defaults.fixtureLevel
+    }));
+    setDesignHandoff(handoff);
+  }, []);
 
   const update: UpdateFn = (key, value) => {
     setInput((current) => ({ ...current, [key]: value }));
@@ -426,6 +441,16 @@ export function QuoteWizard() {
       <section className="panel">
         <p className="pill">Step {stepIndex + 1} of {steps.length}</p>
         <h2>{activeStep.title}</h2>
+        {designHandoff ? (
+          <div className="notice">
+            <strong>Design Studio context applied</strong>
+            <p>
+              Your style and conceptual selection context has been read locally from this browser
+              session. It prefilled compatible non-price fields only and does not change the private
+              estimate formula.
+            </p>
+          </div>
+        ) : null}
         {activeStep.render(input, update)}
         {error ? <p className="notice">{error}</p> : null}
         <div className="actions">
