@@ -184,6 +184,18 @@ This log records local implementation and QA progress. It is not a deployment re
 - The active decision gate remains human PR #1 merge approval. Real staging email send, private upload storage
   and Quote OS work remain separate approval-gated tasks.
 
+## 2026-06-23 Overnight Release Handoff
+
+- Added `docs/qa/pr-1-release-handoff-2026-06-23.md` as a compact human merge-decision artifact for PR #1.
+- The handoff summarizes scope, latest QA, Supabase status, email status, private upload status, public safety
+  boundaries, recommended merge sequence and approval-gated follow-up tasks.
+- The handoff does not approve merging, deployment, production changes, real staging email sending, private
+  upload storage or Quote OS implementation.
+- Ran `npm run qa:email:staging`; preview and provider-failure contracts passed. Real send remains opt-in.
+- Ran `git diff --check`; whitespace checks passed.
+- Re-ran tracked env/key/production-setting path scans. Matches were limited to `.env.example` and expected
+  placeholder commands in QA docs.
+
 ## Operating Notes
 
 - Use `npm run qa:local` before handoff.
