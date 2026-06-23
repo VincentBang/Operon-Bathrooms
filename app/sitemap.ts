@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { isBathroomDesignStudioEnabled } from "@/lib/bathroom-design/feature-flag";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.operonbathrooms.com.au";
 
@@ -25,7 +26,8 @@ const routes = [
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  return routes.map((route) => ({
+  const publicRoutes = isBathroomDesignStudioEnabled() ? [...routes, "/design-studio"] : routes;
+  return publicRoutes.map((route) => ({
     url: `${siteUrl}${route}`,
     lastModified: new Date(),
     changeFrequency: route === "/" ? "weekly" : "monthly",

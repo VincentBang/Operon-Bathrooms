@@ -1,0 +1,105 @@
+"use client";
+
+import React from "react";
+import {
+  findPalette,
+  findStyle,
+  findTemplate
+} from "@/data/public/bathroom-design-poc";
+import { getLayoutRiskPrompts } from "@/lib/bathroom-design/layout-risk";
+import { BathroomDesignDraft } from "@/lib/bathroom-design/schema";
+
+export function getDesignSummaryText(draft: BathroomDesignDraft) {
+  const style = findStyle(draft.styleId);
+  const palette = findPalette(draft.paletteId);
+  const template = findTemplate(draft.startingPoint.sampleTemplateId);
+  const selectedVariant = draft.variants.find((variant) => variant.id === draft.selectedVariantId);
+  const layoutPrompts = draft.layoutRiskPrompts.length ? draft.layoutRiskPrompts : getLayoutRiskPrompts(draft.layoutPlanning);
+  return [
+    "Operon Bathroom Design Studio concept summary",
+    `Draft: ${draft.id}`,
+    `Bathroom type: ${draft.bathroomType}`,
+    `Starting point: ${draft.startingPoint.kind}${template ? ` (${template.name})` : ""}`,
+    `Style: ${style?.name ?? draft.styleId}`,
+    `Palette: ${palette?.name ?? draft.paletteId}`,
+    `Selected concept: ${selectedVariant?.name ?? draft.selectedVariantId}`,
+    `Allowance band: ${draft.allowanceBand}`,
+    `Approximate room shape: ${draft.layoutPlanning.roomShape}`,
+    `Approximate size band: ${draft.layoutPlanning.sizeBand}`,
+    `Fixture zones: ${draft.layoutPlanning.fixtureZones.map((item) => item.label).join(", ")}`,
+    `Planning checks: ${layoutPrompts.length ? layoutPrompts.map((item) => item.title).join(", ") : "No extra layout prompts from selected options"}`,
+    `Photo used: ${draft.startingPoint.photoUsed ? "Yes, browser memory only" : "No"}`,
+    `Conceptual selections: ${draft.conceptualSelections.map((item) => item.label).join(", ")}`,
+    "This is an inspiration visual and approximate layout guide only.",
+    "It is not a quote, measured plan, specification, contract or construction document.",
+    "Site measure, selections, licensed-trade checks and written scope confirmation are required before contract pricing."
+  ].join("\n");
+}
+
+export function DesignSummary({ draft }: { draft: BathroomDesignDraft }) {
+  const style = findStyle(draft.styleId);
+  const palette = findPalette(draft.paletteId);
+  const selectedVariant = draft.variants.find((variant) => variant.id === draft.selectedVariantId);
+  const layoutPrompts = draft.layoutRiskPrompts.length ? draft.layoutRiskPrompts : getLayoutRiskPrompts(draft.layoutPlanning);
+
+  return (
+    <div className="design-brief" id="design-brief">
+      <p className="pill">Printable brief</p>
+      <h2>Concept summary</h2>
+      <div className="grid two">
+        <div>
+          <h3>Direction</h3>
+          <ul>
+            <li>Bathroom type: {draft.bathroomType}</li>
+            <li>Style: {style?.name ?? draft.styleId}</li>
+            <li>Palette: {palette?.name ?? draft.paletteId}</li>
+            <li>Selected concept: {selectedVariant?.name ?? draft.selectedVariantId}</li>
+            <li>Allowance band: {draft.allowanceBand}</li>
+            <li>Approximate layout: {draft.layoutPlanning.roomShape}, {draft.layoutPlanning.sizeBand}</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Conceptual products</h3>
+          <ul>
+            {draft.conceptualSelections.map((item) => (
+              <li key={item.archetypeId}>
+                {item.label}: {item.finishFamily}
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+      <div>
+        <h3>Approximate fixture zones</h3>
+        <ul>
+          {draft.layoutPlanning.fixtureZones.map((zone) => (
+            <li key={`${zone.fixtureType}-${zone.label}`}>
+              {zone.label}: {zone.approximatePosition}, service change {zone.serviceChange}
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div>
+        <h3>Planning checks to clarify</h3>
+        {layoutPrompts.length ? (
+          <ul>
+            {layoutPrompts.map((prompt) => (
+              <li key={prompt.id}>
+                {prompt.title}: {prompt.message}
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p>No extra layout prompts from selected options. Site review is still required before written scope confirmation.</p>
+        )}
+      </div>
+      <div className="notice">
+        <strong>Boundary</strong>
+        <p>
+          This brief is not a quote, measured plan, specification, contract or construction
+          document. It is a local planning aid only.
+        </p>
+      </div>
+    </div>
+  );
+}

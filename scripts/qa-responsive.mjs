@@ -24,7 +24,8 @@ const routes = [
   "/quote/review",
   "/request-review",
   "/site-measure",
-  "/admin/leads"
+  "/admin/leads",
+  ...(process.env.NEXT_PUBLIC_ENABLE_BATHROOM_DESIGN_STUDIO === "true" ? ["/design-studio"] : [])
 ];
 
 const screenshotDir = join(process.cwd(), ".local", "qa-responsive");
@@ -33,6 +34,18 @@ const warnings = [];
 
 function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+async function removeUserDataDir(userDataDir) {
+  for (let attempt = 0; attempt < 5; attempt += 1) {
+    try {
+      await rm(userDataDir, { recursive: true, force: true });
+      return;
+    } catch (error) {
+      if (!["ENOTEMPTY", "EBUSY", "EPERM"].includes(error.code) || attempt === 4) throw error;
+      await sleep(250 * (attempt + 1));
+    }
+  }
 }
 
 function waitForDevtools(processHandle) {
@@ -235,7 +248,11 @@ async function main() {
     }
   } finally {
     chrome.kill("SIGTERM");
-    await rm(userDataDir, { recursive: true, force: true });
+    await new Promise((resolve) => {
+      chrome.once("exit", resolve);
+      setTimeout(resolve, 1500);
+    });
+    await removeUserDataDir(userDataDir);
   }
 
   if (warnings.length) {
