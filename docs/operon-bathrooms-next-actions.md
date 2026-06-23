@@ -35,4 +35,7 @@ Final PR readiness review before merge approval:
 
 ## Overnight Follow-Up Queue
 
-Continue from `docs/next-100-tasks-2026-06-19.md` and then `docs/next-200-continuation-tasks-2026-06-21.md` before starting Quote OS. The current priority is final PR readiness, manual QA/crawl review, staging email send only if approved env vars are supplied, and private upload storage only after explicit policy approval.
+Continue from `docs/next-100-tasks-2026-06-19.md`, `docs/next-200-continuation-tasks-2026-06-21.md`
+and `docs/next-500-continuation-tasks-2026-06-23.md` before starting Quote OS. The current priority is
+human PR #1 merge decision, staging email send only if approved env vars are supplied, private upload
+storage only after explicit policy approval and Quote OS only after separate approval.
