@@ -1,0 +1,29 @@
+{
+  "version": "phase-1-mvp-private",
+  "base": {
+    "small": 18500,
+    "standard": 26500,
+    "large": 36500
+  },
+  "adjustments": {
+    "layoutKeep": 0,
+    "layoutMinor": 3500,
+    "layoutMoveWetArea": 9500,
+    "homePre1980": 4500,
+    "poorCondition": 6500,
+    "strata": 2500,
+    "difficultAccess": 3200,
+    "asbestosRisk": 6000,
+    "premiumFixtures": 8500,
+    "midFixtures": 3500,
+    "floorToCeilingTile": 5200,
+    "waterproofingComplex": 2800,
+    "ventilationUpgrade": 1600,
+    "electricalUpgrade": 2400,
+    "plumbingUpgrade": 4200
+  },
+  "range": {
+    "lowMultiplier": 0.88,
+    "highMultiplier": 1.22
+  }
+}

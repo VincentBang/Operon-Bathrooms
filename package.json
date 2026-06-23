@@ -1,0 +1,46 @@
+{
+  "name": "operon-bathrooms",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint .",
+    "format": "prettier --check .",
+    "test": "node --import tsx --test --test-concurrency=1 tests/*.test.tsx tests/*.test.ts",
+    "typecheck": "tsc --noEmit",
+    "verify:supabase:migrations": "node scripts/verify-supabase-migrations.mjs",
+    "qa:supabase:staging": "node scripts/qa-supabase-staging-contract.mjs",
+    "qa:email:staging": "tsx scripts/qa-email-staging-contract.ts",
+    "qa:crawl": "node scripts/local-public-crawl.mjs",
+    "qa:public-safety": "node scripts/qa-public-safety.mjs",
+    "qa:bundle-safety": "node scripts/qa-client-bundle-safety.mjs",
+    "qa:responsive": "node scripts/qa-responsive.mjs",
+    "qa:local": "npm run lint && npm run typecheck && npm run test && npm run build && npm run verify:supabase:migrations && npm run qa:bundle-safety"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.45.4",
+    "next": "^15.5.18",
+    "pdf-lib": "^1.17.1",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "zod": "^3.24.1"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.18.0",
+    "@testing-library/dom": "^10.4.0",
+    "@testing-library/react": "^16.2.0",
+    "@types/node": "^22.10.6",
+    "@types/react": "^19.0.7",
+    "@types/react-dom": "^19.0.3",
+    "eslint": "^9.18.0",
+    "eslint-config-next": "^15.1.4",
+    "eslint-config-prettier": "^10.0.1",
+    "jsdom": "^26.0.0",
+    "prettier": "^3.4.2",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.3",
+    "typescript-eslint": "^8.20.0"
+  }
+}
