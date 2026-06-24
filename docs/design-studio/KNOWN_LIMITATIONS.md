@@ -5,6 +5,7 @@
 - No backend design storage.
 - No image upload or image persistence.
 - No measured layout.
+- No user-entered measurement fields.
 - No geometry editor.
 - No verified catalogue.
 - No real SKUs, supplier logos, inventory or prices.
@@ -12,8 +13,9 @@
 - No AI generation.
 - Phase 4 constraint prompts are deterministic rules only; there is no AI/API-assisted reasoning, external provider response, private scoring or automated design approval.
 - No 3D, WebGL, WebGPU, AR or LiDAR.
+- No AR/browser-camera experiment.
+- Phase 5 evidence-readiness is a structured preparation checklist only; it does not verify measurements, site conditions, waterproofing, strata/Class 2, product fit, compliance or contract readiness online.
 - No Quote OS integration beyond safe planning estimate handoff.
-- Browser-based mobile viewport QA passed locally on 2026-06-23.
-- Browser-based accessibility proxy QA passed locally on 2026-06-23.
-- Repeatable Design Studio accessibility proxy harness passed locally on 2026-06-23.
-- Dedicated human screen-reader QA remains recommended before public release exposure.
+- Browser-based mobile viewport QA passed locally for the feature-flagged Design Studio after Phase 5 merge on 2026-06-24.
+- Repeatable Design Studio accessibility proxy harness passed locally after Phase 5 merge on 2026-06-24.
+- A human VoiceOver pass was completed before PR #2; repeat human screen-reader QA remains recommended before any public release exposure after later feature changes.
