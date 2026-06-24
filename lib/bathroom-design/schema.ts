@@ -1,15 +1,17 @@
 import { z } from "zod";
 import {
   bathroomTypes,
+  catalogueCandidates,
   conceptualProductArchetypes,
   designPalettes,
   designStyles,
   sampleTemplates
 } from "@/data/public/bathroom-design-poc";
 
-export const DESIGN_SCHEMA_VERSION = "0.2" as const;
+export const DESIGN_SCHEMA_VERSION = "0.3" as const;
 export const MAX_DESIGN_VARIANTS = 3;
 export const MAX_LAYOUT_ZONES = 8;
+export const MAX_PRODUCT_SHORTLIST = 6;
 export const REQUIRED_TRUST_LABELS = {
   inspirationVisual: true,
   approximateLayout: true,
@@ -41,6 +43,10 @@ const archetypeValues = conceptualProductArchetypes.map((item) => item.id) as [
   (typeof conceptualProductArchetypes)[number]["id"],
   ...(typeof conceptualProductArchetypes)[number]["id"][]
 ];
+const catalogueCandidateValues = catalogueCandidates.map((item) => item.id) as [
+  (typeof catalogueCandidates)[number]["id"],
+  ...(typeof catalogueCandidates)[number]["id"][]
+];
 
 export const bathroomDesignBathroomTypeSchema = z.enum(bathroomTypeValues);
 export const bathroomDesignStyleSchema = z.enum(styleValues);
@@ -59,6 +65,31 @@ export const designVariantSchema = z.object({
   summary: z.string().min(1).max(220),
   paletteId: bathroomDesignPaletteSchema,
   emphasis: z.enum(["balanced", "surface-led", "fixture-led"])
+});
+
+export const catalogueCandidateSelectionSchema = z.object({
+  candidateId: z.enum(catalogueCandidateValues),
+  archetypeId: z.enum(archetypeValues),
+  category: z.string().min(1).max(40),
+  label: z.string().min(1).max(100),
+  finishFamily: z.string().min(1).max(120),
+  planningUse: z.string().min(1).max(180),
+  evidencePrompt: z.string().min(1).max(180),
+  verificationStatus: z.literal("catalogue-candidate"),
+  verifiedProduct: z.literal(false),
+  confirmedSku: z.literal(false),
+  supplierFeed: z.literal(false),
+  pricingIncluded: z.literal(false)
+});
+
+export const cataloguePlanningSchema = z.object({
+  mode: z.literal("curated-candidates"),
+  liveSupplierFeed: z.literal(false),
+  verifiedSku: z.literal(false),
+  pricing: z.literal(false),
+  procurement: z.literal(false),
+  planningGuidanceOnly: z.literal(true),
+  requiresHumanSelectionCheck: z.literal(true)
 });
 
 export const layoutFixtureZoneSchema = z.object({
@@ -138,6 +169,8 @@ export const bathroomDesignDraftSchema = z
     variants: z.array(designVariantSchema).min(1).max(MAX_DESIGN_VARIANTS),
     selectedVariantId: z.string().min(1).max(40),
     conceptualSelections: z.array(conceptualSelectionSchema).min(1).max(8),
+    productShortlist: z.array(catalogueCandidateSelectionSchema).min(1).max(MAX_PRODUCT_SHORTLIST),
+    cataloguePlanning: cataloguePlanningSchema,
     allowanceBand: z.enum(["essential", "considered", "premium"]),
     labels: z.object({
       inspirationVisual: z.literal(true),
@@ -184,6 +217,16 @@ export const bathroomDesignDraftSchema = z
         message: "Local-photo starting points must record photoUsed."
       });
     }
+    for (const item of draft.productShortlist) {
+      const candidate = catalogueCandidates.find((candidateItem) => candidateItem.id === item.candidateId);
+      if (!candidate || candidate.archetypeId !== item.archetypeId || candidate.category !== item.category) {
+        context.addIssue({
+          code: z.ZodIssueCode.custom,
+          path: ["productShortlist", item.candidateId],
+          message: "Product shortlist candidates must match the governed local catalogue."
+        });
+      }
+    }
   });
 
 export const bathroomDesignHandoffSchema = z.object({
@@ -197,6 +240,8 @@ export const bathroomDesignHandoffSchema = z.object({
   styleId: bathroomDesignStyleSchema,
   paletteId: bathroomDesignPaletteSchema,
   conceptualSelections: z.array(conceptualSelectionSchema).max(8),
+  productShortlist: z.array(catalogueCandidateSelectionSchema).max(MAX_PRODUCT_SHORTLIST),
+  cataloguePlanning: cataloguePlanningSchema,
   finishFamilies: z.array(z.string().min(1).max(120)).max(12),
   photoUsed: z.boolean(),
   selectedVariantId: z.string().min(1).max(40),

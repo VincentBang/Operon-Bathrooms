@@ -260,6 +260,7 @@ async function runQaForViewport(browserWsUrl, viewport) {
     await keyboardActivateButton(client, "Next");
     await keyboardActivateButton(client, "Next");
     await keyboardActivateButton(client, "Next");
+    await keyboardActivateButton(client, "Next");
     await keyboardActivateButton(client, "Create brief");
     const resultQa = await getPageQa(client);
     assertQa(`${viewport.label} result`, resultQa, "Planning brief");

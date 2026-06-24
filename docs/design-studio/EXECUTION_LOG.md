@@ -152,3 +152,21 @@
 - Reran `NEXT_PUBLIC_ENABLE_BATHROOM_DESIGN_STUDIO=true npm run qa:responsive -- http://127.0.0.1:3010`; passed across 7 routes and 4 viewport sizes.
 - Added `docs/design-studio/VOICEOVER_SCREEN_READER_CHECKLIST.md`.
 - Confirmed a human VoiceOver or equivalent pass remains recommended before public release exposure.
+
+## 2026-06-24 Phase 3 Start
+
+- Vincent approved Phase 3 build.
+- Created branch `codex/bathroom-design-studio-phase-3` from updated `origin/main`.
+- Set the bounded Phase 3 target as catalogue candidates and shortlist controls only.
+- Kept live supplier feeds, confirmed SKUs, pricing, procurement, AI ranking, Quote OS and final-quote claims out of scope.
+- Extended the Design Studio contract to schema version `0.3` for governed catalogue-candidate shortlist context.
+- Added local catalogue candidates, shortlist controls, safe summary copy and estimate handoff preservation.
+
+## 2026-06-24 Phase 3 Gate Evidence
+
+- `npm run qa:local` passed with 65 tests, production build, migration verification and client bundle safety scan.
+- Fixed an initial bundle-safety failure caused by a private-pricing marker string in client-side storage validation source.
+- `git diff --check` passed.
+- `NEXT_PUBLIC_ENABLE_BATHROOM_DESIGN_STUDIO=true npm run qa:design-studio:a11y -- http://127.0.0.1:3012` passed on desktop and mobile.
+- `NEXT_PUBLIC_ENABLE_BATHROOM_DESIGN_STUDIO=true npm run qa:responsive -- http://127.0.0.1:3012` passed across 7 routes at 4 viewport sizes.
+- Marked Phase 3 as gate-review-ready, with Phase 4 locked.

@@ -30,8 +30,10 @@ export function getDesignSummaryText(draft: BathroomDesignDraft) {
     `Planning checks: ${layoutPrompts.length ? layoutPrompts.map((item) => item.title).join(", ") : "No extra layout prompts from selected options"}`,
     `Photo used: ${draft.startingPoint.photoUsed ? "Yes, browser memory only" : "No"}`,
     `Conceptual selections: ${draft.conceptualSelections.map((item) => item.label).join(", ")}`,
+    `Catalogue candidates: ${draft.productShortlist.map((item) => item.label).join(", ")}`,
     "This is an inspiration visual and approximate layout guide only.",
     "It is not a quote, measured plan, specification, contract or construction document.",
+    "Catalogue candidates are not confirmed SKUs, supplier feeds, prices or procurement items.",
     "Site measure, selections, licensed-trade checks and written scope confirmation are required before contract pricing."
   ].join("\n");
 }
@@ -59,14 +61,17 @@ export function DesignSummary({ draft }: { draft: BathroomDesignDraft }) {
           </ul>
         </div>
         <div>
-          <h3>Conceptual products</h3>
+          <h3>Catalogue candidates</h3>
           <ul>
-            {draft.conceptualSelections.map((item) => (
-              <li key={item.archetypeId}>
-                {item.label}: {item.finishFamily}
+            {draft.productShortlist.map((item) => (
+              <li key={item.candidateId}>
+                {item.label}: {item.finishFamily}. {item.evidencePrompt}
               </li>
             ))}
           </ul>
+          <p className="muted">
+            Candidate only. Not a confirmed SKU, supplier feed, price, availability check or procurement item.
+          </p>
         </div>
       </div>
       <div>

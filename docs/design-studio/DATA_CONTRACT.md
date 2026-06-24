@@ -2,9 +2,9 @@
 
 ## Contract
 
-`BathroomDesignDraft` is a serialisable versioned object for Phase 0/1 Quick Mode and Phase 2 approximate layout planning.
+`BathroomDesignDraft` is a serialisable versioned object for Phase 0/1 Quick Mode, Phase 2 approximate layout planning and Phase 3 catalogue-candidate shortlisting.
 
-Current schema version: `0.2`.
+Current schema version: `0.3`.
 
 Allowed fields:
 
@@ -31,6 +31,8 @@ Allowed fields:
 - `layoutPlanning.constraints`
 - `layoutPlanning.labels`
 - `layoutRiskPrompts`
+- `productShortlist`
+- `cataloguePlanning`
 - `preferredNextStep`
 
 Forbidden fields:
@@ -46,6 +48,10 @@ Forbidden fields:
 - construction drawing claims
 - compliance certification
 - free-text personal information
+- live supplier feeds
+- confirmed SKUs
+- product availability checks
+- procurement or ordering data
 
 ## Phase 2 Layout Contract
 
@@ -84,8 +90,37 @@ Allowed prompt fields:
 
 Prompt context must remain public and explanatory. It must not include hidden scores, ranking points, internal qualification logic, admin notes, supplier costs, labour rates, margins, fixed prices or final quote language.
 
+## Phase 3 Catalogue-Candidate Contract
+
+The Phase 3 catalogue object is a governed local planning shortlist only.
+
+Allowed candidate fields:
+
+- candidate ID
+- linked public archetype ID
+- public category
+- public label
+- finish family
+- planning use
+- evidence prompt
+- verification status: `catalogue-candidate`
+- safety flags showing no verified product, no confirmed SKU, no supplier feed and no pricing
+
+The catalogue contract rejects drift into commercial product data by requiring:
+
+- `verifiedProduct: false`
+- `confirmedSku: false`
+- `supplierFeed: false`
+- `pricingIncluded: false`
+- `cataloguePlanning.liveSupplierFeed: false`
+- `cataloguePlanning.verifiedSku: false`
+- `cataloguePlanning.pricing: false`
+- `cataloguePlanning.procurement: false`
+
+The shortlist is capped at six candidates and requires at least one candidate. Every candidate must match the governed local catalogue by ID, archetype and category.
+
 ## Handoff Contract
 
 The `/quote` handoff stores an allowlisted subset in `sessionStorage`. It expires and is ignored if invalid.
 
-Allowed handoff fields include draft ID, schema version, bathroom type, sample template, style, palette, conceptual selections, finish families, `photoUsed`, selected variant, allowance band, approximate layout planning object, layout-risk prompts, trust labels, timestamps and preferred next step.
+Allowed handoff fields include draft ID, schema version, bathroom type, sample template, style, palette, conceptual selections, finish families, `photoUsed`, selected variant, allowance band, approximate layout planning object, layout-risk prompts, governed catalogue-candidate shortlist, catalogue-planning safety flags, trust labels, timestamps and preferred next step.

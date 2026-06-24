@@ -50,6 +50,19 @@ export type ConceptualProductArchetype = {
   note: string;
 };
 
+export type BathroomCatalogueCandidate = {
+  id: string;
+  archetypeId: string;
+  category: string;
+  label: string;
+  finishFamily: string;
+  planningUse: string;
+  evidencePrompt: string;
+  styleAffinity: BathroomDesignStyleId[];
+  bathroomTypeFit: BathroomDesignBathroomType[];
+  verificationStatus: "catalogue-candidate";
+};
+
 export const bathroomTypes: { id: BathroomDesignBathroomType; name: string; note: string }[] = [
   { id: "main-bathroom", name: "Main bathroom", note: "Family-friendly planning preferences." },
   { id: "ensuite", name: "Ensuite", note: "Compact private bathroom direction." },
@@ -260,6 +273,105 @@ export const conceptualProductArchetypes: ConceptualProductArchetype[] = [
   }
 ];
 
+export const catalogueCandidates: BathroomCatalogueCandidate[] = [
+  {
+    id: "candidate-wall-hung-vanity-warm-oak",
+    archetypeId: "wall-hung-vanity",
+    category: "vanity",
+    label: "Wall-hung vanity candidate, warm timber-look",
+    finishFamily: "warm timber-look vanity",
+    planningUse: "Keeps floor area visually lighter for standard bathrooms and ensuites.",
+    evidencePrompt: "Confirm wall structure, plumbing set-out and storage size during site review.",
+    styleAffinity: ["warm-contemporary", "natural-spa", "calm-coastal"],
+    bathroomTypeFit: ["main-bathroom", "ensuite", "small-bathroom", "apartment-bathroom"],
+    verificationStatus: "catalogue-candidate"
+  },
+  {
+    id: "candidate-floor-standing-vanity-classic",
+    archetypeId: "floor-standing-vanity",
+    category: "vanity",
+    label: "Floor-standing vanity candidate, framed profile",
+    finishFamily: "framed vanity profile",
+    planningUse: "Supports a more classic or storage-heavy design direction.",
+    evidencePrompt: "Confirm width, waste location, tapware set-out and drawer clearance.",
+    styleAffinity: ["classic-refined", "warm-contemporary"],
+    bathroomTypeFit: ["main-bathroom", "laundry-bathroom-combination"],
+    verificationStatus: "catalogue-candidate"
+  },
+  {
+    id: "candidate-back-to-wall-toilet-compact",
+    archetypeId: "back-to-wall-toilet",
+    category: "toilet",
+    label: "Back-to-wall toilet candidate, compact profile",
+    finishFamily: "compact white ceramic toilet",
+    planningUse: "A common planning direction for cleaner lines and easier floor cleaning.",
+    evidencePrompt: "Confirm waste set-out, water point and clearances before selection.",
+    styleAffinity: ["warm-contemporary", "calm-coastal", "modern-minimal", "classic-refined", "urban-apartment"],
+    bathroomTypeFit: ["main-bathroom", "ensuite", "small-bathroom", "apartment-bathroom"],
+    verificationStatus: "catalogue-candidate"
+  },
+  {
+    id: "candidate-walk-in-screen-clear",
+    archetypeId: "walk-in-shower-screen",
+    category: "shower",
+    label: "Walk-in shower screen candidate, clear glass",
+    finishFamily: "clear glass shower screen",
+    planningUse: "Keeps the shower zone visually open in compact and standard layouts.",
+    evidencePrompt: "Confirm falls, waterproofing extent, screen fixing and splash control on site.",
+    styleAffinity: ["warm-contemporary", "calm-coastal", "modern-minimal", "natural-spa", "urban-apartment"],
+    bathroomTypeFit: ["main-bathroom", "ensuite", "small-bathroom", "apartment-bathroom"],
+    verificationStatus: "catalogue-candidate"
+  },
+  {
+    id: "candidate-freestanding-bath-soft-edge",
+    archetypeId: "freestanding-bath",
+    category: "bath",
+    label: "Freestanding bath candidate, soft-edge form",
+    finishFamily: "soft-edge white bath",
+    planningUse: "A premium-feel planning direction for larger bathroom layouts.",
+    evidencePrompt: "Confirm room size, access path, floor structure, plumbing and cleaning clearances.",
+    styleAffinity: ["natural-spa", "classic-refined", "calm-coastal"],
+    bathroomTypeFit: ["main-bathroom"],
+    verificationStatus: "catalogue-candidate"
+  },
+  {
+    id: "candidate-mirrored-shaving-cabinet-recessed",
+    archetypeId: "mirrored-shaving-cabinet",
+    category: "storage",
+    label: "Mirrored shaving cabinet candidate, recessed look",
+    finishFamily: "mirrored storage cabinet",
+    planningUse: "Adds storage while keeping the vanity wall visually calm.",
+    evidencePrompt: "Confirm wall depth, wiring, lighting and door swing clearances.",
+    styleAffinity: ["warm-contemporary", "modern-minimal", "classic-refined", "urban-apartment"],
+    bathroomTypeFit: ["main-bathroom", "ensuite", "small-bathroom", "apartment-bathroom"],
+    verificationStatus: "catalogue-candidate"
+  },
+  {
+    id: "candidate-matte-black-fixture-family",
+    archetypeId: "walk-in-shower-screen",
+    category: "tapware",
+    label: "Matte black fixture family candidate",
+    finishFamily: "matte black tapware and trim",
+    planningUse: "Creates a stronger contrast direction for minimal or apartment concepts.",
+    evidencePrompt: "Confirm compatibility across mixer, rail, wastes, screen trim and accessories.",
+    styleAffinity: ["modern-minimal", "urban-apartment"],
+    bathroomTypeFit: ["main-bathroom", "ensuite", "small-bathroom", "apartment-bathroom"],
+    verificationStatus: "catalogue-candidate"
+  },
+  {
+    id: "candidate-brushed-warm-metal-family",
+    archetypeId: "wall-hung-vanity",
+    category: "tapware",
+    label: "Brushed warm metal fixture family candidate",
+    finishFamily: "brushed warm metal tapware and trim",
+    planningUse: "Supports warmer contemporary, spa and classic palettes.",
+    evidencePrompt: "Confirm finish compatibility across tapware, wastes, trims and accessories.",
+    styleAffinity: ["warm-contemporary", "natural-spa", "classic-refined"],
+    bathroomTypeFit: ["main-bathroom", "ensuite", "small-bathroom"],
+    verificationStatus: "catalogue-candidate"
+  }
+];
+
 export function palettesForStyle(styleId: BathroomDesignStyleId) {
   return designPalettes.filter((palette) => palette.styleId === styleId);
 }
@@ -274,4 +386,19 @@ export function findStyle(styleId: string) {
 
 export function findTemplate(templateId: string | undefined) {
   return sampleTemplates.find((template) => template.id === templateId);
+}
+
+export function findCatalogueCandidate(candidateId: string) {
+  return catalogueCandidates.find((candidate) => candidate.id === candidateId);
+}
+
+export function candidatesForDesign(
+  styleId: BathroomDesignStyleId,
+  bathroomType: BathroomDesignBathroomType
+) {
+  return catalogueCandidates.filter(
+    (candidate) =>
+      candidate.styleAffinity.includes(styleId) &&
+      candidate.bathroomTypeFit.includes(bathroomType)
+  );
 }
