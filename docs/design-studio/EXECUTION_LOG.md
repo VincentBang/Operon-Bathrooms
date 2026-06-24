@@ -170,3 +170,14 @@
 - `NEXT_PUBLIC_ENABLE_BATHROOM_DESIGN_STUDIO=true npm run qa:design-studio:a11y -- http://127.0.0.1:3012` passed on desktop and mobile.
 - `NEXT_PUBLIC_ENABLE_BATHROOM_DESIGN_STUDIO=true npm run qa:responsive -- http://127.0.0.1:3012` passed across 7 routes at 4 viewport sizes.
 - Marked Phase 3 as gate-review-ready, with Phase 4 locked.
+
+## 2026-06-24 Phase 3 Merge And Closeout
+
+- Vincent approved merging Phase 3.
+- PR #4 merged the Phase 3 catalogue-candidate implementation to `main`.
+- Post-merge verification on updated `main` passed `npm run qa:local`, `git diff --check`, Design Studio accessibility proxy QA and responsive QA.
+- PR #5 merged the Phase 3 release-boundary audit note.
+- Confirmed `/design-studio` remains feature-flagged and noindex.
+- Confirmed Phase 3 remains planning-only with no live supplier feed, confirmed SKU, public pricing, procurement, AI ranking or Quote OS implementation.
+- Vincent chose to keep merged Phase 3 branches for audit traceability.
+- Phase 4 remains locked until a separate acceptance-criteria and approval step.

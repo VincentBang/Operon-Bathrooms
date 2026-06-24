@@ -29,7 +29,7 @@ Phase 0/1 Local Proof of Concept is `APPROVED`.
 
 Phase 2 Structured Planner is `APPROVED`.
 
-Phase 3 Catalogue Candidate Shortlist is `IN_PROGRESS` after Vincent approval on 2026-06-24.
+Phase 3 Catalogue Candidate Shortlist is `APPROVED` and merged after Vincent approval on 2026-06-24.
 
 No Phase 4 or later work is approved.
 
@@ -39,16 +39,13 @@ No Phase 4 or later work is approved.
 - Public lead flows, admin-lite, chatbot, manual review reports and QA harnesses exist.
 - Post-merge email preview/provider-failure verification passed locally.
 
-## Current-Stage Backlog
+## Current Decision Queue
 
-1. Define Phase 3 catalogue-candidate acceptance criteria.
-2. Extend the draft contract to schema version `0.3` for bounded product shortlist data.
-3. Add a governed local catalogue-candidate data set with no live supplier feed, prices, confirmed SKUs or procurement fields.
-4. Add shortlist controls in the existing Design Studio flow.
-5. Preserve shortlist context in local draft save, copy/print summary and estimate handoff.
-6. Keep all outputs labelled as planning candidates requiring human selection checks.
-7. Add tests for schema validation, forbidden field boundaries, storage safety, handoff compatibility and public wording.
-8. Run local QA and complete the Phase 3 gate review before any Phase 4 work.
+1. Keep merged Phase 3 implementation and audit branches for traceability.
+2. Decide whether `/design-studio` should remain internal/gated or move into controlled release-exposure planning.
+3. If release exposure is considered, define release criteria before changing feature flags, indexing or navigation.
+4. If Phase 4 is considered, define acceptance criteria only before implementation approval.
+5. Keep Phase 4 and later locked until explicit Vincent approval.
 
 ## Future Phases
 
@@ -58,7 +55,7 @@ No Phase 4 or later work is approved.
 - Phase 5: AR and measurement.
 - Phase 6: Quote OS integration.
 
-Phase 3 is approved to build. Each later phase requires a passed gate report and explicit Vincent approval.
+Phase 3 is complete and approved as merged. Each later phase requires a passed gate report and explicit Vincent approval.
 
 ## Dependencies
 
@@ -110,4 +107,4 @@ No production AI, production 3D, WebGL/WebGPU editor, AR, LiDAR, BIM, live suppl
 
 ## Next Action
 
-Complete Phase 3 Catalogue Candidate Shortlist inside the approved planning-only boundary. Stop before Phase 4.
+Choose the next decision path: controlled release-exposure planning for the gated Design Studio, or Phase 4 acceptance criteria only. Stop before any Phase 4 implementation.

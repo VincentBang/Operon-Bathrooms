@@ -39,6 +39,9 @@
 - [x] Stage 3E add accessible shortlist controls to the Design Studio flow.
 - [x] Stage 3F preserve shortlist context in local save, copy/print summary and estimate handoff.
 - [x] Stage 3G run full local QA and complete the Phase 3 gate review.
+- [x] Stage 3H merge Phase 3 implementation via PR #4.
+- [x] Stage 3I merge Phase 3 release-boundary audit via PR #5.
+- [x] Stage 3J keep merged Phase 3 branches for audit traceability.
 
 ## Deferred Until Later Approval
 
