@@ -35,6 +35,8 @@ Phase 4 Deterministic Constraint Intelligence is `APPROVED` and merged after Vin
 
 Phase 5 AR and Measurement evidence-readiness only path is `APPROVED` and merged after Vincent approval on 2026-06-24. No user-entered measurement fields, release exposure, AI/API-assisted measurement, production AR, upload/storage, Quote OS or later work is approved yet.
 
+Release-exposure criteria are being prepared as docs-only planning. This does not approve public release, route indexing, sitemap inclusion, navigation changes, measurement fields or AR/browser-camera work.
+
 ## Completed Work Before Design Studio
 
 - Bathroom MVP and SEO foundation merged to `main`.
@@ -46,8 +48,8 @@ Phase 5 AR and Measurement evidence-readiness only path is `APPROVED` and merged
 1. Keep merged Phase 3 implementation and audit branches for traceability.
 2. Decide whether `/design-studio` should remain internal/gated or move into controlled release-exposure planning.
 3. If release exposure is considered, define release criteria before changing feature flags, indexing or navigation.
-4. Review the Phase 5 closeout sync branch.
-5. Decide whether to pause, define user-entered approximate measurement acceptance criteria, or define release-exposure criteria. Keep implementation locked until explicit Vincent approval.
+4. Review the release-exposure criteria branch.
+5. Decide whether to pause Design Studio exposure, request changes or approve a later controlled noindex pilot preparation task. Keep implementation locked until explicit Vincent approval.
 
 ## Future Phases
 
@@ -109,4 +111,4 @@ No production AI, production 3D, WebGL/WebGPU editor, production AR, LiDAR, BIM,
 
 ## Next Action
 
-Review the Phase 5 closeout sync branch, then approve merge or request changes. Keep `/design-studio` feature-flagged and noindex.
+Review the release-exposure criteria branch, then approve merge, request changes or pause exposure. Keep `/design-studio` feature-flagged and noindex.

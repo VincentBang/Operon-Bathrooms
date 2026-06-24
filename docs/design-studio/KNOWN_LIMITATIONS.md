@@ -15,6 +15,7 @@
 - No 3D, WebGL, WebGPU, AR or LiDAR.
 - No AR/browser-camera experiment.
 - Phase 5 evidence-readiness is a structured preparation checklist only; it does not verify measurements, site conditions, waterproofing, strata/Class 2, product fit, compliance or contract readiness online.
+- No public release exposure is approved yet; release-exposure criteria are docs-only and keep `/design-studio` feature-flagged and noindex.
 - No Quote OS integration beyond safe planning estimate handoff.
 - Browser-based mobile viewport QA passed locally for the feature-flagged Design Studio after Phase 5 merge on 2026-06-24.
 - Repeatable Design Studio accessibility proxy harness passed locally after Phase 5 merge on 2026-06-24.

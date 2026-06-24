@@ -21,3 +21,29 @@
 8. Catalogue ingestion pilot: three suppliers and 100 records.
 
 Codex may prepare local structures and docs, but must not fabricate experiment results.
+
+## Design Studio Release-Exposure Criteria
+
+Controlled exposure must not start until the release mode, audience, feature flag behavior, noindex behavior, sitemap/nav status, rollback plan and QA evidence are documented.
+
+Suggested pilot metrics are:
+
+- design starts
+- design completions
+- CTA clicks to estimate, quote review, request review and site measure
+- saved or copied summaries
+- mobile completion rate
+- abandonment by step
+- user-reported confusion about planning versus measured output
+- qualified lead conversion from Design Studio handoff
+- support/manual-review notes about missing evidence
+
+Gate requirements:
+
+- no privacy leak or private pricing leak
+- no final-pricing, measured-plan or compliance-certification wording
+- no user-entered measurement fields unless separately approved
+- no AR/browser-camera experiment unless separately approved
+- no sitemap, navigation or indexing change unless separately approved
+- route can be disabled through `NEXT_PUBLIC_ENABLE_BATHROOM_DESIGN_STUDIO`
+- repeat human screen-reader pass before public exposure

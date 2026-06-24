@@ -26,6 +26,9 @@
 | Phase 5 evidence handoff | Evidence-readiness context persists without media, pricing or private markers | Passed in `npm run qa:local` |
 | Phase 5 evidence controls | Checklist renders accessible status controls without upload or AR claims | Passed in `npm run qa:local` |
 | Phase 5 flagged QA | Feature-flagged build, Design Studio a11y proxy and responsive QA | Passed after PR #11 merge on port 3018 |
+| Release-exposure criteria | Controlled noindex pilot criteria documented without enabling release exposure | Docs-only branch; `git diff --check` required |
+| Release-exposure rollback | Criteria define disable path through `NEXT_PUBLIC_ENABLE_BATHROOM_DESIGN_STUDIO` | Docs-only branch; implementation not approved |
+| Release-exposure locks | Criteria keep user-entered measurements, AR/browser-camera, upload/storage, pricing, procurement and Quote OS locked | Docs-only branch; implementation not approved |
 | Phase 2 viewport QA | Desktop, laptop, tablet and mobile browser checks | Passed locally; see `PHASE_2_MANUAL_QA.md` |
 | Phase 2 accessibility proxy | Fieldsets, labels, preview ARIA and unlabeled controls | Passed locally; dedicated screen-reader pass still recommended |
 | Release polish copy | Public labels use gated planning-preview wording | Passed in component test and `npm run qa:local` |
