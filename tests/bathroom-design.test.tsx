@@ -11,14 +11,16 @@ import {
   designStyles,
   sampleTemplates
 } from "../data/public/bathroom-design-poc";
-import { DesignStudio, FixtureZoneControls } from "../components/design-studio/DesignStudio";
+import { DesignStudio, EvidenceReadinessControls, FixtureZoneControls } from "../components/design-studio/DesignStudio";
 import { ApproximateLayoutPreview } from "../components/design-studio/ApproximateLayoutPreview";
 import { DesignSummary, getDesignSummaryText } from "../components/design-studio/DesignSummary";
 import { getDesignConstraintPrompts } from "../lib/bathroom-design/constraints";
+import { createEvidencePlanning, createEvidenceReadiness } from "../lib/bathroom-design/evidence-readiness";
 import { getLayoutRiskPrompts } from "../lib/bathroom-design/layout-risk";
 import {
   BathroomDesignDraft,
   MAX_CONSTRAINT_PROMPTS,
+  MAX_EVIDENCE_ITEMS,
   MAX_LAYOUT_ZONES,
   REQUIRED_TRUST_LABELS,
   bathroomDesignDraftSchema,
@@ -54,7 +56,7 @@ function memoryStorage() {
 function validDraft(overrides: Partial<BathroomDesignDraft> = {}): BathroomDesignDraft {
   const now = "2026-06-23T00:00:00.000Z";
   return {
-    schemaVersion: "0.4",
+    schemaVersion: "0.5",
     id: "design-test-draft",
     createdAt: now,
     updatedAt: now,
@@ -167,6 +169,31 @@ function validDraft(overrides: Partial<BathroomDesignDraft> = {}): BathroomDesig
       complianceCertification: false,
       planningGuidanceOnly: true
     },
+    evidenceReadiness: [
+      {
+        id: "whole-room-photos",
+        category: "photos",
+        label: "Whole bathroom photos",
+        prompt: "Prepare wide photos from the entry and each corner so site reviewers can understand the room context.",
+        status: "planned",
+        userSupplied: true,
+        verifiedOnline: false,
+        uploadStored: false,
+        requiresSiteMeasureConfirmation: true
+      },
+      {
+        id: "fixture-location-notes",
+        category: "measurements",
+        label: "Fixture location notes",
+        prompt: "Prepare rough notes showing current shower, vanity, toilet, bath, laundry and waste locations.",
+        status: "missing",
+        userSupplied: true,
+        verifiedOnline: false,
+        uploadStored: false,
+        requiresSiteMeasureConfirmation: true
+      }
+    ],
+    evidencePlanning: createEvidencePlanning(),
     preferredNextStep: "estimate",
     ...overrides
   };
@@ -312,6 +339,48 @@ test("phase 4 deterministic constraint contract rejects AI, provider, pricing an
   );
 });
 
+test("phase 5 evidence-readiness contract rejects media, AR and verified-online drift", () => {
+  assert.equal(bathroomDesignDraftSchema.safeParse(validDraft()).success, true);
+  assert.equal(
+    bathroomDesignDraftSchema.safeParse({
+      ...validDraft(),
+      evidencePlanning: { ...validDraft().evidencePlanning, cameraCapture: true }
+    }).success,
+    false
+  );
+  assert.equal(
+    bathroomDesignDraftSchema.safeParse({
+      ...validDraft(),
+      evidencePlanning: { ...validDraft().evidencePlanning, arPlacement: true }
+    }).success,
+    false
+  );
+  assert.equal(
+    bathroomDesignDraftSchema.safeParse({
+      ...validDraft(),
+      evidencePlanning: { ...validDraft().evidencePlanning, persistedMedia: true }
+    }).success,
+    false
+  );
+  assert.equal(
+    bathroomDesignDraftSchema.safeParse({
+      ...validDraft(),
+      evidenceReadiness: [{ ...validDraft().evidenceReadiness[0], verifiedOnline: true }]
+    }).success,
+    false
+  );
+  assert.equal(
+    bathroomDesignDraftSchema.safeParse({
+      ...validDraft(),
+      evidenceReadiness: Array.from({ length: MAX_EVIDENCE_ITEMS + 1 }, (_, index) => ({
+        ...validDraft().evidenceReadiness[0],
+        id: `evidence-${index}`
+      }))
+    }).success,
+    false
+  );
+});
+
 test("estimate handoff serialises only allowlisted non-price fields and maps quote defaults", () => {
   const handoff = createEstimateHandoff(validDraft(), new Date("2026-06-23T00:00:00.000Z"));
   assert.deepEqual(Object.keys(handoff).sort(), [
@@ -323,6 +392,8 @@ test("estimate handoff serialises only allowlisted non-price fields and maps quo
     "constraintPrompts",
     "createdAt",
     "designDraftId",
+    "evidencePlanning",
+    "evidenceReadiness",
     "expiresAt",
     "finishFamilies",
     "labels",
@@ -338,11 +409,36 @@ test("estimate handoff serialises only allowlisted non-price fields and maps quo
     "styleId",
     "updatedAt"
   ]);
-  assert.doesNotMatch(JSON.stringify(handoff), /finalPrice|priceAmount|quoteTotal|rateCard|margin|supplierCost|labou?rRate/i);
+  assert.doesNotMatch(JSON.stringify(handoff), /finalPrice|priceAmount|quoteTotal|rateCard|margin|supplierCost|labou?rRate|base64|data:image|sourceMediaData|exif/i);
   assert.deepEqual(mapHandoffToQuoteDefaults(handoff), {
     projectType: "full-bathroom",
     fixtureLevel: "budget"
   });
+});
+
+test("phase 5 evidence-readiness context is preserved without media persistence or pricing markers", () => {
+  const storage = memoryStorage();
+  const draft = validDraft({
+    evidenceReadiness: createEvidenceReadiness(validDraft()).map((item, index) => ({
+      ...item,
+      status: index === 0 ? "prepared" : item.status
+    }))
+  });
+  writeLocalDesignDraft(draft, storage);
+
+  const raw = storage.dump()[DESIGN_DRAFT_STORAGE_KEY];
+  assert.ok(raw);
+  assert.doesNotMatch(raw, /base64|data:image|blob:|sourceMediaData|exif|preciseLocation|supplierCost|labou?rRate|margin/i);
+
+  const saved = readLocalDesignDraft(storage);
+  assert.equal(saved?.evidencePlanning.evidenceReadinessOnly, true);
+  assert.equal(saved?.evidencePlanning.cameraCapture, false);
+  assert.equal(saved?.evidenceReadiness.some((item) => item.status === "prepared"), true);
+
+  const handoff = createEstimateHandoff(draft, new Date("2026-06-23T00:00:00.000Z"));
+  assert.equal(handoff.evidencePlanning.uploadedMedia, false);
+  assert.equal(handoff.evidenceReadiness.some((item) => item.id === "whole-room-photos"), true);
+  assert.doesNotMatch(JSON.stringify(handoff), /score|points|rank|supplierCost|labou?rRate|margin|final price|fixed price|base64|data:image|blob:/i);
 });
 
 test("layout-risk prompt context is preserved in local draft and estimate handoff safely", () => {
@@ -467,13 +563,15 @@ test("required trust labels and brief disclaimers render", () => {
   assert.match(summary, /Approximate room shape: rectangle/);
   assert.match(summary, /Constraint prompts:/);
   assert.match(summary, /deterministic planning guidance/i);
+  assert.match(summary, /Evidence readiness:/);
+  assert.match(summary, /user-supplied and unverified online/i);
 });
 
 test("core design flow renders semantic buttons and no real supplier or rate data", () => {
   const html = renderToString(<DesignStudio />);
   assert.match(html, /<button/);
   assert.match(html, /Main bathroom/);
-  assert.match(html, /Step <!-- -->1<!-- --> of <!-- -->8/);
+  assert.match(html, /Step <!-- -->1<!-- --> of <!-- -->9/);
 
   const publicData = JSON.stringify({ designStyles, designPalettes, conceptualProductArchetypes, catalogueCandidates });
   assert.doesNotMatch(publicData, /Reece|IKEA|Bunnings|supplierCost|labou?rRate|rateCard|margin|AUD|\$|skuCode|supplierId/i);
@@ -481,7 +579,7 @@ test("core design flow renders semantic buttons and no real supplier or rate dat
 
 test("phase 2 room-shape and size inputs render bounded planning-only choices", () => {
   const html = renderToString(<DesignStudio />);
-  assert.match(html, /Step <!-- -->1<!-- --> of <!-- -->8/);
+  assert.match(html, /Step <!-- -->1<!-- --> of <!-- -->9/);
   assert.doesNotMatch(html, /measured dimensions/i);
   assert.match(html, /not measured plans, specifications, quotes or construction documents/i);
 });
@@ -531,6 +629,18 @@ test("phase 2 fixture-zone controls render bounded placement fields without free
   assert.match(html, /<select/);
   assert.match(html, /do not create measured plans, construction drawings or confirmed trade scope/i);
   assert.doesNotMatch(html, /<textarea|CAD|blueprint|dimensioned|supplierCost|labou?rRate|margin|final price/i);
+});
+
+test("phase 5 evidence-readiness controls render accessible checklist without upload or AR claims", () => {
+  const html = renderToString(
+    <EvidenceReadinessControls items={validDraft().evidenceReadiness} onChange={() => undefined} />
+  );
+  assert.match(html, /Evidence-readiness checklist/);
+  assert.match(html, /Readiness status/);
+  assert.match(html, /User-supplied and unverified online/);
+  assert.match(html, /Site measure confirmation required/);
+  assert.match(html, /<select/);
+  assert.doesNotMatch(html, /camera|AR placement|LiDAR|upload file|certified measurement|final price|fixed price|quote approved/i);
 });
 
 test("phase 2 layout-risk prompts use safe planning-only guidance", () => {
@@ -623,4 +733,20 @@ test("design summary includes deterministic constraint prompts without AI or cer
   assert.match(summary, /Constraint prompts: Service relocation needs licensed-trade review/);
   assert.match(summary, /do not use AI, external providers, source media or personal data/i);
   assert.doesNotMatch(summary, /certified|guaranteed|compliant design|final price|fixed price|quote approved/i);
+});
+
+test("design summary includes evidence readiness without measured-plan or storage claims", () => {
+  const draft = validDraft({
+    evidenceReadiness: [
+      { ...validDraft().evidenceReadiness[0], status: "prepared" },
+      { ...validDraft().evidenceReadiness[1], status: "missing" }
+    ]
+  });
+  const html = renderToString(<DesignSummary draft={draft} />);
+  const summary = getDesignSummaryText(draft);
+  assert.match(html, /Evidence readiness/);
+  assert.match(html, /user-supplied and unverified online/i);
+  assert.match(summary, /1 prepared, 0 planned, 1 missing/);
+  assert.match(summary, /no media is uploaded or stored/i);
+  assert.doesNotMatch(summary, /certified measurement|measured CAD|compliant design|final price|fixed price|quote approved/i);
 });

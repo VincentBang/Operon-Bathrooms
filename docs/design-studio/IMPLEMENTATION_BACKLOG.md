@@ -54,10 +54,21 @@
 - [x] Stage 4G preserve constraint prompts in local save, copy/print summary and estimate handoff.
 - [x] Stage 4H run full local QA and complete Phase 4 gate review.
 
+## Phase 5 Evidence-Readiness Path
+
+- [x] Stage 5A draft Phase 5 acceptance criteria.
+- [x] Stage 5B choose evidence-readiness only as the first implementation path.
+- [x] Stage 5C extend the versioned data contract to `0.5` for evidence readiness.
+- [x] Stage 5D add structured evidence-readiness checklist controls without camera, upload, AR or measured-plan claims.
+- [x] Stage 5E preserve evidence context in local save, copy/print summary and estimate handoff.
+- [x] Stage 5F add focused tests for schema safety, storage safety, handoff preservation and public wording.
+- [x] Stage 5G run full local QA and complete Phase 5 gate review.
+
 ## Deferred Until Later Approval
 
 - Verified SKUs, live product feeds, supplier availability and procurement.
 - AI/API benchmark or implementation beyond documentation.
 - Private image or design storage.
+- Camera capture, AR placement, LiDAR, BIM or measured-plan output.
 - Public gallery or share backend.
 - Quote OS.

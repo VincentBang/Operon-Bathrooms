@@ -226,3 +226,22 @@
 - Defined Phase 5 boundaries around evidence readiness, user-supplied unverified measurements and any separately governed AR/browser-camera experiment.
 - Kept `/design-studio` feature-flagged and noindex.
 - Kept Phase 5 implementation, production AR, camera upload/storage, LiDAR, BIM, AI/API-assisted measurement, Quote OS, pricing, procurement and release exposure locked until a separate path approval.
+
+## 2026-06-24 Phase 5 Evidence-Readiness Implementation Start
+
+- Reviewed PR #10 criteria scope and selected the evidence-readiness only path first.
+- Created branch `codex/phase-5-evidence-readiness` from the Phase 5 criteria branch.
+- Extended the Design Studio contract to schema version `0.5` for evidence-readiness checklist state.
+- Added `evidencePlanning` safety flags requiring evidence-readiness only, no camera capture, no AR placement, no uploaded media, no persisted media, no measured accuracy and planning guidance only.
+- Added a structured evidence-readiness step before the planning brief.
+- Preserved evidence-readiness context in local save, copy/print summary and estimate handoff.
+- Added tests for schema drift, storage safety, handoff preservation, checklist rendering and safe public wording.
+- `npm run typecheck` passed.
+- Focused `node --import tsx --test --test-concurrency=1 tests/bathroom-design.test.tsx` passed with 26 tests.
+- `npm run qa:local` passed with 73 tests, production build, Supabase migration safety verification and client bundle safety scan.
+- `git diff --check` passed.
+- `NEXT_PUBLIC_ENABLE_BATHROOM_DESIGN_STUDIO=true npm run build` passed.
+- `NEXT_PUBLIC_ENABLE_BATHROOM_DESIGN_STUDIO=true npm run qa:design-studio:a11y -- http://127.0.0.1:3017` passed on desktop and mobile after updating the harness for the new evidence step.
+- `NEXT_PUBLIC_ENABLE_BATHROOM_DESIGN_STUDIO=true npm run qa:responsive -- http://127.0.0.1:3017` passed across 7 routes at desktop, laptop, tablet and mobile viewports.
+- Kept `/design-studio` feature-flagged and noindex.
+- Kept camera upload/storage, user-entered measurement fields, AR/browser-camera experiments, LiDAR, BIM, AI/API-assisted measurement, Quote OS, pricing, procurement and release exposure locked.

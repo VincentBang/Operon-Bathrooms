@@ -24,18 +24,24 @@ import {
 import { writeLocalDesignDraft } from "@/lib/bathroom-design/storage";
 import { trackDesignStudioEvent } from "@/lib/bathroom-design/events";
 import { getDesignConstraintPrompts } from "@/lib/bathroom-design/constraints";
+import {
+  createEvidencePlanning,
+  createEvidenceReadiness,
+  evidenceReadinessSummary
+} from "@/lib/bathroom-design/evidence-readiness";
 import { getLayoutRiskPrompts } from "@/lib/bathroom-design/layout-risk";
 import { BeforeAfterSlider } from "@/components/design-studio/BeforeAfterSlider";
 import { ApproximateLayoutPreview } from "@/components/design-studio/ApproximateLayoutPreview";
 import { ConceptPreview } from "@/components/design-studio/ConceptPreview";
 import { DesignSummary, getDesignSummaryText } from "@/components/design-studio/DesignSummary";
 
-type Step = "type" | "start" | "layout" | "style" | "palette" | "concepts" | "products" | "result";
+type Step = "type" | "start" | "layout" | "style" | "palette" | "concepts" | "products" | "evidence" | "result";
 type LayoutPlanning = BathroomDesignDraft["layoutPlanning"];
 type FixtureZone = LayoutPlanning["fixtureZones"][number];
 type ProductShortlistItem = BathroomDesignDraft["productShortlist"][number];
+type EvidenceReadinessItem = BathroomDesignDraft["evidenceReadiness"][number];
 
-const stepOrder: Step[] = ["type", "start", "layout", "style", "palette", "concepts", "products", "result"];
+const stepOrder: Step[] = ["type", "start", "layout", "style", "palette", "concepts", "products", "evidence", "result"];
 const stepLabels: Record<Step, string> = {
   type: "Bathroom type",
   start: "Starting point",
@@ -44,6 +50,7 @@ const stepLabels: Record<Step, string> = {
   palette: "Palette",
   concepts: "Concepts",
   products: "Catalogue candidates",
+  evidence: "Evidence readiness",
   result: "Planning brief"
 };
 const roomShapeOptions: Array<{ id: LayoutPlanning["roomShape"]; label: string; note: string }> = [
@@ -88,6 +95,12 @@ const serviceChangeOptions: Array<{ id: FixtureZone["serviceChange"]; label: str
   { id: "new", label: "New" },
   { id: "remove", label: "Remove" },
   { id: "unclear", label: "Unclear" }
+];
+const evidenceStatusOptions: Array<{ id: EvidenceReadinessItem["status"]; label: string }> = [
+  { id: "missing", label: "Missing" },
+  { id: "planned", label: "Planned" },
+  { id: "prepared", label: "Prepared" },
+  { id: "not-applicable", label: "Not applicable" }
 ];
 
 function allowanceForStyle(styleId: string): BathroomDesignDraft["allowanceBand"] {
@@ -253,6 +266,7 @@ export function DesignStudio() {
   const [sizeBand, setSizeBand] = useState<LayoutPlanning["sizeBand"]>("standard");
   const [entryPosition, setEntryPosition] = useState<LayoutPlanning["entryPosition"]>("south-wall");
   const [fixtureZones, setFixtureZones] = useState<LayoutPlanning["fixtureZones"]>(() => createDefaultFixtureZones("main-bathroom"));
+  const [evidenceStatuses, setEvidenceStatuses] = useState<Record<string, EvidenceReadinessItem["status"]>>({});
   const [photoUrl, setPhotoUrl] = useState<string | null>(null);
   const [photoUsed, setPhotoUsed] = useState(false);
   const [overlay, setOverlay] = useState(55);
@@ -280,6 +294,14 @@ export function DesignStudio() {
         .filter((item): item is ProductShortlistItem => Boolean(item)),
     [selectedProductCandidateIds]
   );
+  const startingPoint = useMemo(
+    () => ({
+      kind: startingKind,
+      sampleTemplateId: startingKind === "sample" ? sampleTemplateId : undefined,
+      photoUsed
+    }) as const,
+    [photoUsed, sampleTemplateId, startingKind]
+  );
   const layoutPlanning = useMemo(
     () => createDefaultLayoutPlanning(bathroomType, roomShape, sizeBand, entryPosition, fixtureZones),
     [bathroomType, entryPosition, fixtureZones, roomShape, sizeBand]
@@ -305,17 +327,28 @@ export function DesignStudio() {
     () =>
       getDesignConstraintPrompts({
         bathroomType,
-        startingPoint: {
-          kind: startingKind,
-          sampleTemplateId: startingKind === "sample" ? sampleTemplateId : undefined,
-          photoUsed
-        },
+        startingPoint,
         layoutPlanning,
         productShortlist,
         allowanceBand
       }),
-    [allowanceBand, bathroomType, layoutPlanning, photoUsed, productShortlist, sampleTemplateId, startingKind]
+    [allowanceBand, bathroomType, layoutPlanning, productShortlist, startingPoint]
   );
+  const evidencePlanning = useMemo(() => createEvidencePlanning(), []);
+  const evidenceReadiness = useMemo(
+    () =>
+      createEvidenceReadiness({
+        bathroomType,
+        layoutPlanning,
+        startingPoint,
+        productShortlist
+      }).map((item) => ({
+        ...item,
+        status: evidenceStatuses[item.id] ?? item.status
+      })),
+    [bathroomType, evidenceStatuses, layoutPlanning, productShortlist, startingPoint]
+  );
+  const evidenceSummary = useMemo(() => evidenceReadinessSummary(evidenceReadiness), [evidenceReadiness]);
   const draft = useMemo<BathroomDesignDraft>(() => {
     const now = new Date().toISOString();
     return {
@@ -325,11 +358,7 @@ export function DesignStudio() {
       updatedAt: now,
       mode: "quick",
       bathroomType,
-      startingPoint: {
-        kind: startingKind,
-        sampleTemplateId: startingKind === "sample" ? sampleTemplateId : undefined,
-        photoUsed
-      },
+      startingPoint,
       styleId,
       paletteId,
       variants,
@@ -351,6 +380,8 @@ export function DesignStudio() {
       layoutRiskPrompts,
       constraintPrompts,
       constraintPlanning,
+      evidenceReadiness,
+      evidencePlanning,
       preferredNextStep: "estimate"
     };
   }, [
@@ -361,14 +392,14 @@ export function DesignStudio() {
     createdAt,
     draftId,
     paletteId,
-    photoUsed,
-    sampleTemplateId,
     selectedVariantId,
-    startingKind,
+    startingPoint,
     styleId,
     variants,
     layoutPlanning,
     layoutRiskPrompts,
+    evidencePlanning,
+    evidenceReadiness,
     productShortlist
   ]);
 
@@ -386,7 +417,8 @@ export function DesignStudio() {
         payload: {
           selectedVariantId,
           productShortlistCount: productShortlist.length,
-          constraintPromptCount: draft.constraintPrompts.length
+          constraintPromptCount: draft.constraintPrompts.length,
+          evidencePreparedCount: evidenceSummary.prepared
         }
       });
     }
@@ -461,9 +493,13 @@ export function DesignStudio() {
     );
   }
 
+  function updateEvidenceStatus(itemId: string, status: EvidenceReadinessItem["status"]) {
+    setEvidenceStatuses((current) => ({ ...current, [itemId]: status }));
+  }
+
   async function saveDraft() {
     writeLocalDesignDraft(draft, window.localStorage);
-    setSavedMessage("Saved locally on this device. The source image was not saved.");
+    setSavedMessage("Saved locally on this device. Source image and evidence media were not saved.");
     trackDesignStudioEvent("design_saved_local", { draftId });
   }
 
@@ -750,7 +786,31 @@ export function DesignStudio() {
                   Selected candidates: {productShortlist.length}. Keep at least one candidate so the
                   planning brief preserves selection context.
                 </p>
-                <StepActions back={() => goTo("concepts")} next={() => goTo("result")} nextLabel="Create brief" />
+                <StepActions back={() => goTo("concepts")} next={() => goTo("evidence")} />
+              </>
+            ) : null}
+
+            {step === "evidence" ? (
+              <>
+                <h2>Prepare evidence for site review.</h2>
+                <p className="muted">
+                  This checklist records readiness only. It does not upload photos, capture camera
+                  data, verify measurements, confirm compliance or create a measured plan.
+                </p>
+                <div className="notice">
+                  <strong>User-supplied and unverified online</strong>
+                  <p>
+                    Evidence items help prepare for site measure and written scope confirmation.
+                    Operon must still confirm conditions, selections and licensed-trade scope in
+                    person before contract pricing.
+                  </p>
+                </div>
+                <EvidenceReadinessControls items={evidenceReadiness} onChange={updateEvidenceStatus} />
+                <p className="muted">
+                  Prepared: {evidenceSummary.prepared} of {evidenceSummary.total}. Planned: {evidenceSummary.planned}.
+                  Missing: {evidenceSummary.missing}.
+                </p>
+                <StepActions back={() => goTo("products")} next={() => goTo("result")} nextLabel="Create brief" />
               </>
             ) : null}
 
@@ -835,6 +895,48 @@ export function FixtureZoneControls({
                 ))}
               </select>
             </label>
+          </div>
+        ))}
+      </div>
+    </fieldset>
+  );
+}
+
+export function EvidenceReadinessControls({
+  items,
+  onChange
+}: {
+  items: EvidenceReadinessItem[];
+  onChange: (itemId: string, status: EvidenceReadinessItem["status"]) => void;
+}) {
+  return (
+    <fieldset className="evidence-readiness-controls">
+      <legend>Evidence-readiness checklist</legend>
+      <p className="muted">
+        Mark what is ready to discuss during site review. Statuses are planning notes only and do
+        not verify measurements, site conditions, waterproofing, access or compliance online.
+      </p>
+      <div className="evidence-readiness-grid">
+        {items.map((item) => (
+          <div className="evidence-readiness-card" key={item.id}>
+            <span className="pill">{item.category}</span>
+            <h3>{item.label}</h3>
+            <p>{item.prompt}</p>
+            <label>
+              Readiness status
+              <select
+                aria-label={`${item.label} readiness status`}
+                value={item.status}
+                onChange={(event) => onChange(item.id, event.target.value as EvidenceReadinessItem["status"])}
+              >
+                {evidenceStatusOptions.map((option) => (
+                  <option key={option.id} value={option.id}>{option.label}</option>
+                ))}
+              </select>
+            </label>
+            <small>
+              User-supplied and unverified online. Site measure confirmation required.
+            </small>
           </div>
         ))}
       </div>

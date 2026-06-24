@@ -261,6 +261,12 @@ async function runQaForViewport(browserWsUrl, viewport) {
     await keyboardActivateButton(client, "Next");
     await keyboardActivateButton(client, "Next");
     await keyboardActivateButton(client, "Next");
+    await keyboardActivateButton(client, "Next");
+    const evidenceQa = await getPageQa(client);
+    assertQa(`${viewport.label} evidence`, evidenceQa, "Evidence readiness");
+    if (!evidenceQa.fieldsets.includes("Evidence-readiness checklist")) {
+      failures.push(`${viewport.label} evidence: missing fieldset legend Evidence-readiness checklist`);
+    }
     await keyboardActivateButton(client, "Create brief");
     const resultQa = await getPageQa(client);
     assertQa(`${viewport.label} result`, resultQa, "Planning brief");

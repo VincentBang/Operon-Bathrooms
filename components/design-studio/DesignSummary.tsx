@@ -7,6 +7,7 @@ import {
   findTemplate
 } from "@/data/public/bathroom-design-poc";
 import { getDesignConstraintPrompts } from "@/lib/bathroom-design/constraints";
+import { evidenceReadinessSummary } from "@/lib/bathroom-design/evidence-readiness";
 import { getLayoutRiskPrompts } from "@/lib/bathroom-design/layout-risk";
 import { BathroomDesignDraft } from "@/lib/bathroom-design/schema";
 
@@ -17,6 +18,7 @@ export function getDesignSummaryText(draft: BathroomDesignDraft) {
   const selectedVariant = draft.variants.find((variant) => variant.id === draft.selectedVariantId);
   const layoutPrompts = draft.layoutRiskPrompts.length ? draft.layoutRiskPrompts : getLayoutRiskPrompts(draft.layoutPlanning);
   const constraintPrompts = draft.constraintPrompts.length ? draft.constraintPrompts : getDesignConstraintPrompts(draft);
+  const evidenceSummary = evidenceReadinessSummary(draft.evidenceReadiness);
   return [
     "Operon Bathroom Design Studio concept summary",
     `Draft: ${draft.id}`,
@@ -31,6 +33,8 @@ export function getDesignSummaryText(draft: BathroomDesignDraft) {
     `Fixture zones: ${draft.layoutPlanning.fixtureZones.map((item) => item.label).join(", ")}`,
     `Planning checks: ${layoutPrompts.length ? layoutPrompts.map((item) => item.title).join(", ") : "No extra layout prompts from selected options"}`,
     `Constraint prompts: ${constraintPrompts.map((item) => item.title).join(", ")}`,
+    `Evidence readiness: ${evidenceSummary.prepared} prepared, ${evidenceSummary.planned} planned, ${evidenceSummary.missing} missing`,
+    `Evidence items: ${draft.evidenceReadiness.map((item) => `${item.label} (${item.status})`).join(", ")}`,
     `Photo used: ${draft.startingPoint.photoUsed ? "Yes, browser memory only" : "No"}`,
     `Conceptual selections: ${draft.conceptualSelections.map((item) => item.label).join(", ")}`,
     `Catalogue candidates: ${draft.productShortlist.map((item) => item.label).join(", ")}`,
@@ -38,6 +42,7 @@ export function getDesignSummaryText(draft: BathroomDesignDraft) {
     "It is not a quote, measured plan, specification, contract or construction document.",
     "Catalogue candidates are not confirmed SKUs, supplier feeds, prices or procurement items.",
     "Constraint prompts are deterministic planning guidance from bounded inputs only; they do not use AI, external providers, source media or personal data.",
+    "Evidence readiness is user-supplied and unverified online; no media is uploaded or stored by this checklist.",
     "Site measure, selections, licensed-trade checks and written scope confirmation are required before contract pricing."
   ].join("\n");
 }
@@ -48,6 +53,7 @@ export function DesignSummary({ draft }: { draft: BathroomDesignDraft }) {
   const selectedVariant = draft.variants.find((variant) => variant.id === draft.selectedVariantId);
   const layoutPrompts = draft.layoutRiskPrompts.length ? draft.layoutRiskPrompts : getLayoutRiskPrompts(draft.layoutPlanning);
   const constraintPrompts = draft.constraintPrompts.length ? draft.constraintPrompts : getDesignConstraintPrompts(draft);
+  const evidenceSummary = evidenceReadinessSummary(draft.evidenceReadiness);
 
   return (
     <div className="design-brief" id="design-brief">
@@ -118,6 +124,23 @@ export function DesignSummary({ draft }: { draft: BathroomDesignDraft }) {
         <p className="muted">
           Generated from bounded planning inputs only. No AI, external provider, source media,
           personal data, pricing or compliance certification is used.
+        </p>
+      </div>
+      <div>
+        <h3>Evidence readiness</h3>
+        <p className="muted">
+          {evidenceSummary.prepared} prepared, {evidenceSummary.planned} planned and {evidenceSummary.missing} missing.
+          Evidence statuses are user-supplied and unverified online.
+        </p>
+        <ul>
+          {draft.evidenceReadiness.map((item) => (
+            <li key={item.id}>
+              <strong>{item.label}:</strong> {item.status}. {item.prompt}
+            </li>
+          ))}
+        </ul>
+        <p className="muted">
+          No evidence media is uploaded or stored by this checklist. Site measure confirmation is still required.
         </p>
       </div>
       <div className="notice">

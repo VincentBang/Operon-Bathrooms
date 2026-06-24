@@ -1,14 +1,43 @@
 # Phase 5 Gate Review
 
-Status: Criteria drafting started after Vincent approval on 2026-06-24.
+Status: Gate-review-ready for the evidence-readiness only path.
 
-Implementation is not started. Phase 5 still requires review of `docs/design-studio/PHASE_5_ACCEPTANCE_CRITERIA.md` and a separate approval of the exact path before code changes begin.
+Vincent approved Phase 5 to start on 2026-06-24. The first implementation path is evidence-readiness only.
+
+The implementation adds a structured site-review preparation checklist to `/design-studio`. It does not add camera capture, uploads, persisted media, AR placement, user-entered measurement fields, LiDAR, BIM, pricing, procurement, Quote OS or release exposure.
 
 ## Candidate Paths
 
-- Evidence-readiness only.
+- Evidence-readiness only: implemented and ready for review.
 - User-entered approximate measurements.
 - Separately governed AR/browser-camera experiment.
+
+## Implemented Scope
+
+- Extended `BathroomDesignDraft` to schema version `0.5`.
+- Added `evidenceReadiness` checklist items with status values: missing, planned, prepared and not-applicable.
+- Added `evidencePlanning` safety flags requiring evidence-readiness only, no camera capture, no AR placement, no uploaded media, no persisted media, no measured accuracy and planning guidance only.
+- Added an evidence-readiness step before the final planning brief.
+- Preserved evidence context in local draft save, copy/print summary and estimate handoff.
+- Added responsive checklist styling and keyboard-friendly select controls.
+
+## QA Evidence
+
+- `npm run typecheck`: passed.
+- Focused `node --import tsx --test --test-concurrency=1 tests/bathroom-design.test.tsx`: passed with 26 tests.
+- `npm run qa:local`: passed with 73 tests, production build, Supabase migration verification and client bundle safety scan.
+- `git diff --check`: passed.
+- `NEXT_PUBLIC_ENABLE_BATHROOM_DESIGN_STUDIO=true npm run build`: passed.
+- `NEXT_PUBLIC_ENABLE_BATHROOM_DESIGN_STUDIO=true npm run qa:design-studio:a11y -- http://127.0.0.1:3017`: passed on desktop and mobile.
+- `NEXT_PUBLIC_ENABLE_BATHROOM_DESIGN_STUDIO=true npm run qa:responsive -- http://127.0.0.1:3017`: passed across 7 routes at desktop, laptop, tablet and mobile viewports.
+
+## Safety Confirmation
+
+- `/design-studio` remains feature-flagged.
+- `/design-studio` remains noindex/nofollow.
+- Evidence statuses are user-supplied and unverified online.
+- No media is uploaded, stored in localStorage, sent to Supabase or included in analytics by the evidence checklist.
+- No measured plan, certified measurement, compliance certification, legal advice, final quote, fixed price, live supplier feed, verified SKU, pricing, procurement or Quote OS claim was added.
 
 ## Locked Until Separate Approval
 
@@ -17,3 +46,7 @@ Implementation is not started. Phase 5 still requires review of `docs/design-stu
 - AI/API-assisted measurement interpretation.
 - Release exposure or indexing changes.
 - Quote OS, pricing, procurement, supplier feeds, payments, CRM or marketplace work.
+
+## Gate Decision
+
+Ready for Vincent review. If approved, merge the Phase 5 evidence-readiness branch. User-entered measurements and AR/browser-camera experiments remain locked after this gate unless separately approved.

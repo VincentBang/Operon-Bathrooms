@@ -1,7 +1,7 @@
 # Design Studio Next Actions
 
-1. Review the Phase 5 acceptance-criteria branch and confirm which implementation path is approved.
-2. Choose one bounded Phase 5 path: evidence-readiness only, user-entered approximate measurements, or a separately governed AR/browser-camera experiment.
+1. Review the Phase 5 evidence-readiness implementation branch and gate review.
+2. Approve the evidence-readiness path for merge or request changes.
 3. Keep `/design-studio` feature-flagged and noindex unless release exposure is separately approved.
 4. Do not add camera, upload, storage, LiDAR, BIM, production AR, measured-plan, pricing, procurement, Quote OS, payment, CRM or marketplace work without a specific gate approval.
-5. Keep AI/API-assisted measurement or constraint intelligence locked unless a separate provider, privacy, prompt and data-retention review is approved.
+5. Keep user-entered approximate measurements, AR/browser-camera experiments and AI/API-assisted measurement locked until separate approval.

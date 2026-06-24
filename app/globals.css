@@ -1216,6 +1216,48 @@ summary:focus-visible {
   font-size: 1rem;
 }
 
+.evidence-readiness-controls {
+  display: grid;
+  gap: 14px;
+  margin-top: 22px;
+}
+
+.evidence-readiness-controls > p {
+  margin: 0;
+}
+
+.evidence-readiness-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.evidence-readiness-card {
+  min-width: 0;
+  display: grid;
+  gap: 10px;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--panel);
+}
+
+.evidence-readiness-card h3,
+.evidence-readiness-card p {
+  margin: 0;
+}
+
+.evidence-readiness-card small {
+  color: var(--brand-strong);
+  font-weight: 700;
+  line-height: 1.45;
+}
+
+.evidence-readiness-card select:focus-visible {
+  outline: 3px solid #f3c35b;
+  outline-offset: 2px;
+}
+
 .segmented-control {
   display: flex;
   flex-wrap: wrap;
@@ -1250,6 +1292,7 @@ summary:focus-visible {
   .product-candidate-grid,
   .approx-layout-meta,
   .fixture-zone-grid,
+  .evidence-readiness-grid,
   .trust-label-grid {
     grid-template-columns: 1fr;
   }

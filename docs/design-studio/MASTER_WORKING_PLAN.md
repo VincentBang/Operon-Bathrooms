@@ -33,7 +33,7 @@ Phase 3 Catalogue Candidate Shortlist is `APPROVED` and merged after Vincent app
 
 Phase 4 Deterministic Constraint Intelligence is `APPROVED` and merged after Vincent approval on 2026-06-24.
 
-Phase 5 AR and Measurement is approved for acceptance-criteria definition only. No implementation path, release exposure, AI/API-assisted measurement, production AR, upload/storage, Quote OS or later work is approved yet.
+Phase 5 AR and Measurement evidence-readiness only path is gate-review-ready. No user-entered measurement fields, release exposure, AI/API-assisted measurement, production AR, upload/storage, Quote OS or later work is approved yet.
 
 ## Completed Work Before Design Studio
 
@@ -46,18 +46,18 @@ Phase 5 AR and Measurement is approved for acceptance-criteria definition only. 
 1. Keep merged Phase 3 implementation and audit branches for traceability.
 2. Decide whether `/design-studio` should remain internal/gated or move into controlled release-exposure planning.
 3. If release exposure is considered, define release criteria before changing feature flags, indexing or navigation.
-4. Review the Phase 5 acceptance criteria and choose a bounded implementation path.
-5. Keep release exposure, AI/API-assisted constraint intelligence, production AR, upload/storage, Quote OS and later phases locked until explicit Vincent approval.
+4. Review the Phase 5 evidence-readiness implementation branch and gate review.
+5. Keep release exposure, user-entered measurements, AI/API-assisted measurement, production AR, upload/storage, Quote OS and later phases locked until explicit Vincent approval.
 
 ## Future Phases
 
 - Phase 2: structured planner with editable approximate layouts.
 - Phase 3: governed catalogue candidates and product shortlist, not verified SKUs.
 - Phase 4: deterministic grounded constraint intelligence; AI/API only after a separate provider and privacy approval.
-- Phase 5: AR and measurement, starting with evidence-readiness and user-supplied unverified measurement boundaries before any AR/browser-camera experiment.
+- Phase 5: AR and measurement, starting with evidence-readiness only before any user-supplied measurement fields or AR/browser-camera experiment.
 - Phase 6: Quote OS integration.
 
-Phase 3 and Phase 4 deterministic implementation are complete and approved as merged. Phase 5 criteria work has started; implementation still requires a passed gate report and explicit Vincent approval.
+Phase 3 and Phase 4 deterministic implementation are complete and approved as merged. Phase 5 evidence-readiness implementation is gate-review-ready and requires explicit Vincent approval before merge/release exposure.
 
 ## Dependencies
 
@@ -68,7 +68,7 @@ Phase 3 and Phase 4 deterministic implementation are complete and approved as me
 
 ## Data Contracts
 
-The current contract is `BathroomDesignDraft` schema version `0.4`. It stores structured design choices, approximate layout planning, public layout-risk prompts, governed catalogue-candidate shortlist choices and deterministic constraint prompts only. It excludes image data, blobs, base64, private rates, final prices, personal contact data, live supplier feeds, confirmed SKUs, availability checks, procurement data, AI/API responses and private scoring logic.
+The current contract is `BathroomDesignDraft` schema version `0.5`. It stores structured design choices, approximate layout planning, public layout-risk prompts, governed catalogue-candidate shortlist choices, deterministic constraint prompts and evidence-readiness checklist state only. It excludes image data, blobs, base64, private rates, final prices, personal contact data, live supplier feeds, confirmed SKUs, availability checks, procurement data, AI/API responses, measured accuracy claims and private scoring logic.
 
 ## Privacy Boundaries
 
@@ -109,4 +109,4 @@ No production AI, production 3D, WebGL/WebGPU editor, production AR, LiDAR, BIM,
 
 ## Next Action
 
-Review the Phase 5 acceptance-criteria branch, then choose whether to approve evidence-readiness only, user-entered approximate measurements or a separately governed AR/browser-camera experiment. Keep `/design-studio` feature-flagged and noindex.
+Review the Phase 5 evidence-readiness branch and gate review, then approve merge or request changes. Keep `/design-studio` feature-flagged and noindex.

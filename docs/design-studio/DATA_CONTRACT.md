@@ -2,9 +2,9 @@
 
 ## Contract
 
-`BathroomDesignDraft` is a serialisable versioned object for Phase 0/1 Quick Mode, Phase 2 approximate layout planning, Phase 3 catalogue-candidate shortlisting and Phase 4 deterministic constraint prompts.
+`BathroomDesignDraft` is a serialisable versioned object for Phase 0/1 Quick Mode, Phase 2 approximate layout planning, Phase 3 catalogue-candidate shortlisting, Phase 4 deterministic constraint prompts and Phase 5 evidence readiness.
 
-Current schema version: `0.4`.
+Current schema version: `0.5`.
 
 Allowed fields:
 
@@ -35,6 +35,8 @@ Allowed fields:
 - `cataloguePlanning`
 - `constraintPrompts`
 - `constraintPlanning`
+- `evidenceReadiness`
+- `evidencePlanning`
 - `preferredNextStep`
 
 Forbidden fields:
@@ -57,6 +59,11 @@ Forbidden fields:
 - AI/API generated recommendations
 - external provider responses
 - private scoring or ranking logic
+- uploaded media
+- persisted media
+- camera captures
+- AR placement output
+- certified measurement output
 
 ## Phase 2 Layout Contract
 
@@ -154,8 +161,40 @@ The contract rejects drift into AI/API or commercial decisioning by requiring:
 
 Constraint prompts must stay public, explanatory and evidence-oriented. They must not include hidden scores, ranking points, internal qualification logic, admin notes, supplier costs, labour rates, margins, fixed prices, final quote wording, legal advice, buildability approval or compliance certification.
 
+## Phase 5 Evidence-Readiness Contract
+
+The Phase 5 evidence object is a structured preparation checklist only. It helps users prepare useful context for site review without capturing media, calculating dimensions or claiming any condition is verified online.
+
+Allowed evidence item fields:
+
+- `id`
+- `category`: photos, measurements, services, access, strata, quote, issues or selections
+- `label`
+- `prompt`
+- `status`: missing, planned, prepared or not-applicable
+- `userSupplied: true`
+- `verifiedOnline: false`
+- `uploadStored: false`
+- `requiresSiteMeasureConfirmation: true`
+
+The evidence list is capped at twelve items.
+
+The contract rejects drift into media capture, AR or verified measurement by requiring:
+
+- `evidencePlanning.mode: evidence-readiness`
+- `evidencePlanning.evidenceReadinessOnly: true`
+- `evidencePlanning.cameraCapture: false`
+- `evidencePlanning.arPlacement: false`
+- `evidencePlanning.uploadedMedia: false`
+- `evidencePlanning.persistedMedia: false`
+- `evidencePlanning.measuredAccuracy: false`
+- `evidencePlanning.userSuppliedUnverified: true`
+- `evidencePlanning.planningGuidanceOnly: true`
+
+Evidence readiness must stay public, checklist-based and site-measure-oriented. It must not upload files, store image data, read EXIF data, verify dimensions, confirm waterproofing, certify compliance, confirm product fit or imply contract pricing.
+
 ## Handoff Contract
 
 The `/quote` handoff stores an allowlisted subset in `sessionStorage`. It expires and is ignored if invalid.
 
-Allowed handoff fields include draft ID, schema version, bathroom type, sample template, style, palette, conceptual selections, finish families, `photoUsed`, selected variant, allowance band, approximate layout planning object, layout-risk prompts, governed catalogue-candidate shortlist, catalogue-planning safety flags, deterministic constraint prompts, constraint-planning safety flags, trust labels, timestamps and preferred next step.
+Allowed handoff fields include draft ID, schema version, bathroom type, sample template, style, palette, conceptual selections, finish families, `photoUsed`, selected variant, allowance band, approximate layout planning object, layout-risk prompts, governed catalogue-candidate shortlist, catalogue-planning safety flags, deterministic constraint prompts, constraint-planning safety flags, evidence-readiness checklist, evidence-planning safety flags, trust labels, timestamps and preferred next step.
