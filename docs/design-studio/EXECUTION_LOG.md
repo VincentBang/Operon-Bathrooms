@@ -216,3 +216,13 @@
 - Confirmed `/design-studio` remains feature-flagged and noindex.
 - Confirmed Phase 4 remains deterministic-only with no AI/API, external provider, source media use, personal data use, pricing or compliance certification.
 - Confirmed Phase 5 remains locked and not approved.
+
+## 2026-06-24 Phase 4 Audit Merge And Phase 5 Criteria Start
+
+- Vincent approved closing the Phase 4 release-boundary audit loop and approving Phase 5.
+- PR #9 was closed as merged after the audit commit `e358c0a` had already been fast-forward merged to `main`.
+- Created branch `codex/phase-5-acceptance-criteria` from updated `main`.
+- Started Phase 5 as acceptance criteria only.
+- Defined Phase 5 boundaries around evidence readiness, user-supplied unverified measurements and any separately governed AR/browser-camera experiment.
+- Kept `/design-studio` feature-flagged and noindex.
+- Kept Phase 5 implementation, production AR, camera upload/storage, LiDAR, BIM, AI/API-assisted measurement, Quote OS, pricing, procurement and release exposure locked until a separate path approval.

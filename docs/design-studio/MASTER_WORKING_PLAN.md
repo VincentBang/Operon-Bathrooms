@@ -33,7 +33,7 @@ Phase 3 Catalogue Candidate Shortlist is `APPROVED` and merged after Vincent app
 
 Phase 4 Deterministic Constraint Intelligence is `APPROVED` and merged after Vincent approval on 2026-06-24.
 
-No release exposure, AI/API-assisted constraint intelligence, Phase 5 or later work is approved.
+Phase 5 AR and Measurement is approved for acceptance-criteria definition only. No implementation path, release exposure, AI/API-assisted measurement, production AR, upload/storage, Quote OS or later work is approved yet.
 
 ## Completed Work Before Design Studio
 
@@ -46,18 +46,18 @@ No release exposure, AI/API-assisted constraint intelligence, Phase 5 or later w
 1. Keep merged Phase 3 implementation and audit branches for traceability.
 2. Decide whether `/design-studio` should remain internal/gated or move into controlled release-exposure planning.
 3. If release exposure is considered, define release criteria before changing feature flags, indexing or navigation.
-4. Review the Phase 4 release-boundary audit PR/file scope and decide whether to merge.
-5. Keep release exposure, AI/API-assisted constraint intelligence, Phase 5 and later phases locked until explicit Vincent approval.
+4. Review the Phase 5 acceptance criteria and choose a bounded implementation path.
+5. Keep release exposure, AI/API-assisted constraint intelligence, production AR, upload/storage, Quote OS and later phases locked until explicit Vincent approval.
 
 ## Future Phases
 
 - Phase 2: structured planner with editable approximate layouts.
 - Phase 3: governed catalogue candidates and product shortlist, not verified SKUs.
 - Phase 4: deterministic grounded constraint intelligence; AI/API only after a separate provider and privacy approval.
-- Phase 5: AR and measurement.
+- Phase 5: AR and measurement, starting with evidence-readiness and user-supplied unverified measurement boundaries before any AR/browser-camera experiment.
 - Phase 6: Quote OS integration.
 
-Phase 3 and Phase 4 deterministic implementation are complete and approved as merged. Each later phase requires a passed gate report and explicit Vincent approval.
+Phase 3 and Phase 4 deterministic implementation are complete and approved as merged. Phase 5 criteria work has started; implementation still requires a passed gate report and explicit Vincent approval.
 
 ## Dependencies
 
@@ -100,7 +100,7 @@ Pause if privacy boundaries cannot be guaranteed, internal pricing leaks, public
 
 ## Do-Not-Build List
 
-No production AI, production 3D, WebGL/WebGPU editor, AR, LiDAR, BIM, live supplier feeds, inventory, confirmed SKUs, checkout, marketplace, contractor bidding, automatic final quotes, construction documents, compliance certification, public gallery, native mobile app, Quote OS or production image storage.
+No production AI, production 3D, WebGL/WebGPU editor, production AR, LiDAR, BIM, live supplier feeds, inventory, confirmed SKUs, checkout, marketplace, contractor bidding, automatic final quotes, construction documents, compliance certification, public gallery, native mobile app, Quote OS or production image storage.
 
 ## Decision Owners
 
@@ -109,4 +109,4 @@ No production AI, production 3D, WebGL/WebGPU editor, AR, LiDAR, BIM, live suppl
 
 ## Next Action
 
-Review the Phase 4 release-boundary audit PR/file scope, then approve or request changes. Keep `/design-studio` feature-flagged and noindex.
+Review the Phase 5 acceptance-criteria branch, then choose whether to approve evidence-readiness only, user-entered approximate measurements or a separately governed AR/browser-camera experiment. Keep `/design-studio` feature-flagged and noindex.
