@@ -1,6 +1,6 @@
 # Phase 5 Gate Review
 
-Status: Gate-review-ready for the evidence-readiness only path.
+Status: Approved and merged for the evidence-readiness only path.
 
 Vincent approved Phase 5 to start on 2026-06-24. The first implementation path is evidence-readiness only.
 
@@ -49,4 +49,4 @@ The implementation adds a structured site-review preparation checklist to `/desi
 
 ## Gate Decision
 
-Ready for Vincent review. If approved, merge the Phase 5 evidence-readiness branch. User-entered measurements and AR/browser-camera experiments remain locked after this gate unless separately approved.
+Approved by Vincent and merged via PR #11. `/design-studio` remains feature-flagged and noindex. Release exposure, user-entered measurements and AR/browser-camera experiments remain locked after this gate unless separately approved.

@@ -33,7 +33,7 @@ Phase 3 Catalogue Candidate Shortlist is `APPROVED` and merged after Vincent app
 
 Phase 4 Deterministic Constraint Intelligence is `APPROVED` and merged after Vincent approval on 2026-06-24.
 
-Phase 5 AR and Measurement evidence-readiness only path is gate-review-ready. No user-entered measurement fields, release exposure, AI/API-assisted measurement, production AR, upload/storage, Quote OS or later work is approved yet.
+Phase 5 AR and Measurement evidence-readiness only path is `APPROVED` and merged after Vincent approval on 2026-06-24. No user-entered measurement fields, release exposure, AI/API-assisted measurement, production AR, upload/storage, Quote OS or later work is approved yet.
 
 ## Completed Work Before Design Studio
 
@@ -46,7 +46,7 @@ Phase 5 AR and Measurement evidence-readiness only path is gate-review-ready. No
 1. Keep merged Phase 3 implementation and audit branches for traceability.
 2. Decide whether `/design-studio` should remain internal/gated or move into controlled release-exposure planning.
 3. If release exposure is considered, define release criteria before changing feature flags, indexing or navigation.
-4. Review the Phase 5 evidence-readiness implementation branch and gate review.
+4. Review the Phase 5 release-boundary audit branch.
 5. Keep release exposure, user-entered measurements, AI/API-assisted measurement, production AR, upload/storage, Quote OS and later phases locked until explicit Vincent approval.
 
 ## Future Phases
@@ -57,7 +57,7 @@ Phase 5 AR and Measurement evidence-readiness only path is gate-review-ready. No
 - Phase 5: AR and measurement, starting with evidence-readiness only before any user-supplied measurement fields or AR/browser-camera experiment.
 - Phase 6: Quote OS integration.
 
-Phase 3 and Phase 4 deterministic implementation are complete and approved as merged. Phase 5 evidence-readiness implementation is gate-review-ready and requires explicit Vincent approval before merge/release exposure.
+Phase 3, Phase 4 deterministic implementation and Phase 5 evidence-readiness implementation are complete and approved as merged. Release exposure and later Phase 5 measurement/AR paths remain separately gated.
 
 ## Dependencies
 
@@ -109,4 +109,4 @@ No production AI, production 3D, WebGL/WebGPU editor, production AR, LiDAR, BIM,
 
 ## Next Action
 
-Review the Phase 5 evidence-readiness branch and gate review, then approve merge or request changes. Keep `/design-studio` feature-flagged and noindex.
+Review the Phase 5 release-boundary audit branch, then approve merge or request changes. Keep `/design-studio` feature-flagged and noindex.
