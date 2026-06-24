@@ -274,3 +274,13 @@
 - Updated next actions, master plan, stage status, decision log, metrics/gates, risk register, test matrix and known limitations for controlled noindex pilot criteria.
 - Kept `/design-studio` feature-flagged and noindex.
 - Kept release implementation, sitemap/nav/indexing changes, user-entered measurements, AR/browser-camera experiments, upload/storage, LiDAR, BIM, AI/API-assisted measurement, Quote OS, pricing and procurement locked until separate approval.
+
+## 2026-06-24 Controlled Noindex Pilot Prep
+
+- Vincent approved starting controlled noindex pilot preparation.
+- Created branch `codex/design-studio-controlled-noindex-pilot-prep` from updated `main`.
+- Added `docs/design-studio/DESIGN_STUDIO_CONTROLLED_NOINDEX_PILOT_PREP_2026-06-24.md`.
+- Added a safe `.env.example` warning for `NEXT_PUBLIC_ENABLE_BATHROOM_DESIGN_STUDIO`.
+- Documented that the current single feature flag also controls route rendering, nav/footer discovery and sitemap inclusion.
+- Required a later discovery-split implementation branch before any controlled pilot exposure.
+- Kept route behavior, feature flags, sitemap/nav/indexing, user-entered measurements, AR/browser-camera, upload/storage, LiDAR, BIM, AI/API-assisted measurement, Quote OS, pricing and procurement unchanged.

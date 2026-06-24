@@ -29,6 +29,8 @@
 | Release-exposure criteria | Controlled noindex pilot criteria documented without enabling release exposure | Docs-only branch; `git diff --check` required |
 | Release-exposure rollback | Criteria define disable path through `NEXT_PUBLIC_ENABLE_BATHROOM_DESIGN_STUDIO` | Docs-only branch; implementation not approved |
 | Release-exposure locks | Criteria keep user-entered measurements, AR/browser-camera, upload/storage, pricing, procurement and Quote OS locked | Docs-only branch; implementation not approved |
+| Controlled noindex pilot prep | Runbook documents current single-flag limitation and later discovery-split requirement | Docs/config-only branch; `git diff --check` required |
+| Pilot env warning | `.env.example` warns not to enable Design Studio for controlled noindex pilot before route/nav/sitemap behavior is approved | Docs/config-only branch; implementation not approved |
 | Phase 2 viewport QA | Desktop, laptop, tablet and mobile browser checks | Passed locally; see `PHASE_2_MANUAL_QA.md` |
 | Phase 2 accessibility proxy | Fieldsets, labels, preview ARIA and unlabeled controls | Passed locally; dedicated screen-reader pass still recommended |
 | Release polish copy | Public labels use gated planning-preview wording | Passed in component test and `npm run qa:local` |
