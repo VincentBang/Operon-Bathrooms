@@ -2,9 +2,9 @@
 
 ## Contract
 
-`BathroomDesignDraft` is a serialisable versioned object for Phase 0/1 Quick Mode, Phase 2 approximate layout planning and Phase 3 catalogue-candidate shortlisting.
+`BathroomDesignDraft` is a serialisable versioned object for Phase 0/1 Quick Mode, Phase 2 approximate layout planning, Phase 3 catalogue-candidate shortlisting and Phase 4 deterministic constraint prompts.
 
-Current schema version: `0.3`.
+Current schema version: `0.4`.
 
 Allowed fields:
 
@@ -33,6 +33,8 @@ Allowed fields:
 - `layoutRiskPrompts`
 - `productShortlist`
 - `cataloguePlanning`
+- `constraintPrompts`
+- `constraintPlanning`
 - `preferredNextStep`
 
 Forbidden fields:
@@ -52,6 +54,9 @@ Forbidden fields:
 - confirmed SKUs
 - product availability checks
 - procurement or ordering data
+- AI/API generated recommendations
+- external provider responses
+- private scoring or ranking logic
 
 ## Phase 2 Layout Contract
 
@@ -119,8 +124,38 @@ The catalogue contract rejects drift into commercial product data by requiring:
 
 The shortlist is capped at six candidates and requires at least one candidate. Every candidate must match the governed local catalogue by ID, archetype and category.
 
+## Phase 4 Deterministic Constraint Contract
+
+The Phase 4 constraint object is a deterministic planning prompt layer. It is generated from bounded draft inputs only.
+
+Allowed prompt fields:
+
+- `id`
+- `category`: layout, access, waterproofing, ventilation, strata, services, evidence or selection
+- `level`: check, review or site-review
+- `title`
+- `message`
+- `evidenceToPrepare`
+- `nextStep`: estimate, quote-review, request-review or site-measure
+
+The prompt list is capped at ten prompts.
+
+The contract rejects drift into AI/API or commercial decisioning by requiring:
+
+- `constraintPlanning.mode: deterministic-constraints`
+- `constraintPlanning.deterministicOnly: true`
+- `constraintPlanning.aiAssisted: false`
+- `constraintPlanning.externalProvider: false`
+- `constraintPlanning.sourceMediaUsed: false`
+- `constraintPlanning.personalDataUsed: false`
+- `constraintPlanning.pricing: false`
+- `constraintPlanning.complianceCertification: false`
+- `constraintPlanning.planningGuidanceOnly: true`
+
+Constraint prompts must stay public, explanatory and evidence-oriented. They must not include hidden scores, ranking points, internal qualification logic, admin notes, supplier costs, labour rates, margins, fixed prices, final quote wording, legal advice, buildability approval or compliance certification.
+
 ## Handoff Contract
 
 The `/quote` handoff stores an allowlisted subset in `sessionStorage`. It expires and is ignored if invalid.
 
-Allowed handoff fields include draft ID, schema version, bathroom type, sample template, style, palette, conceptual selections, finish families, `photoUsed`, selected variant, allowance band, approximate layout planning object, layout-risk prompts, governed catalogue-candidate shortlist, catalogue-planning safety flags, trust labels, timestamps and preferred next step.
+Allowed handoff fields include draft ID, schema version, bathroom type, sample template, style, palette, conceptual selections, finish families, `photoUsed`, selected variant, allowance band, approximate layout planning object, layout-risk prompts, governed catalogue-candidate shortlist, catalogue-planning safety flags, deterministic constraint prompts, constraint-planning safety flags, trust labels, timestamps and preferred next step.

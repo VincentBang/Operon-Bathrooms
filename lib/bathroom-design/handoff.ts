@@ -6,7 +6,7 @@ import {
   safeParseBathroomDesignHandoff
 } from "@/lib/bathroom-design/schema";
 
-export const DESIGN_HANDOFF_STORAGE_KEY = "operon:bathroom-design:quote-handoff:v0.3";
+export const DESIGN_HANDOFF_STORAGE_KEY = "operon:bathroom-design:quote-handoff:v0.4";
 const HANDOFF_TTL_MS = 1000 * 60 * 60 * 24;
 
 export function createEstimateHandoff(draft: BathroomDesignDraft, now = new Date()): BathroomDesignHandoff {
@@ -32,6 +32,8 @@ export function createEstimateHandoff(draft: BathroomDesignDraft, now = new Date
     labels: draft.labels,
     layoutPlanning: draft.layoutPlanning,
     layoutRiskPrompts: draft.layoutRiskPrompts,
+    constraintPrompts: draft.constraintPrompts,
+    constraintPlanning: draft.constraintPlanning,
     preferredNextStep: "estimate"
   });
 }

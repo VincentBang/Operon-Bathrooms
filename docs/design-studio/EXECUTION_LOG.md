@@ -189,3 +189,19 @@
 - Kept implementation locked pending a separate decision between deterministic-only constraint intelligence and any AI/API-assisted experiment.
 - Kept `/design-studio` feature-flagged and noindex.
 - Kept live supplier feeds, verified SKUs, public pricing, procurement, AI ranking, Quote OS, 3D/AR, payment, CRM and marketplace out of scope.
+
+## 2026-06-24 Phase 4 Deterministic Implementation
+
+- Vincent approved the deterministic-only Phase 4 path.
+- Created implementation branch `codex/phase-4-deterministic-constraints`.
+- Extended the Design Studio contract to schema version `0.4` for deterministic constraint prompts.
+- Added bounded prompt generation for layout basics, strata/Class 2, waterproofing, drainage/falls, ventilation, suspected asbestos, access, services, photo-context follow-up and selection-review topics.
+- Preserved prompt context in local draft save, copy/print summary and estimate handoff.
+- Added safety flags requiring deterministic-only operation with no AI/API, external provider, source media use, personal data use, pricing or compliance certification.
+- Focused `npm run typecheck` passed.
+- Focused `node --import tsx --test --test-concurrency=1 tests/bathroom-design.test.tsx` passed with 22 tests.
+- `npm run qa:local` passed with 69 tests, production build, Supabase migration safety verification and client bundle safety scan.
+- `git diff --check` passed.
+- `NEXT_PUBLIC_ENABLE_BATHROOM_DESIGN_STUDIO=true npm run qa:design-studio:a11y -- http://127.0.0.1:3014` passed on desktop and mobile.
+- `NEXT_PUBLIC_ENABLE_BATHROOM_DESIGN_STUDIO=true npm run qa:responsive -- http://127.0.0.1:3014` passed across 7 routes at desktop, laptop, tablet and mobile viewports.
+- Marked Phase 4 as gate-review-ready for Vincent review, with `/design-studio` still feature-flagged and noindex.

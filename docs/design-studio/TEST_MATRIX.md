@@ -18,6 +18,10 @@
 | Phase 2 handoff | Layout and prompt context preserved without scoring or pricing logic | Passed in `npm run test` |
 | Phase 3 catalogue candidates | Local candidates are bounded and contain no supplier, SKU or price fields | Passed in `npm run test` |
 | Phase 3 handoff | Product shortlist context is preserved with safety flags and no private pricing markers | Passed in `npm run test` |
+| Phase 4 deterministic contract | Constraint planning rejects AI/API, provider, pricing and certification drift | Passed in focused `tests/bathroom-design.test.tsx` |
+| Phase 4 prompt generation | Constraint prompts cover layout, strata, waterproofing, access, service and evidence topics without private scoring or final claims | Passed in focused `tests/bathroom-design.test.tsx` |
+| Phase 4 handoff | Constraint prompts are preserved in local save and estimate handoff safely | Passed in focused `tests/bathroom-design.test.tsx` |
+| Phase 4 summary | Copy/print summary includes deterministic constraint prompts and planning-only boundaries | Passed in focused `tests/bathroom-design.test.tsx` |
 | Phase 2 viewport QA | Desktop, laptop, tablet and mobile browser checks | Passed locally; see `PHASE_2_MANUAL_QA.md` |
 | Phase 2 accessibility proxy | Fieldsets, labels, preview ARIA and unlabeled controls | Passed locally; dedicated screen-reader pass still recommended |
 | Release polish copy | Public labels use gated planning-preview wording | Passed in component test and `npm run qa:local` |

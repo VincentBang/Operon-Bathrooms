@@ -4,7 +4,7 @@ import {
   safeParseBathroomDesignDraft
 } from "@/lib/bathroom-design/schema";
 
-export const DESIGN_DRAFT_STORAGE_KEY = "operon:bathroom-design:draft:v0.3";
+export const DESIGN_DRAFT_STORAGE_KEY = "operon:bathroom-design:draft:v0.4";
 
 const FORBIDDEN_SAVED_KEYS =
   /image|photoData|blob|base64|dataUrl|file|supplier(?:Cost|[\s_-]?cost)|labou?r(?:Rate|[\s_-]?rate)|rate(?:Card|[\s_-]?card)|margin/i;

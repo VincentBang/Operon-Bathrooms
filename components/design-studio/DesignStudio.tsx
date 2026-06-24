@@ -23,6 +23,7 @@ import {
 } from "@/lib/bathroom-design/schema";
 import { writeLocalDesignDraft } from "@/lib/bathroom-design/storage";
 import { trackDesignStudioEvent } from "@/lib/bathroom-design/events";
+import { getDesignConstraintPrompts } from "@/lib/bathroom-design/constraints";
 import { getLayoutRiskPrompts } from "@/lib/bathroom-design/layout-risk";
 import { BeforeAfterSlider } from "@/components/design-studio/BeforeAfterSlider";
 import { ApproximateLayoutPreview } from "@/components/design-studio/ApproximateLayoutPreview";
@@ -284,6 +285,37 @@ export function DesignStudio() {
     [bathroomType, entryPosition, fixtureZones, roomShape, sizeBand]
   );
   const layoutRiskPrompts = useMemo(() => getLayoutRiskPrompts(layoutPlanning), [layoutPlanning]);
+  const allowanceBand = allowanceForStyle(styleId);
+  const constraintPlanning = useMemo(
+    () =>
+      ({
+        mode: "deterministic-constraints",
+        deterministicOnly: true,
+        aiAssisted: false,
+        externalProvider: false,
+        sourceMediaUsed: false,
+        personalDataUsed: false,
+        pricing: false,
+        complianceCertification: false,
+        planningGuidanceOnly: true
+      }) as const,
+    []
+  );
+  const constraintPrompts = useMemo(
+    () =>
+      getDesignConstraintPrompts({
+        bathroomType,
+        startingPoint: {
+          kind: startingKind,
+          sampleTemplateId: startingKind === "sample" ? sampleTemplateId : undefined,
+          photoUsed
+        },
+        layoutPlanning,
+        productShortlist,
+        allowanceBand
+      }),
+    [allowanceBand, bathroomType, layoutPlanning, photoUsed, productShortlist, sampleTemplateId, startingKind]
+  );
   const draft = useMemo<BathroomDesignDraft>(() => {
     const now = new Date().toISOString();
     return {
@@ -313,14 +345,19 @@ export function DesignStudio() {
         planningGuidanceOnly: true,
         requiresHumanSelectionCheck: true
       },
-      allowanceBand: allowanceForStyle(styleId),
+      allowanceBand,
       labels: REQUIRED_TRUST_LABELS,
       layoutPlanning,
       layoutRiskPrompts,
+      constraintPrompts,
+      constraintPlanning,
       preferredNextStep: "estimate"
     };
   }, [
+    allowanceBand,
     bathroomType,
+    constraintPlanning,
+    constraintPrompts,
     createdAt,
     draftId,
     paletteId,
@@ -346,7 +383,11 @@ export function DesignStudio() {
     if (nextStep === "result") {
       trackDesignStudioEvent("design_studio_completed", {
         draftId,
-        payload: { selectedVariantId, productShortlistCount: productShortlist.length }
+        payload: {
+          selectedVariantId,
+          productShortlistCount: productShortlist.length,
+          constraintPromptCount: draft.constraintPrompts.length
+        }
       });
     }
   }

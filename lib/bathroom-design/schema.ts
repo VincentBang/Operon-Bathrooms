@@ -8,10 +8,11 @@ import {
   sampleTemplates
 } from "@/data/public/bathroom-design-poc";
 
-export const DESIGN_SCHEMA_VERSION = "0.3" as const;
+export const DESIGN_SCHEMA_VERSION = "0.4" as const;
 export const MAX_DESIGN_VARIANTS = 3;
 export const MAX_LAYOUT_ZONES = 8;
 export const MAX_PRODUCT_SHORTLIST = 6;
+export const MAX_CONSTRAINT_PROMPTS = 10;
 export const REQUIRED_TRUST_LABELS = {
   inspirationVisual: true,
   approximateLayout: true,
@@ -151,6 +152,37 @@ export const layoutRiskPromptSchema = z.object({
   nextStep: z.enum(["clarify", "confirm-in-writing", "site-measure", "request-review"])
 });
 
+export const constraintPromptSchema = z.object({
+  id: z.string().min(1).max(80),
+  category: z.enum([
+    "layout",
+    "access",
+    "waterproofing",
+    "ventilation",
+    "strata",
+    "services",
+    "evidence",
+    "selection"
+  ]),
+  level: z.enum(["check", "review", "site-review"]),
+  title: z.string().min(1).max(120),
+  message: z.string().min(1).max(280),
+  evidenceToPrepare: z.array(z.string().min(1).max(120)).max(5),
+  nextStep: z.enum(["estimate", "quote-review", "request-review", "site-measure"])
+});
+
+export const constraintPlanningSchema = z.object({
+  mode: z.literal("deterministic-constraints"),
+  deterministicOnly: z.literal(true),
+  aiAssisted: z.literal(false),
+  externalProvider: z.literal(false),
+  sourceMediaUsed: z.literal(false),
+  personalDataUsed: z.literal(false),
+  pricing: z.literal(false),
+  complianceCertification: z.literal(false),
+  planningGuidanceOnly: z.literal(true)
+});
+
 export const bathroomDesignDraftSchema = z
   .object({
     schemaVersion: z.literal(DESIGN_SCHEMA_VERSION),
@@ -184,6 +216,8 @@ export const bathroomDesignDraftSchema = z
     }),
     layoutPlanning: layoutPlanningSchema,
     layoutRiskPrompts: z.array(layoutRiskPromptSchema).max(8),
+    constraintPrompts: z.array(constraintPromptSchema).max(MAX_CONSTRAINT_PROMPTS),
+    constraintPlanning: constraintPlanningSchema,
     preferredNextStep: z.enum(["estimate", "save", "request-review"]).optional()
   })
   .superRefine((draft, context) => {
@@ -258,6 +292,8 @@ export const bathroomDesignHandoffSchema = z.object({
   }),
   layoutPlanning: layoutPlanningSchema,
   layoutRiskPrompts: z.array(layoutRiskPromptSchema).max(8),
+  constraintPrompts: z.array(constraintPromptSchema).max(MAX_CONSTRAINT_PROMPTS),
+  constraintPlanning: constraintPlanningSchema,
   preferredNextStep: z.enum(["estimate", "save", "request-review"]).optional()
 });
 

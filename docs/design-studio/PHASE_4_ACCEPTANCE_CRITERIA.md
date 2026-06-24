@@ -2,13 +2,13 @@
 
 ## Phase Name
 
-Phase 4 AI And Constraint Intelligence.
+Phase 4 Deterministic Constraint Intelligence.
 
 ## Current Status
 
-Acceptance criteria drafted only.
+Deterministic-only implementation is gate-review-ready.
 
-Phase 4 implementation is not approved by this document.
+Vincent approved the deterministic-only implementation path after this criteria document was drafted. AI/API-assisted constraint intelligence remains locked and is not approved.
 
 ## Phase Intent
 
@@ -157,11 +157,10 @@ Pause Phase 4 if:
 
 ## Gate Exit
 
-Phase 4 can move from acceptance criteria to implementation only after Vincent explicitly approves the scoped implementation path.
+Phase 4 moved from acceptance criteria to deterministic-only implementation after Vincent explicitly approved that scoped path.
 
-Approval must specify one of:
+Any future expansion must specify one of:
 
-- deterministic-only constraint intelligence
 - AI/API-assisted constraint intelligence with approved provider, privacy and safety boundaries
 
-Until then, Phase 4 remains locked.
+Until then, AI/API-assisted constraint intelligence remains locked.

@@ -6,6 +6,7 @@ import {
   findStyle,
   findTemplate
 } from "@/data/public/bathroom-design-poc";
+import { getDesignConstraintPrompts } from "@/lib/bathroom-design/constraints";
 import { getLayoutRiskPrompts } from "@/lib/bathroom-design/layout-risk";
 import { BathroomDesignDraft } from "@/lib/bathroom-design/schema";
 
@@ -15,6 +16,7 @@ export function getDesignSummaryText(draft: BathroomDesignDraft) {
   const template = findTemplate(draft.startingPoint.sampleTemplateId);
   const selectedVariant = draft.variants.find((variant) => variant.id === draft.selectedVariantId);
   const layoutPrompts = draft.layoutRiskPrompts.length ? draft.layoutRiskPrompts : getLayoutRiskPrompts(draft.layoutPlanning);
+  const constraintPrompts = draft.constraintPrompts.length ? draft.constraintPrompts : getDesignConstraintPrompts(draft);
   return [
     "Operon Bathroom Design Studio concept summary",
     `Draft: ${draft.id}`,
@@ -28,12 +30,14 @@ export function getDesignSummaryText(draft: BathroomDesignDraft) {
     `Approximate size band: ${draft.layoutPlanning.sizeBand}`,
     `Fixture zones: ${draft.layoutPlanning.fixtureZones.map((item) => item.label).join(", ")}`,
     `Planning checks: ${layoutPrompts.length ? layoutPrompts.map((item) => item.title).join(", ") : "No extra layout prompts from selected options"}`,
+    `Constraint prompts: ${constraintPrompts.map((item) => item.title).join(", ")}`,
     `Photo used: ${draft.startingPoint.photoUsed ? "Yes, browser memory only" : "No"}`,
     `Conceptual selections: ${draft.conceptualSelections.map((item) => item.label).join(", ")}`,
     `Catalogue candidates: ${draft.productShortlist.map((item) => item.label).join(", ")}`,
     "This is an inspiration visual and approximate layout guide only.",
     "It is not a quote, measured plan, specification, contract or construction document.",
     "Catalogue candidates are not confirmed SKUs, supplier feeds, prices or procurement items.",
+    "Constraint prompts are deterministic planning guidance from bounded inputs only; they do not use AI, external providers, source media or personal data.",
     "Site measure, selections, licensed-trade checks and written scope confirmation are required before contract pricing."
   ].join("\n");
 }
@@ -43,6 +47,7 @@ export function DesignSummary({ draft }: { draft: BathroomDesignDraft }) {
   const palette = findPalette(draft.paletteId);
   const selectedVariant = draft.variants.find((variant) => variant.id === draft.selectedVariantId);
   const layoutPrompts = draft.layoutRiskPrompts.length ? draft.layoutRiskPrompts : getLayoutRiskPrompts(draft.layoutPlanning);
+  const constraintPrompts = draft.constraintPrompts.length ? draft.constraintPrompts : getDesignConstraintPrompts(draft);
 
   return (
     <div className="design-brief" id="design-brief">
@@ -97,6 +102,23 @@ export function DesignSummary({ draft }: { draft: BathroomDesignDraft }) {
         ) : (
           <p>No extra layout prompts from selected options. Site review is still required before written scope confirmation.</p>
         )}
+      </div>
+      <div>
+        <h3>Deterministic constraint prompts</h3>
+        <ul>
+          {constraintPrompts.map((prompt) => (
+            <li key={prompt.id}>
+              <strong>{prompt.title}:</strong> {prompt.message}
+              {prompt.evidenceToPrepare.length ? (
+                <span> Prepare: {prompt.evidenceToPrepare.join(", ")}.</span>
+              ) : null}
+            </li>
+          ))}
+        </ul>
+        <p className="muted">
+          Generated from bounded planning inputs only. No AI, external provider, source media,
+          personal data, pricing or compliance certification is used.
+        </p>
       </div>
       <div className="notice">
         <strong>Boundary</strong>

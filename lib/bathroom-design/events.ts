@@ -26,6 +26,7 @@ export type BathroomDesignEvent = {
     photoUsed?: boolean;
     allowanceBand?: BathroomDesignDraft["allowanceBand"];
     productShortlistCount?: number;
+    constraintPromptCount?: number;
   };
 };
 

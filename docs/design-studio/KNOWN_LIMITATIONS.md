@@ -10,6 +10,7 @@
 - No real SKUs, supplier logos, inventory or prices.
 - Phase 3 catalogue candidates are governed planning archetypes only; they are not verified products, confirmed SKUs, availability checks or procurement items.
 - No AI generation.
+- Phase 4 constraint prompts are deterministic rules only; there is no AI/API-assisted reasoning, external provider response, private scoring or automated design approval.
 - No 3D, WebGL, WebGPU, AR or LiDAR.
 - No Quote OS integration beyond safe planning estimate handoff.
 - Browser-based mobile viewport QA passed locally on 2026-06-23.

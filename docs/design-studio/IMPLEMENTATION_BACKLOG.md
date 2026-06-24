@@ -46,14 +46,18 @@
 ## Phase 4 Gate Planning
 
 - [x] Stage 4A draft Phase 4 acceptance criteria.
-- [ ] Stage 4B review whether Phase 4 is deterministic-only or includes a separately approved AI/API experiment.
-- [ ] Stage 4C approve or reject Phase 4 implementation path.
-- [ ] Stage 4D create implementation branch only after approval.
+- [x] Stage 4B choose deterministic-only implementation path; keep AI/API as separately governed future work.
+- [x] Stage 4C approve deterministic-only Phase 4 implementation path.
+- [x] Stage 4D create implementation branch after approval.
+- [x] Stage 4E extend the versioned data contract to `0.4` for deterministic constraint prompts.
+- [x] Stage 4F generate bounded constraint prompts for layout, access, waterproofing, ventilation, strata/Class 2, services, evidence and selections.
+- [x] Stage 4G preserve constraint prompts in local save, copy/print summary and estimate handoff.
+- [x] Stage 4H run full local QA and complete Phase 4 gate review.
 
 ## Deferred Until Later Approval
 
 - Verified SKUs, live product feeds, supplier availability and procurement.
-- AI/API benchmark implementation beyond documentation.
+- AI/API benchmark or implementation beyond documentation.
 - Private image or design storage.
 - Public gallery or share backend.
 - Quote OS.

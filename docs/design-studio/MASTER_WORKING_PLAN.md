@@ -31,7 +31,9 @@ Phase 2 Structured Planner is `APPROVED`.
 
 Phase 3 Catalogue Candidate Shortlist is `APPROVED` and merged after Vincent approval on 2026-06-24.
 
-No Phase 4 or later work is approved.
+Phase 4 Deterministic Constraint Intelligence is `GATE_REVIEW_READY` on a separate implementation branch after Vincent approved the deterministic-only path.
+
+No AI/API-assisted constraint intelligence, Phase 5 or later work is approved.
 
 ## Completed Work Before Design Studio
 
@@ -44,18 +46,18 @@ No Phase 4 or later work is approved.
 1. Keep merged Phase 3 implementation and audit branches for traceability.
 2. Decide whether `/design-studio` should remain internal/gated or move into controlled release-exposure planning.
 3. If release exposure is considered, define release criteria before changing feature flags, indexing or navigation.
-4. Review Phase 4 acceptance criteria and choose deterministic-only or separately approved AI/API-assisted constraint intelligence.
-5. Keep Phase 4 implementation and later phases locked until explicit Vincent approval.
+4. Review the Phase 4 deterministic-only PR/file scope and decide whether to merge.
+5. Keep AI/API-assisted constraint intelligence, Phase 5 and later phases locked until explicit Vincent approval.
 
 ## Future Phases
 
 - Phase 2: structured planner with editable approximate layouts.
 - Phase 3: governed catalogue candidates and product shortlist, not verified SKUs.
-- Phase 4: grounded constraint intelligence, with AI/API only after a separate provider and privacy approval.
+- Phase 4: deterministic grounded constraint intelligence; AI/API only after a separate provider and privacy approval.
 - Phase 5: AR and measurement.
 - Phase 6: Quote OS integration.
 
-Phase 3 is complete and approved as merged. Each later phase requires a passed gate report and explicit Vincent approval.
+Phase 3 is complete and approved as merged. Phase 4 deterministic implementation is gate-review-ready and still requires Vincent approval before merge. Each later phase requires a passed gate report and explicit Vincent approval.
 
 ## Dependencies
 
@@ -66,7 +68,7 @@ Phase 3 is complete and approved as merged. Each later phase requires a passed g
 
 ## Data Contracts
 
-The current contract is `BathroomDesignDraft` schema version `0.3`. It stores structured design choices, approximate layout planning, public layout-risk prompts and governed catalogue-candidate shortlist choices only. It excludes image data, blobs, base64, private rates, final prices, personal contact data, live supplier feeds, confirmed SKUs, availability checks and procurement data.
+The current contract is `BathroomDesignDraft` schema version `0.4`. It stores structured design choices, approximate layout planning, public layout-risk prompts, governed catalogue-candidate shortlist choices and deterministic constraint prompts only. It excludes image data, blobs, base64, private rates, final prices, personal contact data, live supplier feeds, confirmed SKUs, availability checks, procurement data, AI/API responses and private scoring logic.
 
 ## Privacy Boundaries
 
@@ -94,7 +96,7 @@ Codex must not approve a next phase. A phase can begin only when its gate report
 
 ## Kill And Pause Rules
 
-Pause if privacy boundaries cannot be guaranteed, internal pricing leaks, public wording implies measured/specification/quote status, bundle size becomes unreasonable, or Phase 3 scope starts drifting into live supplier feeds, confirmed SKUs, AI ranking, procurement, 3D, AR, Quote OS or later-phase work.
+Pause if privacy boundaries cannot be guaranteed, internal pricing leaks, public wording implies measured/specification/quote status, bundle size becomes unreasonable, or current scope starts drifting into live supplier feeds, confirmed SKUs, AI/API recommendations, procurement, 3D, AR, Quote OS or later-phase work.
 
 ## Do-Not-Build List
 
@@ -107,4 +109,4 @@ No production AI, production 3D, WebGL/WebGPU editor, AR, LiDAR, BIM, live suppl
 
 ## Next Action
 
-Review Phase 4 acceptance criteria and decide whether to approve a deterministic-only implementation path or a separately governed AI/API experiment. Stop before implementation until approved.
+Review the Phase 4 deterministic-only PR/file scope, then approve or request changes. Keep `/design-studio` feature-flagged and noindex.
