@@ -49,4 +49,4 @@ The implementation adds a structured site-review preparation checklist to `/desi
 
 ## Gate Decision
 
-Approved by Vincent and merged via PR #11. `/design-studio` remains feature-flagged and noindex. Release exposure, user-entered measurements and AR/browser-camera experiments remain locked after this gate unless separately approved.
+Approved by Vincent and merged via PR #11. The release-boundary audit was merged via PR #12. `/design-studio` remains feature-flagged and noindex. Release exposure, user-entered measurements and AR/browser-camera experiments remain locked after this gate unless separately approved.

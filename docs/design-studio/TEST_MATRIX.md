@@ -22,6 +22,10 @@
 | Phase 4 prompt generation | Constraint prompts cover layout, strata, waterproofing, access, service and evidence topics without private scoring or final claims | Passed in focused `tests/bathroom-design.test.tsx` |
 | Phase 4 handoff | Constraint prompts are preserved in local save and estimate handoff safely | Passed in focused `tests/bathroom-design.test.tsx` |
 | Phase 4 summary | Copy/print summary includes deterministic constraint prompts and planning-only boundaries | Passed in focused `tests/bathroom-design.test.tsx` |
+| Phase 5 evidence contract | Evidence readiness rejects media, AR, verified-online and oversized checklist drift | Passed in `npm run qa:local` |
+| Phase 5 evidence handoff | Evidence-readiness context persists without media, pricing or private markers | Passed in `npm run qa:local` |
+| Phase 5 evidence controls | Checklist renders accessible status controls without upload or AR claims | Passed in `npm run qa:local` |
+| Phase 5 flagged QA | Feature-flagged build, Design Studio a11y proxy and responsive QA | Passed after PR #11 merge on port 3018 |
 | Phase 2 viewport QA | Desktop, laptop, tablet and mobile browser checks | Passed locally; see `PHASE_2_MANUAL_QA.md` |
 | Phase 2 accessibility proxy | Fieldsets, labels, preview ARIA and unlabeled controls | Passed locally; dedicated screen-reader pass still recommended |
 | Release polish copy | Public labels use gated planning-preview wording | Passed in component test and `npm run qa:local` |
@@ -29,4 +33,4 @@
 | Release polish noindex | `/design-studio` metadata remains noindex/nofollow | Passed in `npm run qa:local` |
 | Release polish responsive | `/design-studio` included in responsive QA only when flag enabled | Passed with `npm run qa:responsive` |
 | Design Studio a11y harness | Noindex, control names, current step, layout ARIA and result actions | Passed with `npm run qa:design-studio:a11y` |
-| Human screen-reader checklist | VoiceOver/equivalent pass steps prepared | Pending human execution before public exposure |
+| Human screen-reader checklist | VoiceOver/equivalent pass steps prepared | Passed before PR #2; repeat recommended before public exposure after later feature changes |

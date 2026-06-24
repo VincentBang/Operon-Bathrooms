@@ -256,3 +256,12 @@
 - Added `docs/design-studio/PHASE_5_RELEASE_BOUNDARY_VERIFICATION_2026-06-24.md`.
 - Confirmed `/design-studio` remains feature-flagged and noindex.
 - Confirmed Phase 5 remains evidence-readiness only with no camera capture, upload/storage, user-entered measurement fields, AR/browser-camera experiment, LiDAR, BIM, AI/API-assisted measurement, Quote OS, pricing, procurement or release exposure.
+
+## 2026-06-24 Phase 5 Closeout Sync
+
+- Vincent approved starting a small docs-only Phase 5 closeout sync.
+- Created branch `codex/phase-5-closeout-sync` from updated `main`.
+- Added `docs/design-studio/PHASE_5_CLOSEOUT_SYNC_2026-06-24.md`.
+- Updated next actions, stage status, master plan, gate review, test matrix and known limitations to reflect that PR #11 and PR #12 are merged.
+- Kept `/design-studio` feature-flagged and noindex.
+- Kept release exposure, user-entered measurements, AR/browser-camera experiments, camera upload/storage, LiDAR, BIM, AI/API-assisted measurement, Quote OS, pricing and procurement locked until separate approval.
