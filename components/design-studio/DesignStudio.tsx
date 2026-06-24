@@ -5,9 +5,11 @@ import React from "react";
 import { useEffect, useMemo, useState } from "react";
 import {
   bathroomTypes,
+  candidatesForDesign,
   conceptualProductArchetypes,
   designPalettes,
   designStyles,
+  findCatalogueCandidate,
   findPalette,
   palettesForStyle,
   sampleTemplates
@@ -27,11 +29,12 @@ import { ApproximateLayoutPreview } from "@/components/design-studio/Approximate
 import { ConceptPreview } from "@/components/design-studio/ConceptPreview";
 import { DesignSummary, getDesignSummaryText } from "@/components/design-studio/DesignSummary";
 
-type Step = "type" | "start" | "layout" | "style" | "palette" | "concepts" | "result";
+type Step = "type" | "start" | "layout" | "style" | "palette" | "concepts" | "products" | "result";
 type LayoutPlanning = BathroomDesignDraft["layoutPlanning"];
 type FixtureZone = LayoutPlanning["fixtureZones"][number];
+type ProductShortlistItem = BathroomDesignDraft["productShortlist"][number];
 
-const stepOrder: Step[] = ["type", "start", "layout", "style", "palette", "concepts", "result"];
+const stepOrder: Step[] = ["type", "start", "layout", "style", "palette", "concepts", "products", "result"];
 const stepLabels: Record<Step, string> = {
   type: "Bathroom type",
   start: "Starting point",
@@ -39,6 +42,7 @@ const stepLabels: Record<Step, string> = {
   style: "Style direction",
   palette: "Palette",
   concepts: "Concepts",
+  products: "Catalogue candidates",
   result: "Planning brief"
 };
 const roomShapeOptions: Array<{ id: LayoutPlanning["roomShape"]; label: string; note: string }> = [
@@ -138,6 +142,34 @@ function createSelections(styleId: string, paletteId: string) {
   });
 }
 
+function createCatalogueSelection(candidateId: string): ProductShortlistItem | null {
+  const candidate = findCatalogueCandidate(candidateId);
+  if (!candidate) return null;
+  return {
+    candidateId: candidate.id,
+    archetypeId: candidate.archetypeId,
+    category: candidate.category,
+    label: candidate.label,
+    finishFamily: candidate.finishFamily,
+    planningUse: candidate.planningUse,
+    evidencePrompt: candidate.evidencePrompt,
+    verificationStatus: candidate.verificationStatus,
+    verifiedProduct: false,
+    confirmedSku: false,
+    supplierFeed: false,
+    pricingIncluded: false
+  };
+}
+
+function createDefaultProductCandidateIds(
+  styleId: BathroomDesignDraft["styleId"],
+  bathroomType: BathroomDesignDraft["bathroomType"]
+) {
+  return candidatesForDesign(styleId, bathroomType)
+    .slice(0, 4)
+    .map((candidate) => candidate.id);
+}
+
 function createDefaultFixtureZones(bathroomType: BathroomDesignDraft["bathroomType"]): LayoutPlanning["fixtureZones"] {
   const fixtureZones: LayoutPlanning["fixtureZones"] = [
     {
@@ -213,6 +245,9 @@ export function DesignStudio() {
   const [styleId, setStyleId] = useState(designStyles[0].id);
   const [paletteId, setPaletteId] = useState(designStyles[0].paletteIds[0]);
   const [selectedVariantId, setSelectedVariantId] = useState("balanced-concept");
+  const [selectedProductCandidateIds, setSelectedProductCandidateIds] = useState<string[]>(() =>
+    createDefaultProductCandidateIds(designStyles[0].id, "main-bathroom")
+  );
   const [roomShape, setRoomShape] = useState<LayoutPlanning["roomShape"]>("rectangle");
   const [sizeBand, setSizeBand] = useState<LayoutPlanning["sizeBand"]>("standard");
   const [entryPosition, setEntryPosition] = useState<LayoutPlanning["entryPosition"]>("south-wall");
@@ -236,6 +271,14 @@ export function DesignStudio() {
 
   const stylePalettes = palettesForStyle(styleId);
   const variants = useMemo(() => createVariants(paletteId), [paletteId]);
+  const catalogueOptions = useMemo(() => candidatesForDesign(styleId, bathroomType), [bathroomType, styleId]);
+  const productShortlist = useMemo(
+    () =>
+      selectedProductCandidateIds
+        .map(createCatalogueSelection)
+        .filter((item): item is ProductShortlistItem => Boolean(item)),
+    [selectedProductCandidateIds]
+  );
   const layoutPlanning = useMemo(
     () => createDefaultLayoutPlanning(bathroomType, roomShape, sizeBand, entryPosition, fixtureZones),
     [bathroomType, entryPosition, fixtureZones, roomShape, sizeBand]
@@ -260,6 +303,16 @@ export function DesignStudio() {
       variants,
       selectedVariantId,
       conceptualSelections: createSelections(styleId, paletteId),
+      productShortlist,
+      cataloguePlanning: {
+        mode: "curated-candidates",
+        liveSupplierFeed: false,
+        verifiedSku: false,
+        pricing: false,
+        procurement: false,
+        planningGuidanceOnly: true,
+        requiresHumanSelectionCheck: true
+      },
       allowanceBand: allowanceForStyle(styleId),
       labels: REQUIRED_TRUST_LABELS,
       layoutPlanning,
@@ -278,7 +331,8 @@ export function DesignStudio() {
     styleId,
     variants,
     layoutPlanning,
-    layoutRiskPrompts
+    layoutRiskPrompts,
+    productShortlist
   ]);
 
   function goTo(nextStep: Step) {
@@ -290,7 +344,10 @@ export function DesignStudio() {
       });
     }
     if (nextStep === "result") {
-      trackDesignStudioEvent("design_studio_completed", { draftId, payload: { selectedVariantId } });
+      trackDesignStudioEvent("design_studio_completed", {
+        draftId,
+        payload: { selectedVariantId, productShortlistCount: productShortlist.length }
+      });
     }
   }
 
@@ -299,6 +356,7 @@ export function DesignStudio() {
     setStyleId(nextStyleId);
     setPaletteId(nextPaletteId);
     setSelectedVariantId("balanced-concept");
+    setSelectedProductCandidateIds(createDefaultProductCandidateIds(nextStyleId, bathroomType));
     trackDesignStudioEvent("style_selected", { draftId, payload: { styleId: nextStyleId } });
   }
 
@@ -335,9 +393,24 @@ export function DesignStudio() {
       setRoomShape("rectangle");
       setSizeBand("standard");
     }
+    setSelectedProductCandidateIds(createDefaultProductCandidateIds(styleId, nextBathroomType));
     trackDesignStudioEvent("bathroom_type_selected", {
       draftId,
       payload: { bathroomType: nextBathroomType }
+    });
+  }
+
+  function toggleProductCandidate(candidateId: string) {
+    const nextCandidateIds = selectedProductCandidateIds.includes(candidateId)
+      ? selectedProductCandidateIds.length <= 1
+        ? selectedProductCandidateIds
+        : selectedProductCandidateIds.filter((id) => id !== candidateId)
+      : [...selectedProductCandidateIds, candidateId].slice(0, 6);
+
+    setSelectedProductCandidateIds(nextCandidateIds);
+    trackDesignStudioEvent("catalogue_candidate_toggled", {
+      draftId,
+      payload: { productShortlistCount: nextCandidateIds.length }
     });
   }
 
@@ -595,7 +668,48 @@ export function DesignStudio() {
                     />
                   ))}
                 </div>
-                <StepActions back={() => goTo("palette")} next={() => goTo("result")} nextLabel="Create brief" />
+                <StepActions back={() => goTo("palette")} next={() => goTo("products")} />
+              </>
+            ) : null}
+
+            {step === "products" ? (
+              <>
+                <h2>Shortlist catalogue candidates.</h2>
+                <p className="muted">
+                  These are governed local catalogue candidates for planning only. They are not
+                  confirmed SKUs, supplier feeds, prices, availability checks or procurement items.
+                </p>
+                <div className="notice">
+                  <strong>Selection check required</strong>
+                  <p>
+                    Final selections must be checked against site conditions, dimensions, licensed-trade
+                    requirements, compatibility and written scope before contract pricing.
+                  </p>
+                </div>
+                <div className="product-candidate-grid">
+                  {catalogueOptions.map((candidate) => {
+                    const selected = selectedProductCandidateIds.includes(candidate.id);
+                    return (
+                      <button
+                        aria-pressed={selected}
+                        className={selected ? "product-candidate-card selected" : "product-candidate-card"}
+                        key={candidate.id}
+                        onClick={() => toggleProductCandidate(candidate.id)}
+                        type="button"
+                      >
+                        <span className="pill">{candidate.category}</span>
+                        <strong>{candidate.label}</strong>
+                        <span>{candidate.planningUse}</span>
+                        <small>{candidate.evidencePrompt}</small>
+                      </button>
+                    );
+                  })}
+                </div>
+                <p className="muted">
+                  Selected candidates: {productShortlist.length}. Keep at least one candidate so the
+                  planning brief preserves selection context.
+                </p>
+                <StepActions back={() => goTo("concepts")} next={() => goTo("result")} nextLabel="Create brief" />
               </>
             ) : null}
 
@@ -612,7 +726,7 @@ export function DesignStudio() {
                   <Link className="button ghost" href="/request-review">Request scope review</Link>
                 </div>
                 {savedMessage ? <p className="notice">{savedMessage}</p> : null}
-                <StepActions back={() => goTo("concepts")} />
+                <StepActions back={() => goTo("products")} />
               </>
             ) : null}
           </div>
@@ -702,8 +816,9 @@ function TrustLabels() {
       <span>Inspiration visual: conceptual appearance only</span>
       <span>Approximate layout: not measured or independently verified</span>
       <span>Measured layout: unavailable in this planning preview</span>
-      <span>Verified product: unavailable without a future verified catalogue</span>
-      <span>Conceptual product: visual archetype only, not a confirmed SKU</span>
+      <span>Catalogue candidate: governed planning item only</span>
+      <span>Verified product: unavailable until human selection check</span>
+      <span>Confirmed SKU: unavailable in this planning preview</span>
       <span>Planning estimate: range-based guidance only</span>
       <span>Confirmed written scope: requires human review and site measure</span>
     </div>

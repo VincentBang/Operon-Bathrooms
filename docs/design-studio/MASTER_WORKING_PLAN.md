@@ -27,9 +27,11 @@ The primary KPI is qualified lead conversion, not render count, session duration
 
 Phase 0/1 Local Proof of Concept is `APPROVED`.
 
-Phase 2 Structured Planner is `IN_PROGRESS` for acceptance criteria and implementation planning.
+Phase 2 Structured Planner is `APPROVED`.
 
-No Phase 3 or later work is approved.
+Phase 3 Catalogue Candidate Shortlist is `IN_PROGRESS` after Vincent approval on 2026-06-24.
+
+No Phase 4 or later work is approved.
 
 ## Completed Work Before Design Studio
 
@@ -39,25 +41,24 @@ No Phase 3 or later work is approved.
 
 ## Current-Stage Backlog
 
-1. Define Phase 2 Structured Planner acceptance criteria.
-2. Extend the draft contract for approximate layout planning without measured-plan claims.
-3. Add bounded room-shape and fixture-zone inputs.
-4. Add an approximate 2D planning canvas using accessible HTML/CSS/SVG, not CAD/WebGL.
-5. Add validation for layout conflicts, access constraints and scope risks.
-6. Keep all outputs labelled as approximate planning guidance only.
-7. Preserve local-only storage and safe non-price handoff into existing estimate/review flows.
-8. Add tests for layout validation, storage boundaries, public wording and handoff compatibility.
-9. Run local QA and complete the Phase 2 gate review before Phase 3.
+1. Define Phase 3 catalogue-candidate acceptance criteria.
+2. Extend the draft contract to schema version `0.3` for bounded product shortlist data.
+3. Add a governed local catalogue-candidate data set with no live supplier feed, prices, confirmed SKUs or procurement fields.
+4. Add shortlist controls in the existing Design Studio flow.
+5. Preserve shortlist context in local draft save, copy/print summary and estimate handoff.
+6. Keep all outputs labelled as planning candidates requiring human selection checks.
+7. Add tests for schema validation, forbidden field boundaries, storage safety, handoff compatibility and public wording.
+8. Run local QA and complete the Phase 3 gate review before any Phase 4 work.
 
 ## Future Phases
 
 - Phase 2: structured planner with editable approximate layouts.
-- Phase 3: verified product catalogue.
+- Phase 3: governed catalogue candidates and product shortlist, not verified SKUs.
 - Phase 4: AI and constraint intelligence.
 - Phase 5: AR and measurement.
 - Phase 6: Quote OS integration.
 
-Phase 2 is approved to start. Each later phase requires a passed gate report and explicit Vincent approval.
+Phase 3 is approved to build. Each later phase requires a passed gate report and explicit Vincent approval.
 
 ## Dependencies
 
@@ -68,7 +69,7 @@ Phase 2 is approved to start. Each later phase requires a passed gate report and
 
 ## Data Contracts
 
-The Phase 0/1 contract is `BathroomDesignDraft` schema version `0.1`. It stores structured design choices only. It excludes image data, blobs, base64, private rates, final prices and personal contact data.
+The current contract is `BathroomDesignDraft` schema version `0.3`. It stores structured design choices, approximate layout planning, public layout-risk prompts and governed catalogue-candidate shortlist choices only. It excludes image data, blobs, base64, private rates, final prices, personal contact data, live supplier feeds, confirmed SKUs, availability checks and procurement data.
 
 ## Privacy Boundaries
 
@@ -79,7 +80,7 @@ The Phase 0/1 contract is `BathroomDesignDraft` schema version `0.1`. It stores 
 
 ## Public-Language Boundaries
 
-Every output must distinguish inspiration visual, approximate layout, measured layout, conceptual product, verified product, planning estimate, confirmed written scope and contract pricing.
+Every output must distinguish inspiration visual, approximate layout, measured layout, catalogue candidate, verified product, planning estimate, confirmed written scope and contract pricing.
 
 Site measure, selections, licensed-trade checks and written scope confirmation are required before contract pricing.
 
@@ -96,11 +97,11 @@ Codex must not approve a next phase. A phase can begin only when its gate report
 
 ## Kill And Pause Rules
 
-Pause if privacy boundaries cannot be guaranteed, internal pricing leaks, public wording implies measured/specification/quote status, bundle size becomes unreasonable, or Phase 0/1 scope starts drifting into 2D geometry, 3D, AR, catalogue or Quote OS.
+Pause if privacy boundaries cannot be guaranteed, internal pricing leaks, public wording implies measured/specification/quote status, bundle size becomes unreasonable, or Phase 3 scope starts drifting into live supplier feeds, confirmed SKUs, AI ranking, procurement, 3D, AR, Quote OS or later-phase work.
 
 ## Do-Not-Build List
 
-No production AI, production 3D, WebGL/WebGPU editor, AR, LiDAR, BIM, live supplier feeds, inventory, checkout, marketplace, contractor bidding, automatic final quotes, construction documents, compliance certification, public gallery, native mobile app, Quote OS or production image storage.
+No production AI, production 3D, WebGL/WebGPU editor, AR, LiDAR, BIM, live supplier feeds, inventory, confirmed SKUs, checkout, marketplace, contractor bidding, automatic final quotes, construction documents, compliance certification, public gallery, native mobile app, Quote OS or production image storage.
 
 ## Decision Owners
 
@@ -109,4 +110,4 @@ No production AI, production 3D, WebGL/WebGPU editor, AR, LiDAR, BIM, live suppl
 
 ## Next Action
 
-Define and implement Phase 2 Structured Planner inside the approved planning-only boundary. Stop before Phase 3.
+Complete Phase 3 Catalogue Candidate Shortlist inside the approved planning-only boundary. Stop before Phase 4.

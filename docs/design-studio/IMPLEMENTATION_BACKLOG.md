@@ -30,9 +30,19 @@
 - [x] Stage 2I add tests for schema, layout validation, storage, handoff and wording.
 - [x] Stage 2J run local QA and complete Phase 2 gate review.
 
+## Phase 3 Approved
+
+- [x] Stage 3A create separate Phase 3 branch from updated `main`.
+- [x] Stage 3B define bounded catalogue-candidate acceptance criteria.
+- [x] Stage 3C extend the versioned design contract to `0.3` for catalogue candidates.
+- [x] Stage 3D add a governed local candidate catalogue with no supplier feed, prices, confirmed SKUs or procurement fields.
+- [x] Stage 3E add accessible shortlist controls to the Design Studio flow.
+- [x] Stage 3F preserve shortlist context in local save, copy/print summary and estimate handoff.
+- [x] Stage 3G run full local QA and complete the Phase 3 gate review.
+
 ## Deferred Until Later Approval
 
-- Verified product catalogue.
+- Verified SKUs, live product feeds, supplier availability and procurement.
 - AI/API benchmark implementation beyond documentation.
 - Private image or design storage.
 - Public gallery or share backend.

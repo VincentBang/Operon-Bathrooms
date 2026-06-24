@@ -8,6 +8,7 @@
 - No geometry editor.
 - No verified catalogue.
 - No real SKUs, supplier logos, inventory or prices.
+- Phase 3 catalogue candidates are governed planning archetypes only; they are not verified products, confirmed SKUs, availability checks or procurement items.
 - No AI generation.
 - No 3D, WebGL, WebGPU, AR or LiDAR.
 - No Quote OS integration beyond safe planning estimate handoff.

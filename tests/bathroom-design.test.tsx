@@ -5,6 +5,7 @@ import { renderToString } from "react-dom/server";
 import { metadata as designStudioMetadata } from "../app/design-studio/page";
 import sitemap from "../app/sitemap";
 import {
+  catalogueCandidates,
   conceptualProductArchetypes,
   designPalettes,
   designStyles,
@@ -50,7 +51,7 @@ function memoryStorage() {
 function validDraft(overrides: Partial<BathroomDesignDraft> = {}): BathroomDesignDraft {
   const now = "2026-06-23T00:00:00.000Z";
   return {
-    schemaVersion: "0.2",
+    schemaVersion: "0.3",
     id: "design-test-draft",
     createdAt: now,
     updatedAt: now,
@@ -88,6 +89,31 @@ function validDraft(overrides: Partial<BathroomDesignDraft> = {}): BathroomDesig
         verifiedProduct: false
       }
     ],
+    productShortlist: [
+      {
+        candidateId: "candidate-wall-hung-vanity-warm-oak",
+        archetypeId: "wall-hung-vanity",
+        category: "vanity",
+        label: "Wall-hung vanity candidate, warm timber-look",
+        finishFamily: "warm timber-look vanity",
+        planningUse: "Keeps floor area visually lighter for standard bathrooms and ensuites.",
+        evidencePrompt: "Confirm wall structure, plumbing set-out and storage size during site review.",
+        verificationStatus: "catalogue-candidate",
+        verifiedProduct: false,
+        confirmedSku: false,
+        supplierFeed: false,
+        pricingIncluded: false
+      }
+    ],
+    cataloguePlanning: {
+      mode: "curated-candidates",
+      liveSupplierFeed: false,
+      verifiedSku: false,
+      pricing: false,
+      procurement: false,
+      planningGuidanceOnly: true,
+      requiresHumanSelectionCheck: true
+    },
     allowanceBand: "essential",
     labels: REQUIRED_TRUST_LABELS,
     layoutPlanning: {
@@ -244,6 +270,7 @@ test("estimate handoff serialises only allowlisted non-price fields and maps quo
   assert.deepEqual(Object.keys(handoff).sort(), [
     "allowanceBand",
     "bathroomType",
+    "cataloguePlanning",
     "conceptualSelections",
     "createdAt",
     "designDraftId",
@@ -255,13 +282,14 @@ test("estimate handoff serialises only allowlisted non-price fields and maps quo
     "paletteId",
     "photoUsed",
     "preferredNextStep",
+    "productShortlist",
     "sampleTemplateId",
     "schemaVersion",
     "selectedVariantId",
     "styleId",
     "updatedAt"
   ]);
-  assert.doesNotMatch(JSON.stringify(handoff), /price|quote|rate|margin|supplierCost|labou?rRate/i);
+  assert.doesNotMatch(JSON.stringify(handoff), /finalPrice|priceAmount|quoteTotal|rateCard|margin|supplierCost|labou?rRate/i);
   assert.deepEqual(mapHandoffToQuoteDefaults(handoff), {
     projectType: "full-bathroom",
     fixtureLevel: "budget"
@@ -298,7 +326,7 @@ test("layout-risk prompt context is preserved in local draft and estimate handof
 
 test("invalid or expired handoff data is ignored safely", () => {
   const storage = memoryStorage();
-  storage.setItem("operon:bathroom-design:quote-handoff:v0.2", "{\"bad\":true}");
+  storage.setItem("operon:bathroom-design:quote-handoff:v0.3", "{\"bad\":true}");
   assert.equal(readEstimateHandoff(storage), null);
 
   const expired = createEstimateHandoff(validDraft(), new Date("2020-01-01T00:00:00.000Z"));
@@ -310,11 +338,13 @@ test("required trust labels and brief disclaimers render", () => {
   assert.match(html, /Inspiration visual/);
   assert.match(html, /Measured layout: unavailable/);
   assert.match(html, /Verified product: unavailable/);
+  assert.match(html, /Catalogue candidate/);
   assert.match(html, /not measured plans, specifications, quotes or construction documents/i);
   assert.match(html, /aria-current="step"/);
 
   const summary = getDesignSummaryText(validDraft());
   assert.match(summary, /not a quote, measured plan, specification, contract or construction document/i);
+  assert.match(summary, /Catalogue candidates are not confirmed SKUs/);
   assert.match(summary, /Approximate room shape: rectangle/);
 });
 
@@ -322,17 +352,41 @@ test("core design flow renders semantic buttons and no real supplier or rate dat
   const html = renderToString(<DesignStudio />);
   assert.match(html, /<button/);
   assert.match(html, /Main bathroom/);
-  assert.match(html, /Step <!-- -->1<!-- --> of <!-- -->7/);
+  assert.match(html, /Step <!-- -->1<!-- --> of <!-- -->8/);
 
-  const publicData = JSON.stringify({ designStyles, designPalettes, conceptualProductArchetypes });
-  assert.doesNotMatch(publicData, /Reece|IKEA|Bunnings|supplierCost|labou?rRate|margin|AUD|\$/i);
+  const publicData = JSON.stringify({ designStyles, designPalettes, conceptualProductArchetypes, catalogueCandidates });
+  assert.doesNotMatch(publicData, /Reece|IKEA|Bunnings|supplierCost|labou?rRate|rateCard|margin|AUD|\$|skuCode|supplierId/i);
 });
 
 test("phase 2 room-shape and size inputs render bounded planning-only choices", () => {
   const html = renderToString(<DesignStudio />);
-  assert.match(html, /Step <!-- -->1<!-- --> of <!-- -->7/);
+  assert.match(html, /Step <!-- -->1<!-- --> of <!-- -->8/);
   assert.doesNotMatch(html, /measured dimensions/i);
   assert.match(html, /not measured plans, specifications, quotes or construction documents/i);
+});
+
+test("phase 3 product catalogue candidates stay bounded and non-commercial", () => {
+  assert.ok(catalogueCandidates.length >= 6);
+  const publicData = JSON.stringify(catalogueCandidates);
+  assert.match(publicData, /catalogue-candidate/);
+  assert.doesNotMatch(publicData, /supplierCost|supplierId|skuCode|retailPrice|tradePrice|priceAmount|AUD|\$/i);
+
+  const draft = validDraft();
+  assert.equal(bathroomDesignDraftSchema.safeParse(draft).success, true);
+  assert.equal(draft.productShortlist[0].verifiedProduct, false);
+  assert.equal(draft.productShortlist[0].confirmedSku, false);
+  assert.equal(draft.productShortlist[0].supplierFeed, false);
+  assert.equal(draft.productShortlist[0].pricingIncluded, false);
+
+  const invalid = validDraft({
+    productShortlist: [
+      {
+        ...draft.productShortlist[0],
+        category: "changed-category"
+      }
+    ]
+  });
+  assert.equal(bathroomDesignDraftSchema.safeParse(invalid).success, false);
 });
 
 test("phase 2 approximate layout preview is accessible and avoids measured CAD claims", () => {

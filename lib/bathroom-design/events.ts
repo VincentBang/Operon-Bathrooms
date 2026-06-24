@@ -6,6 +6,7 @@ export type BathroomDesignEventName =
   | "bathroom_type_selected"
   | "style_selected"
   | "palette_selected"
+  | "catalogue_candidate_toggled"
   | "concept_generated"
   | "variant_compared"
   | "design_saved_local"
@@ -24,6 +25,7 @@ export type BathroomDesignEvent = {
     selectedVariantId?: string;
     photoUsed?: boolean;
     allowanceBand?: BathroomDesignDraft["allowanceBand"];
+    productShortlistCount?: number;
   };
 };
 
