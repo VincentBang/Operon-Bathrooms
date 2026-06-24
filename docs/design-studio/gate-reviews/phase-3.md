@@ -1,8 +1,12 @@
 # Phase 3 Gate Review
 
-Status: Gate review ready.
+Status: Approved and merged.
 
 Vincent approved Phase 3 build on 2026-06-24.
+
+PR #4 merged the Phase 3 implementation to `main` on 2026-06-24.
+
+PR #5 merged the Phase 3 release-boundary audit note to `main` on 2026-06-24.
 
 ## Approved Scope
 
@@ -29,6 +33,10 @@ Vincent approved Phase 3 build on 2026-06-24.
 - `NEXT_PUBLIC_ENABLE_BATHROOM_DESIGN_STUDIO=true npm run qa:design-studio:a11y -- http://127.0.0.1:3012` passed on desktop and mobile.
 - `NEXT_PUBLIC_ENABLE_BATHROOM_DESIGN_STUDIO=true npm run qa:responsive -- http://127.0.0.1:3012` passed across 7 routes at 1440, 1280, 768 and 390 width checks.
 - Responsive screenshots saved to `.local/qa-responsive`.
+- Post-merge verification on updated `main` at `433ec01` passed `npm run qa:local`.
+- Post-merge verification passed `NEXT_PUBLIC_ENABLE_BATHROOM_DESIGN_STUDIO=true npm run qa:design-studio:a11y -- http://127.0.0.1:3013`.
+- Post-merge verification passed `NEXT_PUBLIC_ENABLE_BATHROOM_DESIGN_STUDIO=true npm run qa:responsive -- http://127.0.0.1:3013`.
+- Release-boundary audit was merged via PR #5, confirming feature-flag, noindex, planning-only and no live supplier/SKU/pricing/procurement boundaries.
 
 ## Files Changed
 
@@ -63,4 +71,4 @@ Vincent approved Phase 3 build on 2026-06-24.
 
 ## Gate Decision
 
-Ready for Vincent review. Not self-approved by Codex.
+Approved by Vincent and merged. `/design-studio` remains feature-flagged and noindex. Release exposure remains a separate decision. Phase 4 remains locked.

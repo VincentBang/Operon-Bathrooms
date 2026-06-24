@@ -10,7 +10,7 @@ Base: merged `origin/main` at `433ec01` (`Build phase 3 design studio catalogue 
 
 Verify the merged Phase 3 Design Studio catalogue-candidate release boundary after PR #4 landed on `main`.
 
-This audit confirms the merged Phase 3 work remains a feature-flagged planning preview. It does not approve Phase 4 or any release exposure.
+This audit confirms the merged Phase 3 work remains a feature-flagged planning preview. It does not approve Phase 4 or any release exposure. The audit note was merged via PR #5 on 2026-06-24.
 
 ## Boundary Results
 
@@ -72,8 +72,8 @@ Additional boundary scans for this audit branch:
 
 ## Decision
 
-Phase 3 remains merged and gate-reviewed. Release exposure still requires Vincent decision-making outside this audit note.
+Phase 3 remains merged, gate-reviewed and release-boundary-audited. Release exposure still requires Vincent decision-making outside this audit note.
 
 ## Recommended Next Task
 
-Review this Phase 3 release-boundary note, then decide whether to merge the documentation-only audit branch.
+Choose the next decision path: controlled release-exposure planning for the gated Design Studio, or Phase 4 acceptance criteria only. Do not begin Phase 4 implementation without a new approval.
