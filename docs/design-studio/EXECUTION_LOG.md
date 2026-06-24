@@ -265,3 +265,12 @@
 - Updated next actions, stage status, master plan, gate review, test matrix and known limitations to reflect that PR #11 and PR #12 are merged.
 - Kept `/design-studio` feature-flagged and noindex.
 - Kept release exposure, user-entered measurements, AR/browser-camera experiments, camera upload/storage, LiDAR, BIM, AI/API-assisted measurement, Quote OS, pricing and procurement locked until separate approval.
+
+## 2026-06-24 Design Studio Release-Exposure Criteria
+
+- Vincent approved starting a docs-only release-exposure criteria task after Phase 5 closeout.
+- Created branch `codex/design-studio-release-exposure-criteria` from updated `main`.
+- Added `docs/design-studio/DESIGN_STUDIO_RELEASE_EXPOSURE_CRITERIA_2026-06-24.md`.
+- Updated next actions, master plan, stage status, decision log, metrics/gates, risk register, test matrix and known limitations for controlled noindex pilot criteria.
+- Kept `/design-studio` feature-flagged and noindex.
+- Kept release implementation, sitemap/nav/indexing changes, user-entered measurements, AR/browser-camera experiments, upload/storage, LiDAR, BIM, AI/API-assisted measurement, Quote OS, pricing and procurement locked until separate approval.

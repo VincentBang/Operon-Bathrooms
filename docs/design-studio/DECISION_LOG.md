@@ -12,3 +12,4 @@
 | 2026-06-24 | Approve Phase 4 deterministic-only implementation path | Vincent | Proceed with bounded rule-based constraint prompts; AI/API-assisted constraint intelligence remains separately gated |
 | 2026-06-24 | Approve Phase 5 acceptance-criteria work | Vincent | Start criteria for AR and Measurement, but keep implementation path separately gated |
 | 2026-06-24 | Select Phase 5 evidence-readiness first | Codex | Safest first path after criteria review; avoids camera, upload, AR, measured-plan and storage risk |
+| 2026-06-24 | Approve release-exposure criteria work | Vincent | Start docs-only criteria for controlled exposure while keeping feature flag, noindex, measurements and AR/browser-camera locked |
