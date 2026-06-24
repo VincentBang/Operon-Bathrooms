@@ -44,14 +44,14 @@ No Phase 4 or later work is approved.
 1. Keep merged Phase 3 implementation and audit branches for traceability.
 2. Decide whether `/design-studio` should remain internal/gated or move into controlled release-exposure planning.
 3. If release exposure is considered, define release criteria before changing feature flags, indexing or navigation.
-4. If Phase 4 is considered, define acceptance criteria only before implementation approval.
-5. Keep Phase 4 and later locked until explicit Vincent approval.
+4. Review Phase 4 acceptance criteria and choose deterministic-only or separately approved AI/API-assisted constraint intelligence.
+5. Keep Phase 4 implementation and later phases locked until explicit Vincent approval.
 
 ## Future Phases
 
 - Phase 2: structured planner with editable approximate layouts.
 - Phase 3: governed catalogue candidates and product shortlist, not verified SKUs.
-- Phase 4: AI and constraint intelligence.
+- Phase 4: grounded constraint intelligence, with AI/API only after a separate provider and privacy approval.
 - Phase 5: AR and measurement.
 - Phase 6: Quote OS integration.
 
@@ -107,4 +107,4 @@ No production AI, production 3D, WebGL/WebGPU editor, AR, LiDAR, BIM, live suppl
 
 ## Next Action
 
-Choose the next decision path: controlled release-exposure planning for the gated Design Studio, or Phase 4 acceptance criteria only. Stop before any Phase 4 implementation.
+Review Phase 4 acceptance criteria and decide whether to approve a deterministic-only implementation path or a separately governed AI/API experiment. Stop before implementation until approved.

@@ -43,6 +43,13 @@
 - [x] Stage 3I merge Phase 3 release-boundary audit via PR #5.
 - [x] Stage 3J keep merged Phase 3 branches for audit traceability.
 
+## Phase 4 Gate Planning
+
+- [x] Stage 4A draft Phase 4 acceptance criteria.
+- [ ] Stage 4B review whether Phase 4 is deterministic-only or includes a separately approved AI/API experiment.
+- [ ] Stage 4C approve or reject Phase 4 implementation path.
+- [ ] Stage 4D create implementation branch only after approval.
+
 ## Deferred Until Later Approval
 
 - Verified SKUs, live product feeds, supplier availability and procurement.
