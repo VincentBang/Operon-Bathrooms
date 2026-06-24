@@ -181,3 +181,11 @@
 - Confirmed Phase 3 remains planning-only with no live supplier feed, confirmed SKU, public pricing, procurement, AI ranking or Quote OS implementation.
 - Vincent chose to keep merged Phase 3 branches for audit traceability.
 - Phase 4 remains locked until a separate acceptance-criteria and approval step.
+
+## 2026-06-24 Phase 4 Criteria Draft
+
+- Vincent chose the Phase 4 path after Phase 3 closeout.
+- Drafted Phase 4 acceptance criteria only.
+- Kept implementation locked pending a separate decision between deterministic-only constraint intelligence and any AI/API-assisted experiment.
+- Kept `/design-studio` feature-flagged and noindex.
+- Kept live supplier feeds, verified SKUs, public pricing, procurement, AI ranking, Quote OS, 3D/AR, payment, CRM and marketplace out of scope.
