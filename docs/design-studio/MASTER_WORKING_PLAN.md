@@ -31,9 +31,9 @@ Phase 2 Structured Planner is `APPROVED`.
 
 Phase 3 Catalogue Candidate Shortlist is `APPROVED` and merged after Vincent approval on 2026-06-24.
 
-Phase 4 Deterministic Constraint Intelligence is `GATE_REVIEW_READY` on a separate implementation branch after Vincent approved the deterministic-only path.
+Phase 4 Deterministic Constraint Intelligence is `APPROVED` and merged after Vincent approval on 2026-06-24.
 
-No AI/API-assisted constraint intelligence, Phase 5 or later work is approved.
+No release exposure, AI/API-assisted constraint intelligence, Phase 5 or later work is approved.
 
 ## Completed Work Before Design Studio
 
@@ -46,8 +46,8 @@ No AI/API-assisted constraint intelligence, Phase 5 or later work is approved.
 1. Keep merged Phase 3 implementation and audit branches for traceability.
 2. Decide whether `/design-studio` should remain internal/gated or move into controlled release-exposure planning.
 3. If release exposure is considered, define release criteria before changing feature flags, indexing or navigation.
-4. Review the Phase 4 deterministic-only PR/file scope and decide whether to merge.
-5. Keep AI/API-assisted constraint intelligence, Phase 5 and later phases locked until explicit Vincent approval.
+4. Review the Phase 4 release-boundary audit PR/file scope and decide whether to merge.
+5. Keep release exposure, AI/API-assisted constraint intelligence, Phase 5 and later phases locked until explicit Vincent approval.
 
 ## Future Phases
 
@@ -57,7 +57,7 @@ No AI/API-assisted constraint intelligence, Phase 5 or later work is approved.
 - Phase 5: AR and measurement.
 - Phase 6: Quote OS integration.
 
-Phase 3 is complete and approved as merged. Phase 4 deterministic implementation is gate-review-ready and still requires Vincent approval before merge. Each later phase requires a passed gate report and explicit Vincent approval.
+Phase 3 and Phase 4 deterministic implementation are complete and approved as merged. Each later phase requires a passed gate report and explicit Vincent approval.
 
 ## Dependencies
 
@@ -109,4 +109,4 @@ No production AI, production 3D, WebGL/WebGPU editor, AR, LiDAR, BIM, live suppl
 
 ## Next Action
 
-Review the Phase 4 deterministic-only PR/file scope, then approve or request changes. Keep `/design-studio` feature-flagged and noindex.
+Review the Phase 4 release-boundary audit PR/file scope, then approve or request changes. Keep `/design-studio` feature-flagged and noindex.
