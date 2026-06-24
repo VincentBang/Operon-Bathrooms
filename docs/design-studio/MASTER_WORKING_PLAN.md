@@ -35,7 +35,7 @@ Phase 4 Deterministic Constraint Intelligence is `APPROVED` and merged after Vin
 
 Phase 5 AR and Measurement evidence-readiness only path is `APPROVED` and merged after Vincent approval on 2026-06-24. No user-entered measurement fields, release exposure, AI/API-assisted measurement, production AR, upload/storage, Quote OS or later work is approved yet.
 
-Release-exposure criteria are being prepared as docs-only planning. This does not approve public release, route indexing, sitemap inclusion, navigation changes, measurement fields or AR/browser-camera work.
+Release-exposure criteria are merged. Controlled noindex pilot preparation is underway as docs/config-only planning. This does not approve public release, route indexing, sitemap inclusion, navigation changes, measurement fields or AR/browser-camera work.
 
 ## Completed Work Before Design Studio
 
@@ -48,8 +48,8 @@ Release-exposure criteria are being prepared as docs-only planning. This does no
 1. Keep merged Phase 3 implementation and audit branches for traceability.
 2. Decide whether `/design-studio` should remain internal/gated or move into controlled release-exposure planning.
 3. If release exposure is considered, define release criteria before changing feature flags, indexing or navigation.
-4. Review the release-exposure criteria branch.
-5. Decide whether to pause Design Studio exposure, request changes or approve a later controlled noindex pilot preparation task. Keep implementation locked until explicit Vincent approval.
+4. Review the controlled noindex pilot prep branch.
+5. Decide whether to pause pilot work, request changes or approve a small implementation branch that separates route enablement from nav/sitemap discovery. Keep implementation locked until explicit Vincent approval.
 
 ## Future Phases
 
@@ -111,4 +111,4 @@ No production AI, production 3D, WebGL/WebGPU editor, production AR, LiDAR, BIM,
 
 ## Next Action
 
-Review the release-exposure criteria branch, then approve merge, request changes or pause exposure. Keep `/design-studio` feature-flagged and noindex.
+Review the controlled noindex pilot prep branch, then approve merge, request changes or pause pilot work. Keep `/design-studio` feature-flagged and noindex.

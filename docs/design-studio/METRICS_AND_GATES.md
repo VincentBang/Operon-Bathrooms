@@ -47,3 +47,16 @@ Gate requirements:
 - no sitemap, navigation or indexing change unless separately approved
 - route can be disabled through `NEXT_PUBLIC_ENABLE_BATHROOM_DESIGN_STUDIO`
 - repeat human screen-reader pass before public exposure
+
+## Controlled Noindex Pilot Prep Gate
+
+The current single route flag enables `/design-studio` and also exposes nav/footer links plus sitemap inclusion. A controlled noindex pilot needs route access without broad discovery.
+
+Before pilot exposure, a later implementation branch must prove:
+
+- route rendering can be enabled for pilot users
+- sitemap inclusion can remain off in pilot mode
+- primary nav and footer discovery can remain off in pilot mode
+- metadata remains `noindex,nofollow`
+- the route can be disabled quickly by environment configuration
+- no measurement, AR/browser-camera, upload/storage, pricing, procurement or Quote OS behavior is introduced
