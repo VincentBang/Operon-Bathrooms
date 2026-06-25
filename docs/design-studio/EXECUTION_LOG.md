@@ -284,3 +284,14 @@
 - Documented that the current single feature flag also controls route rendering, nav/footer discovery and sitemap inclusion.
 - Required a later discovery-split implementation branch before any controlled pilot exposure.
 - Kept route behavior, feature flags, sitemap/nav/indexing, user-entered measurements, AR/browser-camera, upload/storage, LiDAR, BIM, AI/API-assisted measurement, Quote OS, pricing and procurement unchanged.
+
+## 2026-06-25 Discovery Split Implementation
+
+- Vincent approved starting the small discovery-split implementation branch.
+- Created branch `codex/design-studio-discovery-split` from updated `main`.
+- Split route rendering from public discovery with `NEXT_PUBLIC_BATHROOM_DESIGN_STUDIO_DISCOVERY`.
+- Kept `/design-studio` route rendering behind `NEXT_PUBLIC_ENABLE_BATHROOM_DESIGN_STUDIO`.
+- Kept nav/footer links and sitemap inclusion hidden unless discovery is explicitly `public`.
+- Kept `/design-studio` metadata noindex/nofollow.
+- Added focused tests for route flag and sitemap discovery behavior.
+- Kept measurements, AR/browser-camera, upload/storage, LiDAR, BIM, AI/API-assisted measurement, Quote OS, pricing and procurement locked.

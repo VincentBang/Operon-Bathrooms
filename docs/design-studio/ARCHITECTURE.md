@@ -14,6 +14,7 @@
 ## Phase 0/1 Architecture
 
 - Route: `/design-studio`, gated by `NEXT_PUBLIC_ENABLE_BATHROOM_DESIGN_STUDIO=true`.
+- Public discovery: nav/footer links and sitemap inclusion require `NEXT_PUBLIC_BATHROOM_DESIGN_STUDIO_DISCOVERY=public`.
 - Data: `BathroomDesignDraft` schema version `0.1`.
 - Storage: localStorage for structured drafts only; no images.
 - Handoff: sessionStorage allowlisted design context into `/quote`.

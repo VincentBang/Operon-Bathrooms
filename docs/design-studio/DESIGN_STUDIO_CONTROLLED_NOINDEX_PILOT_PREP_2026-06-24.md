@@ -32,6 +32,8 @@ That means the current flag is suitable for local and internal feature-flagged Q
 
 Before any controlled pilot is exposed outside local/internal review, add a separate approved implementation branch that can keep the route enabled while keeping discovery hidden.
 
+Status update: the discovery split was implemented in `codex/design-studio-discovery-split` on 2026-06-25. Keep the remaining QA, screen-reader and pilot-exposure gates separate.
+
 Required behavior:
 
 - `/design-studio` can render for the controlled pilot audience.
@@ -41,13 +43,13 @@ Required behavior:
 - The route can be disabled quickly through environment configuration.
 - The implementation does not add measurement fields, AR/browser-camera, upload/storage, pricing, procurement or Quote OS behavior.
 
-Suggested future config shape:
+Implemented config shape:
 
 - `NEXT_PUBLIC_ENABLE_BATHROOM_DESIGN_STUDIO=true` for route rendering.
 - `NEXT_PUBLIC_BATHROOM_DESIGN_STUDIO_DISCOVERY=hidden` for controlled noindex pilot discovery.
 - `NEXT_PUBLIC_BATHROOM_DESIGN_STUDIO_DISCOVERY=public` only after a later public-discovery approval.
 
-Do not add or rely on those new variables until a separate implementation branch is approved.
+Blank discovery is also treated as hidden. Do not set discovery to `public` until a later public-discovery approval.
 
 ## Pilot Audience
 
