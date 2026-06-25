@@ -324,3 +324,15 @@
 - Added `docs/design-studio/INTERNAL_ONLY_PILOT_FEEDBACK_TEMPLATE.md`.
 - Recorded the approved local/staging-style configuration: route enabled, noindex kept and public discovery hidden.
 - Kept external exposure, public discovery, sitemap/nav/footer exposure, indexing, user-entered measurements, AR/browser-camera, upload/storage, pricing, procurement and Quote OS locked.
+
+## 2026-06-26 Internal-Only Pilot Pass 1
+
+- Ran the first internal-only `/design-studio` pilot pass locally with `NEXT_PUBLIC_ENABLE_BATHROOM_DESIGN_STUDIO=true` and `NEXT_PUBLIC_BATHROOM_DESIGN_STUDIO_DISCOVERY=`.
+- `NEXT_PUBLIC_ENABLE_BATHROOM_DESIGN_STUDIO=true NEXT_PUBLIC_BATHROOM_DESIGN_STUDIO_DISCOVERY= npm run build` passed.
+- Started local server at `http://127.0.0.1:3026`.
+- Confirmed `/design-studio` returned `200`, remained `noindex,nofollow`, and stayed hidden from sitemap/home discovery.
+- `NEXT_PUBLIC_ENABLE_BATHROOM_DESIGN_STUDIO=true NEXT_PUBLIC_BATHROOM_DESIGN_STUDIO_DISCOVERY= npm run qa:design-studio:a11y -- http://127.0.0.1:3026` passed.
+- `NEXT_PUBLIC_ENABLE_BATHROOM_DESIGN_STUDIO=true NEXT_PUBLIC_BATHROOM_DESIGN_STUDIO_DISCOVERY= npm run qa:responsive -- http://127.0.0.1:3026` passed across 7 routes and 4 viewport sizes.
+- Captured first reviewer notes in `docs/design-studio/internal-pilot-feedback/2026-06-26-codex-pass-1.md`.
+- Recorded a mobile watch item: the chatbot launcher can visually sit over lower-right non-control content while scrolling, but it did not block completion or critical controls in this pass.
+- Kept external exposure, public discovery, indexing, user-entered measurements, AR/browser-camera, upload/storage, pricing, procurement and Quote OS locked.
