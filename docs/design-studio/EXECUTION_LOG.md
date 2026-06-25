@@ -336,3 +336,11 @@
 - Captured first reviewer notes in `docs/design-studio/internal-pilot-feedback/2026-06-26-codex-pass-1.md`.
 - Recorded a mobile watch item: the chatbot launcher can visually sit over lower-right non-control content while scrolling, but it did not block completion or critical controls in this pass.
 - Kept external exposure, public discovery, indexing, user-entered measurements, AR/browser-camera, upload/storage, pricing, procurement and Quote OS locked.
+
+## 2026-06-26 No-Feedback Continuation
+
+- Vincent directed the internal-only pilot work to continue without waiting for human reviewer feedback.
+- Marked Internal Pilot Pass 1 as `APPROVED` for internal-only continuation, with human feedback explicitly deferred.
+- Added `docs/design-studio/INTERNAL_PILOT_NO_FEEDBACK_CONTINUATION_2026-06-26.md`.
+- Added `docs/design-studio/INTERNAL_PILOT_OPERATIONS_CHECKLIST.md`.
+- Kept external exposure, public discovery, sitemap/nav/footer exposure, indexing, user-entered measurements, AR/browser-camera, upload/storage, pricing, procurement and Quote OS locked.

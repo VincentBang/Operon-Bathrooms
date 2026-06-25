@@ -19,6 +19,7 @@
 - Public discovery remains locked; `NEXT_PUBLIC_BATHROOM_DESIGN_STUDIO_DISCOVERY=public` must not be used without later public-discovery approval.
 - Controlled noindex pilot post-merge local proxy QA passed on 2026-06-25 with route enabled and public discovery hidden.
 - Internal-only pilot use is approved with the route enabled, noindex kept and public discovery hidden.
+- Human internal-pilot feedback is deferred for now; proxy-review evidence may continue internal-only preparation but does not approve external exposure.
 - External pilot exposure still requires a true human VoiceOver or equivalent screen-reader pass or a separate explicit exposure approval.
 - No Quote OS integration beyond safe planning estimate handoff.
 - Browser-based mobile viewport QA passed locally for the feature-flagged Design Studio after Phase 5 merge on 2026-06-24.
