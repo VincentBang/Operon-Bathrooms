@@ -45,4 +45,6 @@ Purpose: guide the final human VoiceOver or equivalent screen-reader pass before
 
 ## Current Status
 
-Automated browser and accessibility proxy checks passed on 2026-06-24. A human VoiceOver or equivalent pass is still recommended before public release exposure.
+Automated browser and accessibility proxy checks passed again on 2026-06-25 after the discovery split, using the controlled noindex pilot configuration with the route enabled and public discovery hidden. See `docs/design-studio/SCREEN_READER_PROXY_PASS_2026-06-25.md`.
+
+This automated proxy pass does not replace a human VoiceOver or equivalent screen-reader pass before external pilot exposure.

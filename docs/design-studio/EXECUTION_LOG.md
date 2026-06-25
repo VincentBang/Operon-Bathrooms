@@ -295,3 +295,16 @@
 - Kept `/design-studio` metadata noindex/nofollow.
 - Added focused tests for route flag and sitemap discovery behavior.
 - Kept measurements, AR/browser-camera, upload/storage, LiDAR, BIM, AI/API-assisted measurement, Quote OS, pricing and procurement locked.
+
+## 2026-06-25 Screen-Reader Proxy Pass
+
+- Vincent approved continuing with the post-merge controlled noindex pilot QA path.
+- Created branch `codex/design-studio-screen-reader-proxy-pass` from updated `main` after PR #16.
+- Ran `/design-studio` locally with `NEXT_PUBLIC_ENABLE_BATHROOM_DESIGN_STUDIO=true` and discovery hidden.
+- Confirmed `/design-studio` returned 200 while remaining noindex/nofollow.
+- Confirmed `/sitemap.xml` and the homepage did not expose `/design-studio` while discovery was hidden.
+- `NEXT_PUBLIC_ENABLE_BATHROOM_DESIGN_STUDIO=true npm run qa:design-studio:a11y -- http://127.0.0.1:3024` passed on desktop and mobile.
+- `NEXT_PUBLIC_ENABLE_BATHROOM_DESIGN_STUDIO=true npm run qa:responsive -- http://127.0.0.1:3024` passed across 7 routes at desktop, laptop, tablet and mobile viewports.
+- Recorded evidence in `docs/design-studio/SCREEN_READER_PROXY_PASS_2026-06-25.md`.
+- Kept this as an automated/equivalent proxy pass only; true human VoiceOver or equivalent QA remains a separate gate before external pilot exposure.
+- Kept measurements, AR/browser-camera, upload/storage, LiDAR, BIM, AI/API-assisted measurement, Quote OS, pricing, procurement and public discovery locked.
