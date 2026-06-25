@@ -31,8 +31,9 @@
 | Release-exposure locks | Criteria keep user-entered measurements, AR/browser-camera, upload/storage, pricing, procurement and Quote OS locked | Docs-only branch; implementation not approved |
 | Controlled noindex pilot prep | Runbook documents current single-flag limitation and later discovery-split requirement | Docs/config-only branch; `git diff --check` required |
 | Pilot env warning | `.env.example` warns not to enable Design Studio for controlled noindex pilot before route/nav/sitemap behavior is approved | Docs/config-only branch; implementation not approved |
-| Discovery split flags | Route rendering and public discovery are separate env gates | Focused `tests/bathroom-design.test.tsx` required |
-| Discovery split sitemap | Route enabled with hidden discovery excludes `/design-studio`; discovery `public` includes it | Focused `tests/bathroom-design.test.tsx` required |
+| Discovery split flags | Route rendering and public discovery are separate env gates | Passed before PR #16 merge |
+| Discovery split sitemap | Route enabled with hidden discovery excludes `/design-studio`; discovery `public` includes it | Passed before PR #16 merge |
+| Controlled noindex pilot proxy | Route enabled, discovery hidden, noindex/nofollow, a11y proxy and responsive checks | Passed locally on 2026-06-25; see `SCREEN_READER_PROXY_PASS_2026-06-25.md` |
 | Phase 2 viewport QA | Desktop, laptop, tablet and mobile browser checks | Passed locally; see `PHASE_2_MANUAL_QA.md` |
 | Phase 2 accessibility proxy | Fieldsets, labels, preview ARIA and unlabeled controls | Passed locally; dedicated screen-reader pass still recommended |
 | Release polish copy | Public labels use gated planning-preview wording | Passed in component test and `npm run qa:local` |
@@ -40,4 +41,4 @@
 | Release polish noindex | `/design-studio` metadata remains noindex/nofollow | Passed in `npm run qa:local` |
 | Release polish responsive | `/design-studio` included in responsive QA only when flag enabled | Passed with `npm run qa:responsive` |
 | Design Studio a11y harness | Noindex, control names, current step, layout ARIA and result actions | Passed with `npm run qa:design-studio:a11y` |
-| Human screen-reader checklist | VoiceOver/equivalent pass steps prepared | Passed before PR #2; repeat recommended before public exposure after later feature changes |
+| Human screen-reader checklist | VoiceOver/equivalent pass steps prepared | Passed before PR #2; repeat still required before external pilot exposure after later feature changes |
