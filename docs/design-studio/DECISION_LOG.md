@@ -14,3 +14,4 @@
 | 2026-06-24 | Select Phase 5 evidence-readiness first | Codex | Safest first path after criteria review; avoids camera, upload, AR, measured-plan and storage risk |
 | 2026-06-24 | Approve release-exposure criteria work | Vincent | Start docs-only criteria for controlled exposure while keeping feature flag, noindex, measurements and AR/browser-camera locked |
 | 2026-06-24 | Approve controlled noindex pilot prep | Vincent | Prepare docs/config-only pilot runbook while keeping sitemap, nav, indexing, measurements and AR/browser-camera locked |
+| 2026-06-25 | Approve discovery-split implementation | Vincent | Split route enablement from nav/footer and sitemap discovery for a controlled noindex pilot while keeping measurements and AR/browser-camera locked |

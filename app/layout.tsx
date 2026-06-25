@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Script from "next/script";
 import { BathroomChatbot } from "@/components/BathroomChatbot";
-import { isBathroomDesignStudioEnabled } from "@/lib/bathroom-design/feature-flag";
+import { isBathroomDesignStudioDiscoverable } from "@/lib/bathroom-design/feature-flag";
 import "./globals.css";
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.operonbathrooms.com.au";
@@ -29,11 +29,11 @@ export const metadata: Metadata = {
   }
 };
 
-const designStudioEnabled = isBathroomDesignStudioEnabled();
+const designStudioDiscoverable = isBathroomDesignStudioDiscoverable();
 
 const navLinks = [
   ["Estimate", "/quote"],
-  ...(designStudioEnabled ? [["Design studio", "/design-studio"]] : []),
+  ...(designStudioDiscoverable ? [["Design studio", "/design-studio"]] : []),
   ["Review quote", "/quote/review"],
   ["Costs", "/bathroom-renovation-cost-sydney"],
   ["How it works", "/how-it-works"],
@@ -108,7 +108,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               </div>
               <div className="footer-group">
                 <h3>Quote & review</h3>
-                {designStudioEnabled ? <Link href="/design-studio">Bathroom Design Studio</Link> : null}
+                {designStudioDiscoverable ? <Link href="/design-studio">Bathroom Design Studio</Link> : null}
                 <Link href="/quote">Start bathroom estimate</Link>
                 <Link href="/quote/review">Review existing bathroom quote</Link>
                 <Link href="/request-review">Request review</Link>

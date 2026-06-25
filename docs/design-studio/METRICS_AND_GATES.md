@@ -50,9 +50,9 @@ Gate requirements:
 
 ## Controlled Noindex Pilot Prep Gate
 
-The current single route flag enables `/design-studio` and also exposes nav/footer links plus sitemap inclusion. A controlled noindex pilot needs route access without broad discovery.
+The original single route flag enabled `/design-studio` and also exposed nav/footer links plus sitemap inclusion. A controlled noindex pilot needs route access without broad discovery.
 
-Before pilot exposure, a later implementation branch must prove:
+The discovery split must prove:
 
 - route rendering can be enabled for pilot users
 - sitemap inclusion can remain off in pilot mode
@@ -60,3 +60,5 @@ Before pilot exposure, a later implementation branch must prove:
 - metadata remains `noindex,nofollow`
 - the route can be disabled quickly by environment configuration
 - no measurement, AR/browser-camera, upload/storage, pricing, procurement or Quote OS behavior is introduced
+
+Pilot exposure still requires post-merge local QA, responsive QA, accessibility proxy QA and human screen-reader QA before any external users.

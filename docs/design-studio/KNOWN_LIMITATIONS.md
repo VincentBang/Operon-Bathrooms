@@ -16,7 +16,8 @@
 - No AR/browser-camera experiment.
 - Phase 5 evidence-readiness is a structured preparation checklist only; it does not verify measurements, site conditions, waterproofing, strata/Class 2, product fit, compliance or contract readiness online.
 - No public release exposure is approved yet; release-exposure criteria are docs-only and keep `/design-studio` feature-flagged and noindex.
-- Current `NEXT_PUBLIC_ENABLE_BATHROOM_DESIGN_STUDIO` behavior also exposes nav/footer links and sitemap inclusion when enabled; controlled noindex pilot exposure needs a later discovery-split implementation branch before use outside local/internal review.
+- Public discovery remains locked; `NEXT_PUBLIC_BATHROOM_DESIGN_STUDIO_DISCOVERY=public` must not be used without later public-discovery approval.
+- Controlled noindex pilot exposure still requires post-merge local QA and repeat human screen-reader QA before external users.
 - No Quote OS integration beyond safe planning estimate handoff.
 - Browser-based mobile viewport QA passed locally for the feature-flagged Design Studio after Phase 5 merge on 2026-06-24.
 - Repeatable Design Studio accessibility proxy harness passed locally after Phase 5 merge on 2026-06-24.

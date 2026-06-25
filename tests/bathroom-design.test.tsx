@@ -16,6 +16,10 @@ import { ApproximateLayoutPreview } from "../components/design-studio/Approximat
 import { DesignSummary, getDesignSummaryText } from "../components/design-studio/DesignSummary";
 import { getDesignConstraintPrompts } from "../lib/bathroom-design/constraints";
 import { createEvidencePlanning, createEvidenceReadiness } from "../lib/bathroom-design/evidence-readiness";
+import {
+  isBathroomDesignStudioDiscoverable,
+  isBathroomDesignStudioEnabled
+} from "../lib/bathroom-design/feature-flag";
 import { getLayoutRiskPrompts } from "../lib/bathroom-design/layout-risk";
 import {
   BathroomDesignDraft,
@@ -221,16 +225,33 @@ test("saved local design draft never includes image blob or base64 fields", () =
   assert.equal(designDraftContainsForbiddenPersistence({ photoData: "base64" }), true);
 });
 
-test("feature flag hides design studio from sitemap when disabled and includes it when enabled", () => {
-  const previous = process.env.NEXT_PUBLIC_ENABLE_BATHROOM_DESIGN_STUDIO;
+test("design studio route flag is separate from public discovery", () => {
+  const previousEnabled = process.env.NEXT_PUBLIC_ENABLE_BATHROOM_DESIGN_STUDIO;
+  const previousDiscovery = process.env.NEXT_PUBLIC_BATHROOM_DESIGN_STUDIO_DISCOVERY;
   try {
     delete process.env.NEXT_PUBLIC_ENABLE_BATHROOM_DESIGN_STUDIO;
+    delete process.env.NEXT_PUBLIC_BATHROOM_DESIGN_STUDIO_DISCOVERY;
+    assert.equal(isBathroomDesignStudioEnabled(), false);
+    assert.equal(isBathroomDesignStudioDiscoverable(), false);
     assert.equal(sitemap().some((entry) => entry.url.endsWith("/design-studio")), false);
+
     process.env.NEXT_PUBLIC_ENABLE_BATHROOM_DESIGN_STUDIO = "true";
+    assert.equal(isBathroomDesignStudioEnabled(), true);
+    assert.equal(isBathroomDesignStudioDiscoverable(), false);
+    assert.equal(sitemap().some((entry) => entry.url.endsWith("/design-studio")), false);
+
+    process.env.NEXT_PUBLIC_BATHROOM_DESIGN_STUDIO_DISCOVERY = "hidden";
+    assert.equal(isBathroomDesignStudioDiscoverable(), false);
+    assert.equal(sitemap().some((entry) => entry.url.endsWith("/design-studio")), false);
+
+    process.env.NEXT_PUBLIC_BATHROOM_DESIGN_STUDIO_DISCOVERY = "public";
+    assert.equal(isBathroomDesignStudioDiscoverable(), true);
     assert.equal(sitemap().some((entry) => entry.url.endsWith("/design-studio")), true);
   } finally {
-    if (previous === undefined) delete process.env.NEXT_PUBLIC_ENABLE_BATHROOM_DESIGN_STUDIO;
-    else process.env.NEXT_PUBLIC_ENABLE_BATHROOM_DESIGN_STUDIO = previous;
+    if (previousEnabled === undefined) delete process.env.NEXT_PUBLIC_ENABLE_BATHROOM_DESIGN_STUDIO;
+    else process.env.NEXT_PUBLIC_ENABLE_BATHROOM_DESIGN_STUDIO = previousEnabled;
+    if (previousDiscovery === undefined) delete process.env.NEXT_PUBLIC_BATHROOM_DESIGN_STUDIO_DISCOVERY;
+    else process.env.NEXT_PUBLIC_BATHROOM_DESIGN_STUDIO_DISCOVERY = previousDiscovery;
   }
 });
 

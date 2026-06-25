@@ -12,4 +12,4 @@
 | Premature release exposure | Critical | Release-exposure criteria require controlled noindex pilot planning, rollback and QA before any flag, nav, sitemap or indexing change | Release exposure | Open |
 | Users mistake Design Studio for quote or measured plan | Critical | Keep planning-only labels, noindex pilot, CTA routing and screen-reader/manual QA gates | Release exposure | Open |
 | Measurement or AR scope unlocks accidentally | Critical | Keep user-entered measurements and AR/browser-camera experiments locked behind separate approvals | Release exposure | Open |
-| Single feature flag exposes sitemap/nav during pilot | High | Add docs/config warning now; require later discovery-split implementation before any controlled pilot exposure | Pilot prep | Open |
+| Single feature flag exposes sitemap/nav during pilot | High | Discovery split separates route rendering from nav/footer and sitemap discovery; verify with focused tests and post-merge QA before pilot exposure | Pilot prep | Mitigating |
