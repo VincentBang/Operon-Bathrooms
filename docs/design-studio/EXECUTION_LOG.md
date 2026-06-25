@@ -316,3 +316,11 @@
 - Added `docs/design-studio/SCREEN_READER_PROXY_PASS_CLOSEOUT_2026-06-25.md`.
 - Kept external pilot exposure gated behind a true human VoiceOver or equivalent pass, unless Vincent explicitly accepts proxy evidence for an internal-only pilot.
 - Kept public discovery, sitemap/nav/footer exposure, indexing, user-entered measurements, AR/browser-camera, upload/storage, pricing, procurement and Quote OS locked.
+
+## 2026-06-26 Internal-Only Pilot Approval
+
+- Vincent approved internal-only pilot use for `/design-studio`.
+- Added `docs/design-studio/INTERNAL_ONLY_PILOT_APPROVAL_2026-06-26.md`.
+- Added `docs/design-studio/INTERNAL_ONLY_PILOT_FEEDBACK_TEMPLATE.md`.
+- Recorded the approved local/staging-style configuration: route enabled, noindex kept and public discovery hidden.
+- Kept external exposure, public discovery, sitemap/nav/footer exposure, indexing, user-entered measurements, AR/browser-camera, upload/storage, pricing, procurement and Quote OS locked.

@@ -18,7 +18,8 @@
 - No public release exposure is approved yet; release-exposure criteria are docs-only and keep `/design-studio` feature-flagged and noindex.
 - Public discovery remains locked; `NEXT_PUBLIC_BATHROOM_DESIGN_STUDIO_DISCOVERY=public` must not be used without later public-discovery approval.
 - Controlled noindex pilot post-merge local proxy QA passed on 2026-06-25 with route enabled and public discovery hidden.
-- External pilot exposure still requires a true human VoiceOver or equivalent screen-reader pass unless Vincent explicitly accepts proxy evidence for an internal-only pilot.
+- Internal-only pilot use is approved with the route enabled, noindex kept and public discovery hidden.
+- External pilot exposure still requires a true human VoiceOver or equivalent screen-reader pass or a separate explicit exposure approval.
 - No Quote OS integration beyond safe planning estimate handoff.
 - Browser-based mobile viewport QA passed locally for the feature-flagged Design Studio after Phase 5 merge on 2026-06-24.
 - Repeatable Design Studio accessibility proxy harness passed locally after Phase 5 merge on 2026-06-24.
