@@ -36,6 +36,7 @@
 | Controlled noindex pilot proxy | Route enabled, discovery hidden, noindex/nofollow, a11y proxy and responsive checks | Passed locally on 2026-06-25; see `SCREEN_READER_PROXY_PASS_2026-06-25.md` |
 | Screen-reader proxy closeout | PR #17 approval recorded without approving external pilot exposure | Docs-only closeout; `git diff --check` passed locally |
 | Internal-only pilot approval | Internal route-enabled, noindex, discovery-hidden pilot approval recorded | Docs-only approval; `git diff --check` passed locally |
+| Internal pilot pass 1 | Route-enabled internal pilot completed with discovery hidden and first feedback captured | Passed locally on 2026-06-26; see `INTERNAL_ONLY_PILOT_PASS_1_2026-06-26.md` |
 | Phase 2 viewport QA | Desktop, laptop, tablet and mobile browser checks | Passed locally; see `PHASE_2_MANUAL_QA.md` |
 | Phase 2 accessibility proxy | Fieldsets, labels, preview ARIA and unlabeled controls | Passed locally; dedicated screen-reader pass still recommended |
 | Release polish copy | Public labels use gated planning-preview wording | Passed in component test and `npm run qa:local` |
