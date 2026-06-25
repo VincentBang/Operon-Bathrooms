@@ -308,3 +308,11 @@
 - Recorded evidence in `docs/design-studio/SCREEN_READER_PROXY_PASS_2026-06-25.md`.
 - Kept this as an automated/equivalent proxy pass only; true human VoiceOver or equivalent QA remains a separate gate before external pilot exposure.
 - Kept measurements, AR/browser-camera, upload/storage, LiDAR, BIM, AI/API-assisted measurement, Quote OS, pricing, procurement and public discovery locked.
+
+## 2026-06-25 Screen-Reader Proxy Pass Closeout
+
+- Vincent approved the PR #17 closeout.
+- Marked Screen-Reader Proxy Pass as `APPROVED`.
+- Added `docs/design-studio/SCREEN_READER_PROXY_PASS_CLOSEOUT_2026-06-25.md`.
+- Kept external pilot exposure gated behind a true human VoiceOver or equivalent pass, unless Vincent explicitly accepts proxy evidence for an internal-only pilot.
+- Kept public discovery, sitemap/nav/footer exposure, indexing, user-entered measurements, AR/browser-camera, upload/storage, pricing, procurement and Quote OS locked.
