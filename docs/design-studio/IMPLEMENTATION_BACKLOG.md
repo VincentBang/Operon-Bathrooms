@@ -67,10 +67,10 @@
 ## Phase 6 Quote OS Integration Foundation
 
 - [x] Stage 6A draft Phase 6 acceptance criteria.
-- [ ] Stage 6B choose a scoped Phase 6 implementation path.
-- [ ] Stage 6C create a separate implementation branch only after path approval.
-- [ ] Stage 6D define any versioned contract change before coding.
-- [ ] Stage 6E implement only the approved internal-only handoff/review scope.
+- [x] Stage 6B choose handoff-contract-only as the scoped Phase 6 implementation path.
+- [ ] Stage 6C create a separate handoff-contract implementation branch.
+- [ ] Stage 6D define whether the handoff can derive from `BathroomDesignDraft` `0.5` without a schema bump.
+- [ ] Stage 6E implement only the approved internal-only handoff contract.
 - [ ] Stage 6F run full local QA and complete Phase 6 gate review.
 
 ## Deferred Until Later Approval

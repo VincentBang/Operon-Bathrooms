@@ -201,8 +201,8 @@ Allowed handoff fields include draft ID, schema version, bathroom type, sample t
 
 ## Phase 6 Quote OS Integration Boundary
 
-Phase 6 is acceptance criteria only at this point. No `BathroomDesignDraft` schema change is approved yet.
+Phase 6 is approved for a handoff-contract-only implementation path. No `BathroomDesignDraft` schema change is approved yet.
 
-Any future Quote OS integration must be internal-only, allowlisted and optional. It may pass public planning context and evidence-readiness status into an internal review packet only after a scoped implementation path is approved.
+The next implementation may define an internal-only allowlisted handoff object derived from public planning context and evidence-readiness status.
 
 Phase 6 must not add final pricing, quote approval, proposal output, procurement, payment, live supplier data, confirmed SKUs, private scoring, admin notes, supplier costs, labour rates, margins, service role keys or public Quote OS output to the Design Studio contract.

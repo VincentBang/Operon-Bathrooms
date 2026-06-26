@@ -360,3 +360,11 @@
 - Added `docs/design-studio/PHASE_6_ACCEPTANCE_CRITERIA.md`.
 - Marked Phase 6 Quote OS Integration as `GATE_REVIEW_READY` for criteria review.
 - Kept Quote OS implementation, final pricing, public proposal generation, procurement, supplier/SKU data, payment, CRM, public discovery, indexing, measurements, AR/browser-camera and upload/storage locked.
+
+## 2026-06-27 Phase 6 Path Decision
+
+- Vincent selected the handoff-contract-only implementation path for Phase 6.
+- Added `docs/design-studio/PHASE_6_PATH_DECISION_2026-06-27.md`.
+- Marked Phase 6 Quote OS Integration as `APPROVED` for the handoff-contract-only path.
+- Added a separate `Phase 6 Handoff Contract Implementation` stage as `NOT_STARTED`.
+- Kept full Quote OS, pricing, public proposals, procurement, supplier/SKU data, payment, CRM, external exposure, public discovery, indexing, measurements, AR/browser-camera, upload/storage and schema changes locked.

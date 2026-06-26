@@ -40,6 +40,7 @@
 | No-feedback continuation | Human feedback deferral and internal operations checklist recorded | Docs-only; `git diff --check` passed locally |
 | Internal operations closeout | Operations readiness marked approved with checklist as standing runbook | Docs-only; `git diff --check` passed locally |
 | Phase 6 acceptance criteria | Quote OS integration foundation criteria recorded without implementation | Docs-only; `git diff --check` passed locally |
+| Phase 6 path decision | Handoff-contract-only path selected without implementation | Docs-only; `git diff --check` passed locally |
 | Phase 2 viewport QA | Desktop, laptop, tablet and mobile browser checks | Passed locally; see `PHASE_2_MANUAL_QA.md` |
 | Phase 2 accessibility proxy | Fieldsets, labels, preview ARIA and unlabeled controls | Passed locally; dedicated screen-reader pass still recommended |
 | Release polish copy | Public labels use gated planning-preview wording | Passed in component test and `npm run qa:local` |
