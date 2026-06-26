@@ -114,4 +114,4 @@ No production AI, production 3D, WebGL/WebGPU editor, production AR, LiDAR, BIM,
 
 ## Next Action
 
-Start the Phase 6 handoff-contract-only implementation branch. Keep `/design-studio` noindex and keep public discovery locked.
+Review the Phase 6 handoff-contract implementation PR, then approve merge or request changes. Keep `/design-studio` noindex and keep public discovery locked.

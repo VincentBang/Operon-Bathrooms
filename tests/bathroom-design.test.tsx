@@ -42,6 +42,12 @@ import {
   mapHandoffToQuoteDefaults,
   readEstimateHandoff
 } from "../lib/bathroom-design/handoff";
+import {
+  MAX_QUOTE_OS_REVIEW_QUESTIONS,
+  createQuoteOsHandoff,
+  createQuoteOsReviewQuestions,
+  quoteOsHandoffContainsForbiddenPublicData
+} from "../lib/bathroom-design/quote-os-handoff";
 
 function memoryStorage() {
   const store = new Map<string, string>();
@@ -460,6 +466,111 @@ test("phase 5 evidence-readiness context is preserved without media persistence 
   assert.equal(handoff.evidencePlanning.uploadedMedia, false);
   assert.equal(handoff.evidenceReadiness.some((item) => item.id === "whole-room-photos"), true);
   assert.doesNotMatch(JSON.stringify(handoff), /score|points|rank|supplierCost|labou?rRate|margin|final price|fixed price|base64|data:image|blob:/i);
+});
+
+test("phase 6 quote os handoff is internal-only, allowlisted and derived from schema v0.5", () => {
+  const draft = validDraft({
+    layoutRiskPrompts: getLayoutRiskPrompts(validDraft().layoutPlanning),
+    constraintPrompts: getDesignConstraintPrompts(validDraft())
+  });
+  const handoff = createQuoteOsHandoff(draft, new Date("2026-06-27T00:00:00.000Z"));
+
+  assert.deepEqual(Object.keys(handoff).sort(), [
+    "bathroomType",
+    "createdAt",
+    "draftId",
+    "evidenceContext",
+    "layoutContext",
+    "planningContext",
+    "preferredNextStep",
+    "promptContext",
+    "safety",
+    "schemaVersion",
+    "selectionContext",
+    "source",
+    "version"
+  ]);
+  assert.equal(handoff.version, "0.1");
+  assert.equal(handoff.schemaVersion, "0.5");
+  assert.equal(handoff.safety.internalOnly, true);
+  assert.equal(handoff.safety.planningContextOnly, true);
+  assert.equal(handoff.safety.finalPricing, false);
+  assert.equal(handoff.safety.quoteApproval, false);
+  assert.equal(handoff.safety.proposalOutput, false);
+  assert.equal(handoff.safety.procurement, false);
+  assert.equal(handoff.safety.payment, false);
+  assert.equal(handoff.safety.crm, false);
+  assert.equal(handoff.safety.publicOutput, false);
+  assert.equal(handoff.safety.schemaVersionChanged, false);
+  assert.equal(handoff.evidenceContext.requiresSiteMeasureConfirmation, true);
+  assert.ok(handoff.promptContext.reviewQuestions.length > 0);
+  assert.equal(quoteOsHandoffContainsForbiddenPublicData(handoff), false);
+  assert.doesNotMatch(
+    JSON.stringify(handoff),
+    /finalPrice|quoteTotal|contractPrice|fixedPrice|rateCard|supplierCost|labou?rRate|margin|serviceRole|adminNotes|leadScore|privateScore|base64|data:image|blob:|exif/i
+  );
+});
+
+test("phase 6 quote os handoff strips unsafe ad-hoc draft fields and product flags", () => {
+  const unsafeDraft = {
+    ...validDraft(),
+    finalPrice: 100000,
+    rateCard: { internal: true },
+    supplierCost: 1200,
+    adminNotes: "private note",
+    productShortlist: [
+      {
+        ...validDraft().productShortlist[0],
+        sku: "PRIVATE-SKU",
+        supplierCost: 1200,
+        adminNotes: "private selection note"
+      }
+    ]
+  } as unknown as BathroomDesignDraft;
+
+  const handoff = createQuoteOsHandoff(unsafeDraft);
+  const handoffJson = JSON.stringify(handoff);
+  assert.equal(quoteOsHandoffContainsForbiddenPublicData(handoff), false);
+  assert.doesNotMatch(handoffJson, /finalPrice|rateCard|supplierCost|adminNotes|PRIVATE-SKU|sku|confirmedSku|supplierFeed|pricingIncluded/i);
+});
+
+test("phase 6 quote os review questions are bounded and planning-only", () => {
+  const riskyDraft = validDraft({
+    layoutPlanning: {
+      ...validDraft().layoutPlanning,
+      constraints: {
+        strataOrClass2: true,
+        accessLimitations: true,
+        waterproofingUncertainty: true,
+        drainageOrFallsConcern: true,
+        ventilationConcern: true,
+        suspectedAsbestos: true
+      },
+      fixtureZones: [
+        {
+          fixtureType: "toilet",
+          label: "Toilet zone",
+          approximatePosition: "west-wall",
+          status: "existing",
+          serviceChange: "relocate"
+        },
+        {
+          fixtureType: "shower",
+          label: "Shower zone",
+          approximatePosition: "north-wall",
+          status: "planned",
+          serviceChange: "new"
+        }
+      ]
+    },
+    evidenceReadiness: createEvidenceReadiness(validDraft()).map((item) => ({ ...item, status: "missing" }))
+  });
+  const questions = createQuoteOsReviewQuestions(riskyDraft);
+  const questionText = JSON.stringify(questions);
+
+  assert.ok(questions.length <= MAX_QUOTE_OS_REVIEW_QUESTIONS);
+  assert.match(questionText, /site measure|written scope|licensed-trade checks/i);
+  assert.doesNotMatch(questionText, /certified|guaranteed|quote approved|final price|fixed price|supplierCost|labou?rRate|margin/i);
 });
 
 test("layout-risk prompt context is preserved in local draft and estimate handoff safely", () => {

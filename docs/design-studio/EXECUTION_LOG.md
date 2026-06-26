@@ -139,6 +139,19 @@
 - `NEXT_PUBLIC_ENABLE_BATHROOM_DESIGN_STUDIO=true npm run qa:design-studio:a11y -- http://127.0.0.1:3010` passed.
 - This is a repeatable assistive-technology proxy harness, not a replacement for a human VoiceOver pass.
 
+## 2026-06-27 Phase 6 Handoff Contract Implementation
+
+- Created the Phase 6 handoff-contract-only implementation branch after PR #24 was merged.
+- Added `BathroomDesignQuoteOsHandoff` as an internal-only allowlisted contract derived from `BathroomDesignDraft` schema version `0.5`.
+- Confirmed no Design Studio draft schema bump was required for this contract.
+- Added bounded internal review questions from public layout-risk prompts, deterministic constraint prompts and evidence-readiness status.
+- Added safety detection for forbidden private/public fields such as prices, rate cards, margins, supplier costs, service-role keys, SKU/procurement markers, admin notes, private scoring and image data.
+- Added focused tests proving unsafe ad-hoc draft fields and product flags are not copied into the handoff.
+- `node --import tsx --test --test-concurrency=1 tests/bathroom-design.test.tsx` passed with 29 tests.
+- `npm run typecheck` passed.
+- `npm run qa:local` passed with 76 tests and a successful production build.
+- No public route, sitemap, nav/footer, storage, Supabase, Netlify, deployment, pricing, procurement, payment, CRM or admin automation change was made.
+
 ## 2026-06-23 Phase 2 Release Readiness Summary
 
 - Added `docs/design-studio/PHASE_2_RELEASE_READINESS_SUMMARY.md`.
