@@ -13,3 +13,4 @@
 | Users mistake Design Studio for quote or measured plan | Critical | Keep planning-only labels, noindex pilot, CTA routing and screen-reader/manual QA gates | Release exposure | Open |
 | Measurement or AR scope unlocks accidentally | Critical | Keep user-entered measurements and AR/browser-camera experiments locked behind separate approvals | Release exposure | Open |
 | Single feature flag exposes sitemap/nav during pilot | High | Discovery split separates route rendering from nav/footer and sitemap discovery; verify with focused tests and post-merge QA before pilot exposure | Pilot prep | Mitigating |
+| Quote OS context leaks into public Design Studio | Critical | Phase 6 starts with acceptance criteria only; any implementation must be internal-only, allowlisted and free of final pricing, private scoring, supplier costs, margins, procurement and proposal claims | Phase 6 | Open |
