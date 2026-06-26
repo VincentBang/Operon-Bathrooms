@@ -37,7 +37,7 @@ Phase 5 AR and Measurement evidence-readiness only path is `APPROVED` and merged
 
 Release-exposure criteria, controlled noindex pilot prep, discovery split, internal-only pilot approval and operations-readiness closeout are merged. This does not approve public release, route indexing, measurement fields or AR/browser-camera work.
 
-Phase 6 Quote OS Integration Foundation is approved for acceptance criteria only. Implementation remains locked until Vincent chooses a scoped Phase 6 path.
+Phase 6 Quote OS Integration Foundation is approved for a handoff-contract-only implementation path. Full Quote OS, pricing, proposals, procurement, payment, CRM and public Quote OS output remain locked.
 
 ## Completed Work Before Design Studio
 
@@ -47,10 +47,10 @@ Phase 6 Quote OS Integration Foundation is approved for acceptance criteria only
 
 ## Current Decision Queue
 
-1. Review Phase 6 acceptance criteria.
-2. Choose a scoped Phase 6 implementation path or pause Phase 6.
+1. Review the Phase 6 handoff-contract-only path decision.
+2. Start a separate implementation branch for the internal-only handoff contract.
 3. Keep `/design-studio` internal-only unless external exposure is separately approved.
-4. Keep public discovery, indexing, measurements, AR/browser-camera, upload/storage and Quote OS implementation locked until separate approval.
+4. Keep public discovery, indexing, measurements, AR/browser-camera, upload/storage and full Quote OS implementation locked until separate approval.
 
 ## Future Phases
 
@@ -60,7 +60,7 @@ Phase 6 Quote OS Integration Foundation is approved for acceptance criteria only
 - Phase 5: AR and measurement, starting with evidence-readiness only before any user-supplied measurement fields or AR/browser-camera experiment.
 - Phase 6: Quote OS integration foundation, starting with acceptance criteria only.
 
-Phase 3, Phase 4 deterministic implementation and Phase 5 evidence-readiness implementation are complete and approved as merged. Release exposure, later Phase 5 measurement/AR paths and Phase 6 implementation remain separately gated.
+Phase 3, Phase 4 deterministic implementation and Phase 5 evidence-readiness implementation are complete and approved as merged. Release exposure, later Phase 5 measurement/AR paths and full Quote OS remain separately gated.
 
 ## Dependencies
 
@@ -73,7 +73,7 @@ Phase 3, Phase 4 deterministic implementation and Phase 5 evidence-readiness imp
 
 The current contract is `BathroomDesignDraft` schema version `0.5`. It stores structured design choices, approximate layout planning, public layout-risk prompts, governed catalogue-candidate shortlist choices, deterministic constraint prompts and evidence-readiness checklist state only. It excludes image data, blobs, base64, private rates, final prices, personal contact data, live supplier feeds, confirmed SKUs, availability checks, procurement data, AI/API responses, measured accuracy claims and private scoring logic.
 
-Phase 6 may define a later internal-only Quote OS handoff contract, but no schema version change is approved until a specific implementation path is chosen.
+Phase 6 may implement an internal-only Quote OS handoff contract. No schema version change is approved unless the implementation branch proves it is required.
 
 ## Privacy Boundaries
 
@@ -114,4 +114,4 @@ No production AI, production 3D, WebGL/WebGPU editor, production AR, LiDAR, BIM,
 
 ## Next Action
 
-Review Phase 6 acceptance criteria, then choose a scoped implementation path or pause Phase 6. Keep `/design-studio` noindex and keep public discovery locked.
+Start the Phase 6 handoff-contract-only implementation branch. Keep `/design-studio` noindex and keep public discovery locked.

@@ -8,7 +8,9 @@ Phase 6 Quote OS Integration Foundation.
 
 Vincent approved Phase 6 to begin as an acceptance-criteria task on 2026-06-26.
 
-Implementation is not yet approved. No Quote OS code, pricing engine, admin automation, proposal generation, supplier procurement, public quote output, payment, CRM or contract-pricing workflow should be added until this criteria document is reviewed and a scoped implementation path is explicitly approved.
+Vincent selected the handoff-contract-only implementation path on 2026-06-27.
+
+Only that narrow path is approved next. No pricing engine, admin automation, proposal generation, supplier procurement, public quote output, payment, CRM or contract-pricing workflow should be added.
 
 ## Phase Intent
 
@@ -180,8 +182,8 @@ Pause Phase 6 if:
 Phase 6 may move from acceptance criteria to implementation only after Vincent reviews this document and explicitly approves one scoped path:
 
 - documentation-only internal review packet
-- handoff-contract-only implementation
+- handoff-contract-only implementation: selected on 2026-06-27
 - internal-review-packet generation
 - minimal internal UI
 
-Until then, Phase 6 implementation remains locked.
+All unselected Phase 6 paths remain locked.
