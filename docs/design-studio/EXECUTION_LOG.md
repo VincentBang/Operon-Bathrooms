@@ -352,3 +352,11 @@
 - Added `docs/design-studio/INTERNAL_PILOT_OPERATIONS_CLOSEOUT_2026-06-26.md`.
 - Set `docs/design-studio/INTERNAL_PILOT_OPERATIONS_CHECKLIST.md` as the standing internal-only runbook.
 - Kept external exposure, public discovery, sitemap/nav/footer exposure, indexing, user-entered measurements, AR/browser-camera, upload/storage, pricing, procurement and Quote OS locked.
+
+## 2026-06-26 Phase 6 Acceptance Criteria
+
+- Vincent approved Phase 6 to begin.
+- Started Phase 6 as acceptance criteria only.
+- Added `docs/design-studio/PHASE_6_ACCEPTANCE_CRITERIA.md`.
+- Marked Phase 6 Quote OS Integration as `GATE_REVIEW_READY` for criteria review.
+- Kept Quote OS implementation, final pricing, public proposal generation, procurement, supplier/SKU data, payment, CRM, public discovery, indexing, measurements, AR/browser-camera and upload/storage locked.

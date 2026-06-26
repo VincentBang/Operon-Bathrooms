@@ -33,9 +33,11 @@ Phase 3 Catalogue Candidate Shortlist is `APPROVED` and merged after Vincent app
 
 Phase 4 Deterministic Constraint Intelligence is `APPROVED` and merged after Vincent approval on 2026-06-24.
 
-Phase 5 AR and Measurement evidence-readiness only path is `APPROVED` and merged after Vincent approval on 2026-06-24. No user-entered measurement fields, release exposure, AI/API-assisted measurement, production AR, upload/storage, Quote OS or later work is approved yet.
+Phase 5 AR and Measurement evidence-readiness only path is `APPROVED` and merged after Vincent approval on 2026-06-24. No user-entered measurement fields, release exposure, AI/API-assisted measurement, production AR or upload/storage work is approved yet.
 
-Release-exposure criteria and controlled noindex pilot prep are merged. Discovery-split implementation is underway so route rendering can be separated from nav/footer and sitemap discovery. This does not approve public release, route indexing, measurement fields or AR/browser-camera work.
+Release-exposure criteria, controlled noindex pilot prep, discovery split, internal-only pilot approval and operations-readiness closeout are merged. This does not approve public release, route indexing, measurement fields or AR/browser-camera work.
+
+Phase 6 Quote OS Integration Foundation is approved for acceptance criteria only. Implementation remains locked until Vincent chooses a scoped Phase 6 path.
 
 ## Completed Work Before Design Studio
 
@@ -45,11 +47,10 @@ Release-exposure criteria and controlled noindex pilot prep are merged. Discover
 
 ## Current Decision Queue
 
-1. Keep merged Phase 3 implementation and audit branches for traceability.
-2. Decide whether `/design-studio` should remain internal/gated or move into controlled release-exposure planning.
-3. If release exposure is considered, define release criteria before changing feature flags, indexing or navigation.
-4. Review the discovery-split implementation branch.
-5. After merge, run post-merge local QA with route enabled and discovery hidden, then complete human screen-reader QA before any external pilot exposure.
+1. Review Phase 6 acceptance criteria.
+2. Choose a scoped Phase 6 implementation path or pause Phase 6.
+3. Keep `/design-studio` internal-only unless external exposure is separately approved.
+4. Keep public discovery, indexing, measurements, AR/browser-camera, upload/storage and Quote OS implementation locked until separate approval.
 
 ## Future Phases
 
@@ -57,9 +58,9 @@ Release-exposure criteria and controlled noindex pilot prep are merged. Discover
 - Phase 3: governed catalogue candidates and product shortlist, not verified SKUs.
 - Phase 4: deterministic grounded constraint intelligence; AI/API only after a separate provider and privacy approval.
 - Phase 5: AR and measurement, starting with evidence-readiness only before any user-supplied measurement fields or AR/browser-camera experiment.
-- Phase 6: Quote OS integration.
+- Phase 6: Quote OS integration foundation, starting with acceptance criteria only.
 
-Phase 3, Phase 4 deterministic implementation and Phase 5 evidence-readiness implementation are complete and approved as merged. Release exposure and later Phase 5 measurement/AR paths remain separately gated.
+Phase 3, Phase 4 deterministic implementation and Phase 5 evidence-readiness implementation are complete and approved as merged. Release exposure, later Phase 5 measurement/AR paths and Phase 6 implementation remain separately gated.
 
 ## Dependencies
 
@@ -71,6 +72,8 @@ Phase 3, Phase 4 deterministic implementation and Phase 5 evidence-readiness imp
 ## Data Contracts
 
 The current contract is `BathroomDesignDraft` schema version `0.5`. It stores structured design choices, approximate layout planning, public layout-risk prompts, governed catalogue-candidate shortlist choices, deterministic constraint prompts and evidence-readiness checklist state only. It excludes image data, blobs, base64, private rates, final prices, personal contact data, live supplier feeds, confirmed SKUs, availability checks, procurement data, AI/API responses, measured accuracy claims and private scoring logic.
+
+Phase 6 may define a later internal-only Quote OS handoff contract, but no schema version change is approved until a specific implementation path is chosen.
 
 ## Privacy Boundaries
 
@@ -111,4 +114,4 @@ No production AI, production 3D, WebGL/WebGPU editor, production AR, LiDAR, BIM,
 
 ## Next Action
 
-Review the discovery-split implementation branch, then approve merge, request changes or pause pilot work. Keep `/design-studio` noindex and keep public discovery locked.
+Review Phase 6 acceptance criteria, then choose a scoped implementation path or pause Phase 6. Keep `/design-studio` noindex and keep public discovery locked.

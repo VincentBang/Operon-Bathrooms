@@ -198,3 +198,11 @@ Evidence readiness must stay public, checklist-based and site-measure-oriented. 
 The `/quote` handoff stores an allowlisted subset in `sessionStorage`. It expires and is ignored if invalid.
 
 Allowed handoff fields include draft ID, schema version, bathroom type, sample template, style, palette, conceptual selections, finish families, `photoUsed`, selected variant, allowance band, approximate layout planning object, layout-risk prompts, governed catalogue-candidate shortlist, catalogue-planning safety flags, deterministic constraint prompts, constraint-planning safety flags, evidence-readiness checklist, evidence-planning safety flags, trust labels, timestamps and preferred next step.
+
+## Phase 6 Quote OS Integration Boundary
+
+Phase 6 is acceptance criteria only at this point. No `BathroomDesignDraft` schema change is approved yet.
+
+Any future Quote OS integration must be internal-only, allowlisted and optional. It may pass public planning context and evidence-readiness status into an internal review packet only after a scoped implementation path is approved.
+
+Phase 6 must not add final pricing, quote approval, proposal output, procurement, payment, live supplier data, confirmed SKUs, private scoring, admin notes, supplier costs, labour rates, margins, service role keys or public Quote OS output to the Design Studio contract.
