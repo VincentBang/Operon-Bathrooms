@@ -203,6 +203,10 @@ Allowed handoff fields include draft ID, schema version, bathroom type, sample t
 
 Phase 6 is approved for a handoff-contract-only implementation path. No `BathroomDesignDraft` schema change is approved yet.
 
-The next implementation may define an internal-only allowlisted handoff object derived from public planning context and evidence-readiness status.
+The implementation defines an internal-only allowlisted `BathroomDesignQuoteOsHandoff` object derived from the existing `BathroomDesignDraft` `0.5` contract. This does not bump the public Design Studio draft schema.
+
+Allowed Quote OS handoff fields include source, handoff version, draft ID, draft schema version, creation timestamp, bathroom type, preferred next step, starting point kind, optional sample template ID, style, palette, allowance band, selected variant ID, photo-used flag, approximate room shape, size band, entry position, bounded fixture-zone summaries, layout constraints, catalogue-candidate selection summaries, layout/constraint prompt IDs, bounded internal review questions, evidence-readiness counts and prepared/missing/planned evidence IDs.
+
+The handoff is a planning-context bridge only. It is not written to public storage, not exposed as a public proposal and not used to approve quote totals.
 
 Phase 6 must not add final pricing, quote approval, proposal output, procurement, payment, live supplier data, confirmed SKUs, private scoring, admin notes, supplier costs, labour rates, margins, service role keys or public Quote OS output to the Design Studio contract.
