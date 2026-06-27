@@ -37,7 +37,7 @@ Phase 5 AR and Measurement evidence-readiness only path is `APPROVED` and merged
 
 Release-exposure criteria, controlled noindex pilot prep, discovery split, internal-only pilot approval and operations-readiness closeout are merged. This does not approve public release, route indexing, measurement fields or AR/browser-camera work.
 
-Phase 6 Quote OS Integration Foundation is approved for a handoff-contract-only implementation path. Full Quote OS, pricing, proposals, procurement, payment, CRM and public Quote OS output remain locked.
+Phase 6 Quote OS Integration Foundation is approved and completed for the handoff-contract-only implementation path. Full Quote OS, pricing, proposals, procurement, payment, CRM, Phase 7 shared infrastructure and public Quote OS output remain locked.
 
 ## Completed Work Before Design Studio
 
@@ -114,4 +114,4 @@ No production AI, production 3D, WebGL/WebGPU editor, production AR, LiDAR, BIM,
 
 ## Next Action
 
-Review the Phase 6 handoff-contract implementation PR, then approve merge or request changes. Keep `/design-studio` noindex and keep public discovery locked.
+Review and approve the Phase 6 handoff-contract closeout PR, then keep Phase 7 locked unless separately approved. Keep `/design-studio` noindex and keep public discovery locked.
