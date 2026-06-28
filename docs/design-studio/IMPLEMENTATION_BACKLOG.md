@@ -79,7 +79,8 @@
 - [x] Stage 7B choose whether to pause or draft a docs-only shared architecture map.
 - [x] Stage 7C draft docs-only shared architecture map.
 - [x] Stage 7D draft docs-only shared glossary.
-- [ ] Stage 7E keep implementation locked until separately approved.
+- [x] Stage 7E draft docs-only lifecycle vocabulary.
+- [ ] Stage 7F keep implementation locked until separately approved.
 
 ## Deferred Until Later Approval
 

@@ -222,3 +222,5 @@ Any future shared contract must preserve Bathrooms-local ownership for `Bathroom
 The Phase 7 shared architecture map may describe one-way future adapter concepts, but no adapter, shared type, shared package, shared API, database migration or runtime dependency is approved.
 
 The Phase 7 shared glossary may standardise vocabulary for humans and future planning. It is not a schema, shared type, package, adapter, database contract or runtime dependency.
+
+The Phase 7 lifecycle vocabulary may standardise status labels for documentation and future adapter planning. It is not a database enum, workflow automation rule, CRM stage, shared type, package, adapter or runtime dependency.

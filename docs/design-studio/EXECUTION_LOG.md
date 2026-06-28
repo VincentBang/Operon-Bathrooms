@@ -182,6 +182,13 @@
 - Documented forbidden meanings so shared language does not imply final quote, fixed price, legal advice, compliance certification, verified SKUs, procurement, payment, CRM, public proposals, measured CAD or construction documentation.
 - Kept the glossary as documentation only; no shared type, shared package, adapter, schema, API route, service integration or runtime dependency was added.
 
+## 2026-06-28 Phase 7 Lifecycle Vocabulary
+
+- Vincent approved a docs-only Phase 7 lifecycle vocabulary.
+- Added lifecycle labels for public planning, internal review, evidence readiness, follow-up tasks and Design Studio handoffs.
+- Documented safe transition language and forbidden lifecycle meanings.
+- Kept the vocabulary as documentation only; no workflow automation, CRM stage, database enum, shared schema, API route, notification or admin action was added.
+
 ## 2026-06-23 Phase 2 Release Readiness Summary
 
 - Added `docs/design-studio/PHASE_2_RELEASE_READINESS_SUMMARY.md`.
