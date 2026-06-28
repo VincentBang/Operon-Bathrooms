@@ -82,7 +82,8 @@
 - [x] Stage 7E draft docs-only lifecycle vocabulary.
 - [x] Stage 7F draft docs-only adapter-readiness checklist.
 - [x] Stage 7G draft docs-only contract field inventory.
-- [ ] Stage 7H keep implementation locked until separately approved.
+- [x] Stage 7H draft docs-only adapter decision packet.
+- [ ] Stage 7I keep implementation locked until separately approved.
 
 ## Deferred Until Later Approval
 

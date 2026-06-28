@@ -436,3 +436,12 @@
 - Marked the adapter-readiness checklist as `APPROVED` after PR #31 merged.
 - Marked the contract field inventory as `GATE_REVIEW_READY`.
 - Kept Phase 7 implementation, shared packages, adapters, schemas, cross-repo edits, Supabase changes, Netlify changes, public exposure and full Quote OS locked.
+
+## 2026-06-28 Phase 7 Adapter Decision Packet
+
+- Vincent approved the next docs-only Phase 7 adapter decision packet after PR #32 merged.
+- Added `docs/design-studio/PHASE_7_ADAPTER_DECISION_PACKET_2026-06-28.md`.
+- Recommended `BathroomDesignQuoteOsHandoff` as the first future adapter source because it is internal-only, allowlisted and safer than raw `BathroomDesignDraft`.
+- Marked the contract field inventory as `APPROVED` after PR #32 merged.
+- Marked the adapter decision packet as `GATE_REVIEW_READY`.
+- Kept Phase 7 implementation, shared packages, adapters, schemas, cross-repo edits, Supabase changes, Netlify changes, public exposure and full Quote OS locked.
