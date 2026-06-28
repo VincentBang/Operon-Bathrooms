@@ -418,3 +418,12 @@
 - Marked Phase 6 Quote OS Integration as `APPROVED` for the handoff-contract-only path.
 - Added a separate `Phase 6 Handoff Contract Implementation` stage as `NOT_STARTED`.
 - Kept full Quote OS, pricing, public proposals, procurement, supplier/SKU data, payment, CRM, external exposure, public discovery, indexing, measurements, AR/browser-camera, upload/storage and schema changes locked.
+
+## 2026-06-28 Phase 7 Adapter-Readiness Checklist
+
+- Vincent approved the next docs-only Phase 7 adapter-readiness checklist after PR #30 merged.
+- Added `docs/design-studio/PHASE_7_ADAPTER_READINESS_CHECKLIST_2026-06-28.md`.
+- Defined future adapter review questions, allowlist principles, mandatory reject list, public-language safety checks, versioning requirements, test expectations, rollback criteria and approval gates.
+- Marked the earlier Phase 7 criteria, architecture map, glossary and lifecycle vocabulary stages as `APPROVED` after PRs #27, #28, #29 and #30 merged.
+- Marked the adapter-readiness checklist as `GATE_REVIEW_READY`.
+- Kept Phase 7 implementation, shared packages, adapters, schemas, cross-repo edits, Supabase changes, Netlify changes, public exposure and full Quote OS locked.
