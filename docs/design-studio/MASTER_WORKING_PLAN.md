@@ -39,7 +39,7 @@ Release-exposure criteria, controlled noindex pilot prep, discovery split, inter
 
 Phase 6 Quote OS Integration Foundation is approved and completed for the handoff-contract-only implementation path. Full Quote OS, pricing, proposals, procurement, payment, CRM and public Quote OS output remain locked.
 
-Phase 7 Shared Operon System Infrastructure is approved for acceptance-criteria-only planning, a docs-only shared architecture map, a docs-only shared glossary, a docs-only lifecycle vocabulary, a docs-only adapter-readiness checklist, a docs-only contract field inventory, a docs-only adapter decision packet and docs-only destination contract acceptance criteria. No Phase 7 implementation, shared package extraction, cross-repo edits, Supabase changes, Netlify changes or public exposure changes are approved.
+Phase 7 Shared Operon System Infrastructure is approved for acceptance-criteria-only planning, a docs-only shared architecture map, a docs-only shared glossary, a docs-only lifecycle vocabulary, a docs-only adapter-readiness checklist, a docs-only contract field inventory, a docs-only adapter decision packet, docs-only destination contract acceptance criteria and a docs-only implementation gate checklist. No Phase 7 implementation, shared package extraction, cross-repo edits, Supabase changes, Netlify changes or public exposure changes are approved.
 
 ## Completed Work Before Design Studio
 
@@ -49,7 +49,7 @@ Phase 7 Shared Operon System Infrastructure is approved for acceptance-criteria-
 
 ## Current Decision Queue
 
-1. Review the Phase 7 docs-only destination contract acceptance criteria PR.
+1. Review the Phase 7 docs-only implementation gate checklist PR.
 2. Keep Phase 7 implementation locked unless separately approved.
 3. Keep `/design-studio` internal-only unless external exposure is separately approved.
 4. Keep public discovery, indexing, measurements, AR/browser-camera, upload/storage, shared infrastructure implementation and full Quote OS implementation locked until separate approval.
@@ -78,7 +78,7 @@ The current contract is `BathroomDesignDraft` schema version `0.5`. It stores st
 
 Phase 6 implemented an internal-only Quote OS handoff contract without changing the `BathroomDesignDraft` schema version.
 
-Phase 7 may define shared contract candidates, architecture mapping, glossary vocabulary, lifecycle vocabulary, adapter-readiness requirements, contract field classifications, adapter source recommendations and destination contract acceptance criteria as documentation only. No shared package, cross-repo dependency or service integration is approved.
+Phase 7 may define shared contract candidates, architecture mapping, glossary vocabulary, lifecycle vocabulary, adapter-readiness requirements, contract field classifications, adapter source recommendations, destination contract acceptance criteria and implementation gate criteria as documentation only. No shared package, cross-repo dependency or service integration is approved.
 
 ## Privacy Boundaries
 
@@ -119,4 +119,4 @@ No production AI, production 3D, WebGL/WebGPU editor, production AR, LiDAR, BIM,
 
 ## Next Action
 
-Review and approve the Phase 7 destination contract acceptance criteria PR, then decide whether to pause or draft a docs-only implementation gate checklist. Keep `/design-studio` noindex and keep public discovery locked.
+Review and approve the Phase 7 implementation gate checklist PR, then pause Phase 7 unless Vincent separately approves a narrow implementation scope. Keep `/design-studio` noindex and keep public discovery locked.
