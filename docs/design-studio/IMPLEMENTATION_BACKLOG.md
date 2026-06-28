@@ -81,7 +81,8 @@
 - [x] Stage 7D draft docs-only shared glossary.
 - [x] Stage 7E draft docs-only lifecycle vocabulary.
 - [x] Stage 7F draft docs-only adapter-readiness checklist.
-- [ ] Stage 7G keep implementation locked until separately approved.
+- [x] Stage 7G draft docs-only contract field inventory.
+- [ ] Stage 7H keep implementation locked until separately approved.
 
 ## Deferred Until Later Approval
 
