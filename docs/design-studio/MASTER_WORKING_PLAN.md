@@ -39,7 +39,7 @@ Release-exposure criteria, controlled noindex pilot prep, discovery split, inter
 
 Phase 6 Quote OS Integration Foundation is approved and completed for the handoff-contract-only implementation path. Full Quote OS, pricing, proposals, procurement, payment, CRM and public Quote OS output remain locked.
 
-Phase 7 Shared Operon System Infrastructure is approved for acceptance-criteria-only planning, a docs-only shared architecture map, a docs-only shared glossary, a docs-only lifecycle vocabulary, a docs-only adapter-readiness checklist, a docs-only contract field inventory, a docs-only adapter decision packet, docs-only destination contract acceptance criteria and a docs-only implementation gate checklist. No Phase 7 implementation, shared package extraction, cross-repo edits, Supabase changes, Netlify changes or public exposure changes are approved.
+Phase 7 Shared Operon System Infrastructure is paused after acceptance-criteria-only planning, a docs-only shared architecture map, a docs-only shared glossary, a docs-only lifecycle vocabulary, a docs-only adapter-readiness checklist, a docs-only contract field inventory, a docs-only adapter decision packet, docs-only destination contract acceptance criteria and a docs-only implementation gate checklist. No Phase 7 implementation, shared package extraction, cross-repo edits, Supabase changes, Netlify changes or public exposure changes are approved.
 
 ## Completed Work Before Design Studio
 
@@ -49,8 +49,8 @@ Phase 7 Shared Operon System Infrastructure is approved for acceptance-criteria-
 
 ## Current Decision Queue
 
-1. Review the Phase 7 docs-only implementation gate checklist PR.
-2. Keep Phase 7 implementation locked unless separately approved.
+1. Review the Phase 7 docs-only pause closeout PR.
+2. Keep Phase 7 paused and implementation locked unless separately approved.
 3. Keep `/design-studio` internal-only unless external exposure is separately approved.
 4. Keep public discovery, indexing, measurements, AR/browser-camera, upload/storage, shared infrastructure implementation and full Quote OS implementation locked until separate approval.
 
@@ -119,4 +119,4 @@ No production AI, production 3D, WebGL/WebGPU editor, production AR, LiDAR, BIM,
 
 ## Next Action
 
-Review and approve the Phase 7 implementation gate checklist PR, then pause Phase 7 unless Vincent separately approves a narrow implementation scope. Keep `/design-studio` noindex and keep public discovery locked.
+Review and approve the Phase 7 pause closeout PR, then keep Phase 7 paused unless Vincent separately approves a narrow implementation scope. Keep `/design-studio` noindex and keep public discovery locked.
