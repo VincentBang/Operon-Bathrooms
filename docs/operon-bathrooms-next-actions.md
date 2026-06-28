@@ -25,17 +25,17 @@
 
 ## Current Recommended Next Task
 
-Review and approve the separate release-hardening planning packet:
+Review and approve the release-hardening QA evidence packet:
 
-1. Review `docs/operon-bathrooms-release-hardening-plan-2026-06-28.md`.
-2. Confirm it stays docs-only and does not unlock Quote OS, private upload storage, deployment or production changes.
-3. If approved, run the local release-hardening QA evidence pass against a clean local dev server.
-4. Capture crawl, public-safety, responsive, admin-boundary and lead-flow results in a dedicated QA evidence report.
-5. Keep real staging email sends and private Supabase Storage implementation behind separate explicit approvals.
+1. Review `docs/qa/release-hardening-evidence-2026-06-28.md`.
+2. Confirm the evidence stays local-only and does not unlock Quote OS, private upload storage, deployment or production changes.
+3. If approved, merge the QA evidence packet.
+4. Choose whether to provide approved non-production Supabase and email provider environment variables for live staging verification.
+5. If staging credentials are not supplied, create a docs-only release decision packet from the local evidence.
 
 ## Overnight Follow-Up Queue
 
 Continue from `docs/next-100-tasks-2026-06-19.md`, `docs/next-200-continuation-tasks-2026-06-21.md`
 and `docs/next-500-continuation-tasks-2026-06-23.md` before starting Quote OS. The current priority is
-release-hardening QA evidence, staging email send only if approved env vars are supplied, private upload
+QA evidence review, staging email send only if approved env vars are supplied, private upload
 storage only after explicit policy approval and Quote OS only after separate approval.
