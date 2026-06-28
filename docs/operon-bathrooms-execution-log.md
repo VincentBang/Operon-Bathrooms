@@ -251,6 +251,15 @@ This log records local implementation and QA progress. It is not a deployment re
 - No deployment, production Supabase change, production Netlify change, private upload storage implementation,
   Quote OS work or Design Studio Phase 7 implementation was performed.
 
+## 2026-06-28 Release Hardening Accepted Pause
+
+- Added `docs/qa/release-hardening-accepted-pause-2026-06-28.md`.
+- Recorded the local QA evidence and Codex-assisted release-review closeout as accepted for internal planning.
+- Paused release hardening until approved non-production Supabase and email provider env vars are supplied, or a
+  separate release-exposure decision is made.
+- Kept deployment, production Supabase changes, production Netlify changes, private upload storage, Quote OS and
+  Design Studio Phase 7 implementation unapproved and locked.
+
 ## Operating Notes
 
 - Use `npm run qa:local` before handoff.
