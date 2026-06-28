@@ -73,6 +73,12 @@
 - [x] Stage 6E implement only the approved internal-only handoff contract.
 - [x] Stage 6F run full local QA and complete Phase 6 gate review.
 
+## Phase 7 Shared Operon System Infrastructure
+
+- [x] Stage 7A draft Phase 7 acceptance criteria.
+- [ ] Stage 7B choose whether to pause or draft a docs-only shared architecture map.
+- [ ] Stage 7C keep implementation locked until separately approved.
+
 ## Deferred Until Later Approval
 
 - Verified SKUs, live product feeds, supplier availability and procurement.
@@ -80,4 +86,5 @@
 - Private image or design storage.
 - Camera capture, AR placement, LiDAR, BIM or measured-plan output.
 - Public gallery or share backend.
-- Quote OS implementation beyond Phase 6 acceptance criteria.
+- Quote OS implementation beyond the approved Phase 6 handoff contract.
+- Shared package extraction, cross-repo infrastructure, production service changes and Phase 7 implementation.

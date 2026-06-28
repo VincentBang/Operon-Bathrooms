@@ -210,3 +210,11 @@ Allowed Quote OS handoff fields include source, handoff version, draft ID, draft
 The handoff is a planning-context bridge only. It is not written to public storage, not exposed as a public proposal and not used to approve quote totals.
 
 Phase 6 must not add final pricing, quote approval, proposal output, procurement, payment, live supplier data, confirmed SKUs, private scoring, admin notes, supplier costs, labour rates, margins, service role keys or public Quote OS output to the Design Studio contract.
+
+## Phase 7 Shared Infrastructure Boundary
+
+Phase 7 is approved for acceptance-criteria-only planning.
+
+Phase 7 may identify candidate shared contract concepts, but it must not extract a shared package, add cross-repo imports, modify another Operon repository, add Supabase migrations, modify Netlify settings, change public route discovery or create shared runtime infrastructure.
+
+Any future shared contract must preserve Bathrooms-local ownership for `BathroomDesignDraft`, `BathroomDesignQuoteOsHandoff`, bathroom-specific estimate logic, bathroom quote review scoring, bathroom compliance prompts and bathroom manual review report content unless a later gate explicitly approves an adapter.
