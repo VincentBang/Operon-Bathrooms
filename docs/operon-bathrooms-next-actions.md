@@ -25,17 +25,17 @@
 
 ## Current Recommended Next Task
 
-Run and approve the human release-review checklist:
+Review and approve the human release-review closeout:
 
-1. Use `docs/qa/human-release-review-checklist-2026-06-28.md`.
-2. Review public routes, forms, chatbot, admin/private boundaries, SEO copy and accessibility spot checks.
-3. Record pass, pass-with-notes or blocked outcome in a closeout note.
-4. Keep live staging Supabase verification and real staging email send separate unless approved env vars are supplied.
+1. Review `docs/qa/human-release-review-closeout-2026-06-28.md`.
+2. Confirm it is a Codex-assisted local review with physical human sign-off still available as a separate gate.
+3. If approved, merge the closeout note.
+4. Choose whether to pause release hardening or provide approved non-production Supabase and email provider env vars.
 5. Keep private Supabase Storage implementation and Quote OS behind separate explicit approvals.
 
 ## Overnight Follow-Up Queue
 
 Continue from `docs/next-100-tasks-2026-06-19.md`, `docs/next-200-continuation-tasks-2026-06-21.md`
 and `docs/next-500-continuation-tasks-2026-06-23.md` before starting Quote OS. The current priority is
-human release review, staging email send only if approved env vars are supplied, private upload
+human release-review closeout, staging email send only if approved env vars are supplied, private upload
 storage only after explicit policy approval and Quote OS only after separate approval.

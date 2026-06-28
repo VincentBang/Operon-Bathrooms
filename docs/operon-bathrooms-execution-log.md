@@ -237,6 +237,20 @@ This log records local implementation and QA progress. It is not a deployment re
 - Kept live Supabase staging verification, real staging email send, deployment, private upload storage, Quote OS and
   Design Studio Phase 7 implementation behind separate approvals.
 
+## 2026-06-28 Human Release Review Closeout
+
+- Ran a Codex-assisted local review against the human release-review checklist.
+- Started a clean local dev server at `http://127.0.0.1:3000`.
+- `npm run qa:crawl -- http://127.0.0.1:3000` passed for 17 public routes.
+- `npm run qa:public-safety -- http://127.0.0.1:3000` passed for public routes, sitemap, robots and copy safety.
+- `npm run qa:responsive -- http://127.0.0.1:3000` passed for 6 routes at 1440px, 1280px, 768px and 390px.
+- Added `docs/qa/human-release-review-closeout-2026-06-28.md` with `PASS_WITH_NOTES_CODEX_ASSISTED` status.
+- Stopped the local dev server after QA.
+- Kept physical human sign-off, human screen-reader QA, live Supabase staging verification and real staging email
+  send as separate gates.
+- No deployment, production Supabase change, production Netlify change, private upload storage implementation,
+  Quote OS work or Design Studio Phase 7 implementation was performed.
+
 ## Operating Notes
 
 - Use `npm run qa:local` before handoff.
