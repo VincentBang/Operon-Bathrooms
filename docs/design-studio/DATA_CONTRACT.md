@@ -226,3 +226,5 @@ The Phase 7 shared architecture map may describe one-way future adapter concepts
 The Phase 7 shared glossary may standardise vocabulary for humans and future planning. It is not a schema, shared type, package, adapter, database contract or runtime dependency.
 
 The Phase 7 lifecycle vocabulary may standardise status labels for documentation and future adapter planning. It is not a database enum, workflow automation rule, CRM stage, shared type, package, adapter or runtime dependency.
+
+The Phase 7 contract field inventory may classify current Bathrooms-local fields as candidate shared fields, Bathrooms-local fields, internal-only candidates or rejected fields for future review. It is not an allowlist implementation, adapter, schema, type export, database contract or runtime dependency.

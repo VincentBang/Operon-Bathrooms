@@ -39,7 +39,7 @@ Release-exposure criteria, controlled noindex pilot prep, discovery split, inter
 
 Phase 6 Quote OS Integration Foundation is approved and completed for the handoff-contract-only implementation path. Full Quote OS, pricing, proposals, procurement, payment, CRM and public Quote OS output remain locked.
 
-Phase 7 Shared Operon System Infrastructure is approved for acceptance-criteria-only planning, a docs-only shared architecture map, a docs-only shared glossary, a docs-only lifecycle vocabulary and a docs-only adapter-readiness checklist. No Phase 7 implementation, shared package extraction, cross-repo edits, Supabase changes, Netlify changes or public exposure changes are approved.
+Phase 7 Shared Operon System Infrastructure is approved for acceptance-criteria-only planning, a docs-only shared architecture map, a docs-only shared glossary, a docs-only lifecycle vocabulary, a docs-only adapter-readiness checklist and a docs-only contract field inventory. No Phase 7 implementation, shared package extraction, cross-repo edits, Supabase changes, Netlify changes or public exposure changes are approved.
 
 ## Completed Work Before Design Studio
 
@@ -49,7 +49,7 @@ Phase 7 Shared Operon System Infrastructure is approved for acceptance-criteria-
 
 ## Current Decision Queue
 
-1. Review the Phase 7 docs-only adapter-readiness checklist PR.
+1. Review the Phase 7 docs-only contract field inventory PR.
 2. Keep Phase 7 implementation locked unless separately approved.
 3. Keep `/design-studio` internal-only unless external exposure is separately approved.
 4. Keep public discovery, indexing, measurements, AR/browser-camera, upload/storage, shared infrastructure implementation and full Quote OS implementation locked until separate approval.
@@ -78,7 +78,7 @@ The current contract is `BathroomDesignDraft` schema version `0.5`. It stores st
 
 Phase 6 implemented an internal-only Quote OS handoff contract without changing the `BathroomDesignDraft` schema version.
 
-Phase 7 may define shared contract candidates, architecture mapping, glossary vocabulary, lifecycle vocabulary and adapter-readiness requirements as documentation only. No shared package, cross-repo dependency or service integration is approved.
+Phase 7 may define shared contract candidates, architecture mapping, glossary vocabulary, lifecycle vocabulary, adapter-readiness requirements and contract field classifications as documentation only. No shared package, cross-repo dependency or service integration is approved.
 
 ## Privacy Boundaries
 
@@ -119,4 +119,4 @@ No production AI, production 3D, WebGL/WebGPU editor, production AR, LiDAR, BIM,
 
 ## Next Action
 
-Review and approve the Phase 7 adapter-readiness checklist PR, then decide whether to pause or draft a docs-only contract field inventory. Keep `/design-studio` noindex and keep public discovery locked.
+Review and approve the Phase 7 contract field inventory PR, then decide whether to pause or draft a docs-only adapter decision packet. Keep `/design-studio` noindex and keep public discovery locked.

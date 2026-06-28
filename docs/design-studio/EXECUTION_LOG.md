@@ -427,3 +427,12 @@
 - Marked the earlier Phase 7 criteria, architecture map, glossary and lifecycle vocabulary stages as `APPROVED` after PRs #27, #28, #29 and #30 merged.
 - Marked the adapter-readiness checklist as `GATE_REVIEW_READY`.
 - Kept Phase 7 implementation, shared packages, adapters, schemas, cross-repo edits, Supabase changes, Netlify changes, public exposure and full Quote OS locked.
+
+## 2026-06-28 Phase 7 Contract Field Inventory
+
+- Vincent approved the next docs-only Phase 7 contract field inventory after PR #31 merged.
+- Added `docs/design-studio/PHASE_7_CONTRACT_FIELD_INVENTORY_2026-06-28.md`.
+- Classified current `BathroomDesignDraft`, `BathroomDesignHandoff`, `BathroomDesignQuoteOsHandoff` and `BathroomDesignEvent` fields as candidate shared fields, Bathrooms-local fields, internal-only candidates or rejected fields.
+- Marked the adapter-readiness checklist as `APPROVED` after PR #31 merged.
+- Marked the contract field inventory as `GATE_REVIEW_READY`.
+- Kept Phase 7 implementation, shared packages, adapters, schemas, cross-repo edits, Supabase changes, Netlify changes, public exposure and full Quote OS locked.
