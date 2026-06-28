@@ -1,7 +1,7 @@
 # Design Studio Next Actions
 
-1. Review and approve the Phase 7 docs-only implementation gate checklist PR.
-2. After implementation gate checklist merge, pause Phase 7 unless Vincent separately approves a narrow implementation scope.
+1. Review and approve the Phase 7 docs-only pause closeout PR.
+2. After pause closeout merge, keep Phase 7 paused unless Vincent separately approves a narrow implementation scope.
 3. Keep Phase 7 implementation, shared package extraction, cross-repo edits, Supabase changes, Netlify changes and public exposure changes locked.
 4. Keep full Quote OS, pricing, proposals, procurement, public Quote OS output, payment, CRM, supplier/SKU data, storage, Supabase migrations and admin automation locked.
 5. Use `docs/design-studio/INTERNAL_PILOT_OPERATIONS_CHECKLIST.md` for repeatable internal-only `/design-studio` runs.

@@ -85,7 +85,8 @@
 - [x] Stage 7H draft docs-only adapter decision packet.
 - [x] Stage 7I draft docs-only destination contract acceptance criteria.
 - [x] Stage 7J draft docs-only implementation gate checklist.
-- [ ] Stage 7K keep implementation locked until separately approved.
+- [x] Stage 7K pause Phase 7 after implementation gate checklist.
+- [ ] Stage 7L keep implementation locked until separately approved.
 
 ## Deferred Until Later Approval
 
