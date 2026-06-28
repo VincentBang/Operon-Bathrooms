@@ -205,6 +205,20 @@ This log records local implementation and QA progress. It is not a deployment re
 - Kept Quote OS, private upload storage, deployment, production Supabase changes, production Netlify changes and
   Design Studio Phase 7 implementation locked behind separate approvals.
 
+## 2026-06-28 Release Hardening QA Evidence
+
+- Ran the local release-hardening QA pass after the planning lane merged.
+- `npm run qa:local` passed with lint, typecheck, 76 tests, build, migration verification and bundle safety.
+- Started a clean local dev server at `http://127.0.0.1:3000`.
+- `npm run qa:crawl -- http://127.0.0.1:3000` passed for 17 public routes.
+- `npm run qa:public-safety -- http://127.0.0.1:3000` passed for public routes, sitemap, robots and copy safety.
+- `npm run qa:responsive -- http://127.0.0.1:3000` passed for 6 routes at 1440px, 1280px, 768px and 390px.
+- `npm run qa:email:staging` passed in preview mode; real send remains opt-in and was not run.
+- Stopped the local dev server after QA.
+- Added `docs/qa/release-hardening-evidence-2026-06-28.md`.
+- No deployment, production Supabase change, production Netlify change, private upload storage implementation,
+  Quote OS work or Design Studio Phase 7 implementation was performed.
+
 ## Operating Notes
 
 - Use `npm run qa:local` before handoff.
