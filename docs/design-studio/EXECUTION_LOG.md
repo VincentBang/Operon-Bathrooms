@@ -161,6 +161,13 @@
 - Marked Phase 6 handoff-contract implementation as approved in the stage tracker.
 - Confirmed Phase 7 remains locked.
 
+## 2026-06-28 Phase 7 Acceptance Criteria
+
+- Vincent approved Phase 7 as acceptance-criteria-only planning.
+- Added Phase 7 Shared Operon System Infrastructure acceptance criteria.
+- Kept Phase 7 implementation, shared package extraction, cross-repo edits, Supabase changes, Netlify changes and public exposure changes locked.
+- No app code, route, sitemap, navigation, storage, production service or shared package implementation was changed.
+
 ## 2026-06-23 Phase 2 Release Readiness Summary
 
 - Added `docs/design-studio/PHASE_2_RELEASE_READINESS_SUMMARY.md`.

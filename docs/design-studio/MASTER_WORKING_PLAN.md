@@ -37,7 +37,9 @@ Phase 5 AR and Measurement evidence-readiness only path is `APPROVED` and merged
 
 Release-exposure criteria, controlled noindex pilot prep, discovery split, internal-only pilot approval and operations-readiness closeout are merged. This does not approve public release, route indexing, measurement fields or AR/browser-camera work.
 
-Phase 6 Quote OS Integration Foundation is approved and completed for the handoff-contract-only implementation path. Full Quote OS, pricing, proposals, procurement, payment, CRM, Phase 7 shared infrastructure and public Quote OS output remain locked.
+Phase 6 Quote OS Integration Foundation is approved and completed for the handoff-contract-only implementation path. Full Quote OS, pricing, proposals, procurement, payment, CRM and public Quote OS output remain locked.
+
+Phase 7 Shared Operon System Infrastructure is approved for acceptance-criteria-only planning. No Phase 7 implementation, shared package extraction, cross-repo edits, Supabase changes, Netlify changes or public exposure changes are approved.
 
 ## Completed Work Before Design Studio
 
@@ -47,10 +49,10 @@ Phase 6 Quote OS Integration Foundation is approved and completed for the handof
 
 ## Current Decision Queue
 
-1. Review the Phase 6 handoff-contract-only path decision.
-2. Start a separate implementation branch for the internal-only handoff contract.
+1. Review the Phase 7 acceptance-criteria-only PR.
+2. Keep Phase 7 implementation locked unless separately approved.
 3. Keep `/design-studio` internal-only unless external exposure is separately approved.
-4. Keep public discovery, indexing, measurements, AR/browser-camera, upload/storage and full Quote OS implementation locked until separate approval.
+4. Keep public discovery, indexing, measurements, AR/browser-camera, upload/storage, shared infrastructure implementation and full Quote OS implementation locked until separate approval.
 
 ## Future Phases
 
@@ -58,7 +60,8 @@ Phase 6 Quote OS Integration Foundation is approved and completed for the handof
 - Phase 3: governed catalogue candidates and product shortlist, not verified SKUs.
 - Phase 4: deterministic grounded constraint intelligence; AI/API only after a separate provider and privacy approval.
 - Phase 5: AR and measurement, starting with evidence-readiness only before any user-supplied measurement fields or AR/browser-camera experiment.
-- Phase 6: Quote OS integration foundation, starting with acceptance criteria only.
+- Phase 6: Quote OS integration foundation, starting with acceptance criteria only and completed as handoff-contract-only implementation.
+- Phase 7: shared Operon System infrastructure, starting with acceptance criteria only.
 
 Phase 3, Phase 4 deterministic implementation and Phase 5 evidence-readiness implementation are complete and approved as merged. Release exposure, later Phase 5 measurement/AR paths and full Quote OS remain separately gated.
 
@@ -73,7 +76,9 @@ Phase 3, Phase 4 deterministic implementation and Phase 5 evidence-readiness imp
 
 The current contract is `BathroomDesignDraft` schema version `0.5`. It stores structured design choices, approximate layout planning, public layout-risk prompts, governed catalogue-candidate shortlist choices, deterministic constraint prompts and evidence-readiness checklist state only. It excludes image data, blobs, base64, private rates, final prices, personal contact data, live supplier feeds, confirmed SKUs, availability checks, procurement data, AI/API responses, measured accuracy claims and private scoring logic.
 
-Phase 6 may implement an internal-only Quote OS handoff contract. No schema version change is approved unless the implementation branch proves it is required.
+Phase 6 implemented an internal-only Quote OS handoff contract without changing the `BathroomDesignDraft` schema version.
+
+Phase 7 may define shared contract candidates as documentation only. No shared package, cross-repo dependency or service integration is approved.
 
 ## Privacy Boundaries
 
@@ -105,7 +110,7 @@ Pause if privacy boundaries cannot be guaranteed, internal pricing leaks, public
 
 ## Do-Not-Build List
 
-No production AI, production 3D, WebGL/WebGPU editor, production AR, LiDAR, BIM, live supplier feeds, inventory, confirmed SKUs, checkout, marketplace, contractor bidding, automatic final quotes, construction documents, compliance certification, public gallery, native mobile app, Quote OS or production image storage.
+No production AI, production 3D, WebGL/WebGPU editor, production AR, LiDAR, BIM, live supplier feeds, inventory, confirmed SKUs, checkout, marketplace, contractor bidding, automatic final quotes, construction documents, compliance certification, public gallery, native mobile app, full Quote OS, shared package extraction, cross-repo infrastructure implementation or production image storage.
 
 ## Decision Owners
 
@@ -114,4 +119,4 @@ No production AI, production 3D, WebGL/WebGPU editor, production AR, LiDAR, BIM,
 
 ## Next Action
 
-Review and approve the Phase 6 handoff-contract closeout PR, then keep Phase 7 locked unless separately approved. Keep `/design-studio` noindex and keep public discovery locked.
+Review and approve the Phase 7 acceptance-criteria-only PR, then decide whether to pause or draft a docs-only shared architecture map. Keep `/design-studio` noindex and keep public discovery locked.
