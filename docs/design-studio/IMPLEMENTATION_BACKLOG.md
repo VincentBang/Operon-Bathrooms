@@ -76,8 +76,9 @@
 ## Phase 7 Shared Operon System Infrastructure
 
 - [x] Stage 7A draft Phase 7 acceptance criteria.
-- [ ] Stage 7B choose whether to pause or draft a docs-only shared architecture map.
-- [ ] Stage 7C keep implementation locked until separately approved.
+- [x] Stage 7B choose whether to pause or draft a docs-only shared architecture map.
+- [x] Stage 7C draft docs-only shared architecture map.
+- [ ] Stage 7D keep implementation locked until separately approved.
 
 ## Deferred Until Later Approval
 

@@ -168,6 +168,13 @@
 - Kept Phase 7 implementation, shared package extraction, cross-repo edits, Supabase changes, Netlify changes and public exposure changes locked.
 - No app code, route, sitemap, navigation, storage, production service or shared package implementation was changed.
 
+## 2026-06-28 Phase 7 Shared Architecture Map
+
+- Vincent approved a docs-only Phase 7 shared architecture map.
+- Added an architecture map for shared language, lifecycle, contract compatibility and infrastructure-readiness layers.
+- Kept Bathrooms-local contracts as the source of truth for `BathroomDesignDraft`, `BathroomDesignQuoteOsHandoff`, estimate logic, quote review scoring, risk flags, compliance prompts and manual review content.
+- No app code, shared package, cross-repo edit, Supabase change, Netlify change, route discovery, public exposure, pricing, procurement, payment, CRM or full Quote OS implementation was added.
+
 ## 2026-06-23 Phase 2 Release Readiness Summary
 
 - Added `docs/design-studio/PHASE_2_RELEASE_READINESS_SUMMARY.md`.
