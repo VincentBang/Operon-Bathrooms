@@ -218,3 +218,5 @@ Phase 7 is approved for acceptance-criteria-only planning.
 Phase 7 may identify candidate shared contract concepts, but it must not extract a shared package, add cross-repo imports, modify another Operon repository, add Supabase migrations, modify Netlify settings, change public route discovery or create shared runtime infrastructure.
 
 Any future shared contract must preserve Bathrooms-local ownership for `BathroomDesignDraft`, `BathroomDesignQuoteOsHandoff`, bathroom-specific estimate logic, bathroom quote review scoring, bathroom compliance prompts and bathroom manual review report content unless a later gate explicitly approves an adapter.
+
+The Phase 7 shared architecture map may describe one-way future adapter concepts, but no adapter, shared type, shared package, shared API, database migration or runtime dependency is approved.

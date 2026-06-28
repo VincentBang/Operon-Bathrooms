@@ -1,7 +1,7 @@
 # Design Studio Next Actions
 
-1. Review and approve the Phase 7 acceptance-criteria-only PR.
-2. After criteria merge, choose whether to pause or approve a docs-only shared architecture map.
+1. Review and approve the Phase 7 docs-only shared architecture map PR.
+2. After architecture-map merge, choose whether to pause or approve a docs-only shared glossary.
 3. Keep Phase 7 implementation, shared package extraction, cross-repo edits, Supabase changes, Netlify changes and public exposure changes locked.
 4. Keep full Quote OS, pricing, proposals, procurement, public Quote OS output, payment, CRM, supplier/SKU data, storage, Supabase migrations and admin automation locked.
 5. Use `docs/design-studio/INTERNAL_PILOT_OPERATIONS_CHECKLIST.md` for repeatable internal-only `/design-studio` runs.
