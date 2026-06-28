@@ -1,7 +1,7 @@
 # Design Studio Next Actions
 
-1. Review and approve the Phase 7 docs-only shared glossary PR.
-2. After glossary merge, choose whether to pause or approve a docs-only lifecycle vocabulary.
+1. Review and approve the Phase 7 docs-only lifecycle vocabulary PR.
+2. After lifecycle-vocabulary merge, choose whether to pause or approve a docs-only adapter-readiness checklist.
 3. Keep Phase 7 implementation, shared package extraction, cross-repo edits, Supabase changes, Netlify changes and public exposure changes locked.
 4. Keep full Quote OS, pricing, proposals, procurement, public Quote OS output, payment, CRM, supplier/SKU data, storage, Supabase migrations and admin automation locked.
 5. Use `docs/design-studio/INTERNAL_PILOT_OPERATIONS_CHECKLIST.md` for repeatable internal-only `/design-studio` runs.
