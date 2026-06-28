@@ -25,17 +25,18 @@
 
 ## Current Recommended Next Task
 
-Review and approve the release-hardening QA evidence packet:
+Review and approve the release decision packet:
 
-1. Review `docs/qa/release-hardening-evidence-2026-06-28.md`.
-2. Confirm the evidence stays local-only and does not unlock Quote OS, private upload storage, deployment or production changes.
-3. If approved, merge the QA evidence packet.
-4. Choose whether to provide approved non-production Supabase and email provider environment variables for live staging verification.
-5. If staging credentials are not supplied, create a docs-only release decision packet from the local evidence.
+1. Review `docs/qa/release-decision-packet-2026-06-28.md`.
+2. Confirm it stays docs-only and does not approve deployment, production changes, Quote OS or private upload storage.
+3. If approved, merge the release decision packet.
+4. Choose either approved live staging verification with supplied non-production environment variables or a human
+   release-review checklist from the local evidence.
+5. Keep private Supabase Storage implementation and Quote OS behind separate explicit approvals.
 
 ## Overnight Follow-Up Queue
 
 Continue from `docs/next-100-tasks-2026-06-19.md`, `docs/next-200-continuation-tasks-2026-06-21.md`
 and `docs/next-500-continuation-tasks-2026-06-23.md` before starting Quote OS. The current priority is
-QA evidence review, staging email send only if approved env vars are supplied, private upload
+release decision review, staging email send only if approved env vars are supplied, private upload
 storage only after explicit policy approval and Quote OS only after separate approval.

@@ -219,6 +219,15 @@ This log records local implementation and QA progress. It is not a deployment re
 - No deployment, production Supabase change, production Netlify change, private upload storage implementation,
   Quote OS work or Design Studio Phase 7 implementation was performed.
 
+## 2026-06-28 Release Decision Packet
+
+- Added `docs/qa/release-decision-packet-2026-06-28.md` as a docs-only release-review artifact based on the
+  merged local QA evidence.
+- Recorded local pass decisions for public surface, responsive/mobile, admin/private boundary and safety boundary.
+- Kept live Supabase staging verification, real staging email send, production deployment, private upload storage,
+  Quote OS and Design Studio Phase 7 implementation behind separate approvals.
+- Updated next actions toward release decision review and the next explicit staging or human-review choice.
+
 ## Operating Notes
 
 - Use `npm run qa:local` before handoff.
