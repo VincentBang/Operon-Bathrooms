@@ -25,17 +25,17 @@
 
 ## Current Recommended Next Task
 
-Final PR readiness review before merge approval:
+Review and approve the separate release-hardening planning packet:
 
-1. Confirm PR #1 comments match the latest local QA and known limitations.
-2. Confirm changed files remain scoped to Operon Bathrooms.
-3. Confirm no `.env`, `.local`, keys, secrets, generated QA artifacts or production setting changes are tracked.
-4. Confirm the merge sequence is review, manual QA/crawl, then merge approval only; no deployment from this task.
-5. If approved email provider env vars become available, run the real staging send path before merge.
+1. Review `docs/operon-bathrooms-release-hardening-plan-2026-06-28.md`.
+2. Confirm it stays docs-only and does not unlock Quote OS, private upload storage, deployment or production changes.
+3. If approved, run the local release-hardening QA evidence pass against a clean local dev server.
+4. Capture crawl, public-safety, responsive, admin-boundary and lead-flow results in a dedicated QA evidence report.
+5. Keep real staging email sends and private Supabase Storage implementation behind separate explicit approvals.
 
 ## Overnight Follow-Up Queue
 
 Continue from `docs/next-100-tasks-2026-06-19.md`, `docs/next-200-continuation-tasks-2026-06-21.md`
 and `docs/next-500-continuation-tasks-2026-06-23.md` before starting Quote OS. The current priority is
-human PR #1 merge decision, staging email send only if approved env vars are supplied, private upload
+release-hardening QA evidence, staging email send only if approved env vars are supplied, private upload
 storage only after explicit policy approval and Quote OS only after separate approval.

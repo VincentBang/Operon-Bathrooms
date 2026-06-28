@@ -196,6 +196,15 @@ This log records local implementation and QA progress. It is not a deployment re
 - Re-ran tracked env/key/production-setting path scans. Matches were limited to `.env.example` and expected
   placeholder commands in QA docs.
 
+## 2026-06-28 Separate Release Hardening Planning
+
+- Started a separate docs-only planning lane after the Design Studio Phase 7 pause.
+- Added `docs/operon-bathrooms-release-hardening-plan-2026-06-28.md` to define the next public/admin QA and
+  release-hardening workstream.
+- Updated next actions away from stale PR #1 merge language and toward a current local QA evidence pass.
+- Kept Quote OS, private upload storage, deployment, production Supabase changes, production Netlify changes and
+  Design Studio Phase 7 implementation locked behind separate approvals.
+
 ## Operating Notes
 
 - Use `npm run qa:local` before handoff.
