@@ -45,6 +45,7 @@
 | Phase 6 post-merge verification | Updated `main` at merge commit `976d049` remains clean after PR #25 merge | Passed in `npm run qa:local` and `git diff --check` |
 | Phase 7 acceptance criteria | Shared Operon System infrastructure criteria recorded without implementation | Docs-only; `git diff --check` passed locally |
 | Phase 7 shared architecture map | Shared language, lifecycle and contract layers mapped without implementation | Docs-only; `git diff --check` passed locally |
+| Phase 7 shared glossary | Shared vocabulary and forbidden meanings recorded without schemas or implementation | Docs-only; `git diff --check` passed locally |
 | Phase 2 viewport QA | Desktop, laptop, tablet and mobile browser checks | Passed locally; see `PHASE_2_MANUAL_QA.md` |
 | Phase 2 accessibility proxy | Fieldsets, labels, preview ARIA and unlabeled controls | Passed locally; dedicated screen-reader pass still recommended |
 | Release polish copy | Public labels use gated planning-preview wording | Passed in component test and `npm run qa:local` |
