@@ -228,6 +228,15 @@ This log records local implementation and QA progress. It is not a deployment re
   Quote OS and Design Studio Phase 7 implementation behind separate approvals.
 - Updated next actions toward release decision review and the next explicit staging or human-review choice.
 
+## 2026-06-28 Human Release Review Checklist
+
+- Added `docs/qa/human-release-review-checklist-2026-06-28.md` as the review checklist for the merged local evidence.
+- Covered public routes, public forms, chatbot, admin/private boundaries, SEO content, accessibility spot checks and
+  release boundary confirmation.
+- Updated next actions toward human release-review closeout.
+- Kept live Supabase staging verification, real staging email send, deployment, private upload storage, Quote OS and
+  Design Studio Phase 7 implementation behind separate approvals.
+
 ## Operating Notes
 
 - Use `npm run qa:local` before handoff.

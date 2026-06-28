@@ -25,18 +25,17 @@
 
 ## Current Recommended Next Task
 
-Review and approve the release decision packet:
+Run and approve the human release-review checklist:
 
-1. Review `docs/qa/release-decision-packet-2026-06-28.md`.
-2. Confirm it stays docs-only and does not approve deployment, production changes, Quote OS or private upload storage.
-3. If approved, merge the release decision packet.
-4. Choose either approved live staging verification with supplied non-production environment variables or a human
-   release-review checklist from the local evidence.
+1. Use `docs/qa/human-release-review-checklist-2026-06-28.md`.
+2. Review public routes, forms, chatbot, admin/private boundaries, SEO copy and accessibility spot checks.
+3. Record pass, pass-with-notes or blocked outcome in a closeout note.
+4. Keep live staging Supabase verification and real staging email send separate unless approved env vars are supplied.
 5. Keep private Supabase Storage implementation and Quote OS behind separate explicit approvals.
 
 ## Overnight Follow-Up Queue
 
 Continue from `docs/next-100-tasks-2026-06-19.md`, `docs/next-200-continuation-tasks-2026-06-21.md`
 and `docs/next-500-continuation-tasks-2026-06-23.md` before starting Quote OS. The current priority is
-release decision review, staging email send only if approved env vars are supplied, private upload
+human release review, staging email send only if approved env vars are supplied, private upload
 storage only after explicit policy approval and Quote OS only after separate approval.
