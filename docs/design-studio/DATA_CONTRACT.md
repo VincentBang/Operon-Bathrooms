@@ -232,3 +232,5 @@ The Phase 7 contract field inventory may classify current Bathrooms-local fields
 The Phase 7 adapter decision packet may recommend `BathroomDesignQuoteOsHandoff` as the first future adapter source because it is already internal-only and allowlisted. That recommendation is documentation only; it does not implement an adapter, create a destination contract, export a shared type or approve runtime use.
 
 The Phase 7 destination contract acceptance criteria may name `OperonPlanningContext` as the preferred future destination contract and define required fields, safety flags, exclusions, versioning and tests. It is documentation only; it does not implement the destination contract, export a shared type, create a schema or approve runtime use.
+
+The Phase 7 implementation gate checklist may define the final preflight requirements for future adapter work. It is documentation only; it does not approve implementation, create an adapter, export a shared type, create a schema, add a feature flag or approve runtime use.

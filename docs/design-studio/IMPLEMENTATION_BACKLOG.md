@@ -84,7 +84,8 @@
 - [x] Stage 7G draft docs-only contract field inventory.
 - [x] Stage 7H draft docs-only adapter decision packet.
 - [x] Stage 7I draft docs-only destination contract acceptance criteria.
-- [ ] Stage 7J keep implementation locked until separately approved.
+- [x] Stage 7J draft docs-only implementation gate checklist.
+- [ ] Stage 7K keep implementation locked until separately approved.
 
 ## Deferred Until Later Approval
 

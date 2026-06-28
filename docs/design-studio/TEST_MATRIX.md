@@ -51,6 +51,7 @@
 | Phase 7 contract field inventory | Bathrooms-local fields classified for future adapter review without implementing an allowlist or shared schema | Docs-only; `git diff --check` required |
 | Phase 7 adapter decision packet | Recommended future adapter source and gates recorded without implementing an adapter or destination contract | Docs-only; `git diff --check` required |
 | Phase 7 destination contract acceptance criteria | Future destination contract name, required fields, exclusions and tests recorded without implementing a contract or schema | Docs-only; `git diff --check` required |
+| Phase 7 implementation gate checklist | Final preflight criteria recorded before any future implementation can be considered | Docs-only; `git diff --check` required |
 | Phase 2 viewport QA | Desktop, laptop, tablet and mobile browser checks | Passed locally; see `PHASE_2_MANUAL_QA.md` |
 | Phase 2 accessibility proxy | Fieldsets, labels, preview ARIA and unlabeled controls | Passed locally; dedicated screen-reader pass still recommended |
 | Release polish copy | Public labels use gated planning-preview wording | Passed in component test and `npm run qa:local` |
