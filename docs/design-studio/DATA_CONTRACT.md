@@ -230,3 +230,5 @@ The Phase 7 lifecycle vocabulary may standardise status labels for documentation
 The Phase 7 contract field inventory may classify current Bathrooms-local fields as candidate shared fields, Bathrooms-local fields, internal-only candidates or rejected fields for future review. It is not an allowlist implementation, adapter, schema, type export, database contract or runtime dependency.
 
 The Phase 7 adapter decision packet may recommend `BathroomDesignQuoteOsHandoff` as the first future adapter source because it is already internal-only and allowlisted. That recommendation is documentation only; it does not implement an adapter, create a destination contract, export a shared type or approve runtime use.
+
+The Phase 7 destination contract acceptance criteria may name `OperonPlanningContext` as the preferred future destination contract and define required fields, safety flags, exclusions, versioning and tests. It is documentation only; it does not implement the destination contract, export a shared type, create a schema or approve runtime use.
