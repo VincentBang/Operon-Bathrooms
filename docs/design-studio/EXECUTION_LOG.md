@@ -445,3 +445,12 @@
 - Marked the contract field inventory as `APPROVED` after PR #32 merged.
 - Marked the adapter decision packet as `GATE_REVIEW_READY`.
 - Kept Phase 7 implementation, shared packages, adapters, schemas, cross-repo edits, Supabase changes, Netlify changes, public exposure and full Quote OS locked.
+
+## 2026-06-28 Phase 7 Destination Contract Acceptance Criteria
+
+- Vincent approved the next docs-only Phase 7 destination contract acceptance criteria after PR #33 merged.
+- Added `docs/design-studio/PHASE_7_DESTINATION_CONTRACT_ACCEPTANCE_CRITERIA_2026-06-28.md`.
+- Defined preferred future destination name `OperonPlanningContext`, required fields, optional first-pass fields, excluded fields, versioning, public-language, privacy, test, rollback and acceptance gates.
+- Marked the adapter decision packet as `APPROVED` after PR #33 merged.
+- Marked the destination contract acceptance criteria as `GATE_REVIEW_READY`.
+- Kept Phase 7 implementation, shared packages, adapters, schemas, cross-repo edits, Supabase changes, Netlify changes, public exposure and full Quote OS locked.
