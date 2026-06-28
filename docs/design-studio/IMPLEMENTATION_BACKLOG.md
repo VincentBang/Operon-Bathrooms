@@ -78,7 +78,8 @@
 - [x] Stage 7A draft Phase 7 acceptance criteria.
 - [x] Stage 7B choose whether to pause or draft a docs-only shared architecture map.
 - [x] Stage 7C draft docs-only shared architecture map.
-- [ ] Stage 7D keep implementation locked until separately approved.
+- [x] Stage 7D draft docs-only shared glossary.
+- [ ] Stage 7E keep implementation locked until separately approved.
 
 ## Deferred Until Later Approval
 

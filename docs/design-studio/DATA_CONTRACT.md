@@ -220,3 +220,5 @@ Phase 7 may identify candidate shared contract concepts, but it must not extract
 Any future shared contract must preserve Bathrooms-local ownership for `BathroomDesignDraft`, `BathroomDesignQuoteOsHandoff`, bathroom-specific estimate logic, bathroom quote review scoring, bathroom compliance prompts and bathroom manual review report content unless a later gate explicitly approves an adapter.
 
 The Phase 7 shared architecture map may describe one-way future adapter concepts, but no adapter, shared type, shared package, shared API, database migration or runtime dependency is approved.
+
+The Phase 7 shared glossary may standardise vocabulary for humans and future planning. It is not a schema, shared type, package, adapter, database contract or runtime dependency.

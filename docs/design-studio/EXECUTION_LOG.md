@@ -175,6 +175,13 @@
 - Kept Bathrooms-local contracts as the source of truth for `BathroomDesignDraft`, `BathroomDesignQuoteOsHandoff`, estimate logic, quote review scoring, risk flags, compliance prompts and manual review content.
 - No app code, shared package, cross-repo edit, Supabase change, Netlify change, route discovery, public exposure, pricing, procurement, payment, CRM or full Quote OS implementation was added.
 
+## 2026-06-28 Phase 7 Shared Glossary
+
+- Vincent approved a docs-only Phase 7 shared glossary.
+- Added shared vocabulary for public guidance, Design Studio, lead review, private boundaries and shared infrastructure terms.
+- Documented forbidden meanings so shared language does not imply final quote, fixed price, legal advice, compliance certification, verified SKUs, procurement, payment, CRM, public proposals, measured CAD or construction documentation.
+- Kept the glossary as documentation only; no shared type, shared package, adapter, schema, API route, service integration or runtime dependency was added.
+
 ## 2026-06-23 Phase 2 Release Readiness Summary
 
 - Added `docs/design-studio/PHASE_2_RELEASE_READINESS_SUMMARY.md`.
