@@ -25,17 +25,17 @@
 
 ## Current Recommended Next Task
 
-Review and approve the human release-review closeout:
+Release hardening is paused with local evidence accepted:
 
-1. Review `docs/qa/human-release-review-closeout-2026-06-28.md`.
-2. Confirm it is a Codex-assisted local review with physical human sign-off still available as a separate gate.
-3. If approved, merge the closeout note.
-4. Choose whether to pause release hardening or provide approved non-production Supabase and email provider env vars.
-5. Keep private Supabase Storage implementation and Quote OS behind separate explicit approvals.
+1. Keep `docs/qa/release-hardening-accepted-pause-2026-06-28.md` as the current release-hardening pause note.
+2. Resume only if approved non-production Supabase and email provider env vars are supplied for live staging verification.
+3. Keep physical human sign-off and human screen-reader QA as optional separate gates if required before release exposure.
+4. Keep private Supabase Storage implementation and Quote OS behind separate explicit approvals.
+5. Do not treat this pause note as production deployment approval.
 
 ## Overnight Follow-Up Queue
 
 Continue from `docs/next-100-tasks-2026-06-19.md`, `docs/next-200-continuation-tasks-2026-06-21.md`
 and `docs/next-500-continuation-tasks-2026-06-23.md` before starting Quote OS. The current priority is
-human release-review closeout, staging email send only if approved env vars are supplied, private upload
+release-hardening pause, staging email send only if approved env vars are supplied, private upload
 storage only after explicit policy approval and Quote OS only after separate approval.
