@@ -269,6 +269,17 @@ This log records local implementation and QA progress. It is not a deployment re
 - Kept Supabase Storage bucket creation, storage policies, migrations, upload routes, admin download routes,
   deployment, production Supabase changes, production Netlify changes and Quote OS implementation locked.
 
+## 2026-06-29 Private Upload Storage SQL Approval Packet
+
+- Added `docs/qa/private-upload-storage-sql-approval-packet-2026-06-29.md`.
+- Added candidate SQL at `docs/qa/private-upload-storage-sql-approval-packet-2026-06-29.sql`.
+- Kept the SQL in `docs/qa/` rather than `supabase/migrations` so it is a review artifact only.
+- Reflected current Supabase storage/RLS guidance: storage access needs explicit `storage.objects` policies and RLS
+  remains required for public-schema tables.
+- Candidate SQL defines a private metadata table, service-role-only table access, a private bucket row and no
+  `storage.objects` policies.
+- No SQL was applied locally, to staging or to production.
+
 ## Operating Notes
 
 - Use `npm run qa:local` before handoff.

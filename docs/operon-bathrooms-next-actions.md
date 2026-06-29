@@ -25,17 +25,17 @@
 
 ## Current Recommended Next Task
 
-Review and approve the private upload storage policy design:
+Review and approve the private upload storage SQL approval packet:
 
-1. Review `docs/qa/private-upload-storage-policy-design-2026-06-29.md`.
-2. Confirm it is policy design only and does not create buckets, policies, migrations or upload behavior.
-3. If approved, merge the policy design.
-4. Keep the next step SQL-only/local-migration approval packet separate.
-5. Keep production Supabase, production Netlify, deployment and Quote OS locked.
+1. Review `docs/qa/private-upload-storage-sql-approval-packet-2026-06-29.md`.
+2. Review candidate SQL in `docs/qa/private-upload-storage-sql-approval-packet-2026-06-29.sql`.
+3. Confirm the SQL is not an active migration and has not been applied.
+4. If approved, merge the SQL approval packet.
+5. Keep the real local migration branch separate and keep production Supabase, production Netlify, deployment and Quote OS locked.
 
 ## Overnight Follow-Up Queue
 
 Continue from `docs/next-100-tasks-2026-06-19.md`, `docs/next-200-continuation-tasks-2026-06-21.md`
 and `docs/next-500-continuation-tasks-2026-06-23.md` before starting Quote OS. The current priority is
-private upload storage policy review, staging email send only if approved env vars are supplied, implementation
-only after explicit policy approval and Quote OS only after separate approval.
+private upload storage SQL approval review, staging email send only if approved env vars are supplied, implementation
+only after explicit migration approval and Quote OS only after separate approval.
