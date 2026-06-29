@@ -260,6 +260,15 @@ This log records local implementation and QA progress. It is not a deployment re
 - Kept deployment, production Supabase changes, production Netlify changes, private upload storage, Quote OS and
   Design Studio Phase 7 implementation unapproved and locked.
 
+## 2026-06-29 Private Upload Storage Policy Design
+
+- Added `docs/qa/private-upload-storage-policy-design-2026-06-29.md`.
+- Converted the existing private upload storage decision brief into an approval-ready policy design.
+- Defined proposed bucket boundary, lead contexts, allowed file types, object path contract, metadata table shape,
+  function boundary, public response boundary and QA gates.
+- Kept Supabase Storage bucket creation, storage policies, migrations, upload routes, admin download routes,
+  deployment, production Supabase changes, production Netlify changes and Quote OS implementation locked.
+
 ## Operating Notes
 
 - Use `npm run qa:local` before handoff.
