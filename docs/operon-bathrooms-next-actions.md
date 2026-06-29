@@ -25,17 +25,17 @@
 
 ## Current Recommended Next Task
 
-Release hardening is paused with local evidence accepted:
+Review and approve the private upload storage policy design:
 
-1. Keep `docs/qa/release-hardening-accepted-pause-2026-06-28.md` as the current release-hardening pause note.
-2. Resume only if approved non-production Supabase and email provider env vars are supplied for live staging verification.
-3. Keep physical human sign-off and human screen-reader QA as optional separate gates if required before release exposure.
-4. Keep private Supabase Storage implementation and Quote OS behind separate explicit approvals.
-5. Do not treat this pause note as production deployment approval.
+1. Review `docs/qa/private-upload-storage-policy-design-2026-06-29.md`.
+2. Confirm it is policy design only and does not create buckets, policies, migrations or upload behavior.
+3. If approved, merge the policy design.
+4. Keep the next step SQL-only/local-migration approval packet separate.
+5. Keep production Supabase, production Netlify, deployment and Quote OS locked.
 
 ## Overnight Follow-Up Queue
 
 Continue from `docs/next-100-tasks-2026-06-19.md`, `docs/next-200-continuation-tasks-2026-06-21.md`
 and `docs/next-500-continuation-tasks-2026-06-23.md` before starting Quote OS. The current priority is
-release-hardening pause, staging email send only if approved env vars are supplied, private upload
-storage only after explicit policy approval and Quote OS only after separate approval.
+private upload storage policy review, staging email send only if approved env vars are supplied, implementation
+only after explicit policy approval and Quote OS only after separate approval.
