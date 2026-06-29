@@ -25,17 +25,17 @@
 
 ## Current Recommended Next Task
 
-Review and approve the private upload storage SQL approval packet:
+Review and approve the private upload storage local migration packet:
 
-1. Review `docs/qa/private-upload-storage-sql-approval-packet-2026-06-29.md`.
-2. Review candidate SQL in `docs/qa/private-upload-storage-sql-approval-packet-2026-06-29.sql`.
-3. Confirm the SQL is not an active migration and has not been applied.
-4. If approved, merge the SQL approval packet.
-5. Keep the real local migration branch separate and keep production Supabase, production Netlify, deployment and Quote OS locked.
+1. Review `supabase/migrations/202606290001_create_bathroom_lead_evidence_files.sql`.
+2. Review verifier update in `scripts/verify-supabase-migrations.mjs`.
+3. Confirm the migration is source-controlled only and has not been applied to Supabase.
+4. If approved, merge the local migration packet.
+5. Keep applying it to local/staging Supabase separate, and keep production Supabase, production Netlify, deployment and Quote OS locked.
 
 ## Overnight Follow-Up Queue
 
 Continue from `docs/next-100-tasks-2026-06-19.md`, `docs/next-200-continuation-tasks-2026-06-21.md`
 and `docs/next-500-continuation-tasks-2026-06-23.md` before starting Quote OS. The current priority is
-private upload storage SQL approval review, staging email send only if approved env vars are supplied, implementation
-only after explicit migration approval and Quote OS only after separate approval.
+private upload storage local migration review, staging email send only if approved env vars are supplied, implementation
+only after explicit local/staging apply approval and Quote OS only after separate approval.
