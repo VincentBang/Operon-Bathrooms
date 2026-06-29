@@ -80,6 +80,7 @@ for (const table of anonInsertTables) {
 }
 
 const privateTables = [
+  "bathroom_lead_evidence_files",
   "bathroom_manual_review_reports",
   "bathroom_admin_notifications",
   "bathroom_lead_qualification_events",
