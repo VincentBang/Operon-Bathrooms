@@ -15,6 +15,7 @@ const checkedTables = [
   "bathroom_site_measure_requests",
   "bathroom_lead_response_events",
   "bathroom_lead_qualification_events",
+  "bathroom_lead_evidence_files",
   "bathroom_admin_activity_log",
   "bathroom_manual_review_reports",
   "operon_chatbot_qualifications",
@@ -25,6 +26,7 @@ const disallowedAnonInsertTables = [
   "bathroom_quote_reviews",
   "bathroom_review_requests",
   "bathroom_site_measure_requests",
+  "bathroom_lead_evidence_files",
   "operon_chatbot_qualifications",
   "operon_follow_up_tasks"
 ];
@@ -104,6 +106,22 @@ function estimatePayload() {
 }
 
 function disallowedInsertPayload(table) {
+  if (table === "bathroom_lead_evidence_files") {
+    return {
+      lead_type: "quote_review",
+      lead_id: "00000000-0000-4000-8000-000000000001",
+      bucket: "bathroom-lead-evidence-files",
+      object_path: `quote_review/00000000-0000-4000-8000-000000000001/${marker}/quote.pdf`,
+      original_filename: "quote.pdf",
+      sanitized_filename: "quote.pdf",
+      mime_type: "application/pdf",
+      file_size: 1024,
+      status: "pending_upload",
+      uploaded_by: "customer",
+      source_route: "/quote/review",
+      upload_context: { qa_marker: marker }
+    };
+  }
   if (table === "operon_chatbot_qualifications") {
     return {
       status: "new",
@@ -195,6 +213,10 @@ async function cleanupByMarker(service, table) {
     await service.from(table).delete().contains("estimate_range", { qa_marker: marker });
     return;
   }
+  if (table === "bathroom_lead_evidence_files") {
+    await service.from(table).delete().contains("upload_context", { qa_marker: marker });
+    return;
+  }
   await service.from(table).delete().eq("utm_campaign", marker);
 }
 
@@ -221,6 +243,41 @@ async function verifyAnonEstimateCannotMutate(anon, estimateId) {
 }
 
 async function verifyServiceRolePrivateAccess(service) {
+  const evidencePayload = {
+    lead_type: "quote_review",
+    lead_id: "00000000-0000-4000-8000-000000000002",
+    bucket: "bathroom-lead-evidence-files",
+    object_path: `quote_review/00000000-0000-4000-8000-000000000002/${marker}/quote.pdf`,
+    original_filename: "builder quote.pdf",
+    sanitized_filename: "builder-quote.pdf",
+    mime_type: "application/pdf",
+    file_size: 2048,
+    status: "pending_upload",
+    uploaded_by: "customer",
+    source_route: "/quote/review",
+    upload_context: { qa_marker: marker, purpose: "staging-contract" },
+    virus_scan_status: "not_configured",
+    internal_notes: "QA row. Delete after verification."
+  };
+  const { data: evidenceFile, error: evidenceError } = await service
+    .from("bathroom_lead_evidence_files")
+    .insert(evidencePayload)
+    .select("id, bucket, object_path, internal_notes")
+    .maybeSingle();
+  if (evidenceError || !evidenceFile?.id) {
+    fail(`service-role INSERT bathroom_lead_evidence_files failed: ${safeError(evidenceError)}`);
+    return;
+  }
+  cleanup.push({ table: "bathroom_lead_evidence_files", id: evidenceFile.id });
+  if (
+    evidenceFile.bucket !== "bathroom-lead-evidence-files" ||
+    !evidenceFile.object_path.includes(marker) ||
+    !evidenceFile.internal_notes
+  ) {
+    fail("service-role evidence file metadata read returned unexpected values.");
+  }
+  console.log("- service-role private evidence file metadata insert-read: succeeded");
+
   const qualificationPayload = {
     status: "manual_review_needed",
     source_route: "/chatbot",

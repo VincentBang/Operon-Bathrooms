@@ -25,13 +25,13 @@
 
 ## Current Recommended Next Task
 
-Review and approve the private upload storage local migration packet:
+Provide approved local/staging Supabase inputs for private upload storage apply:
 
-1. Review `supabase/migrations/202606290001_create_bathroom_lead_evidence_files.sql`.
-2. Review verifier update in `scripts/verify-supabase-migrations.mjs`.
-3. Confirm the migration is source-controlled only and has not been applied to Supabase.
-4. If approved, merge the local migration packet.
-5. Keep applying it to local/staging Supabase separate, and keep production Supabase, production Netlify, deployment and Quote OS locked.
+1. Review `docs/qa/private-upload-storage-staging-apply-gate-2026-07-01.md`.
+2. Supply approved non-production Supabase URL, anon key, service role key and database connection method.
+3. Set `OPERON_BATHROOMS_SUPABASE_QA_APPROVED=true` and `OPERON_BATHROOMS_SUPABASE_QA_TARGET=local` or `staging`.
+4. Apply `supabase/migrations/202606290001_create_bathroom_lead_evidence_files.sql` only to that approved target.
+5. Run `npm run qa:supabase:staging`; keep production Supabase, production Netlify, deployment and Quote OS locked.
 
 ## Overnight Follow-Up Queue
 
