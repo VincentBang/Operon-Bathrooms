@@ -324,6 +324,16 @@ This log records local implementation and QA progress. It is not a deployment re
 - No SQL was applied, no Supabase Storage bucket or policy was created, no production Supabase or Netlify setting was
   changed and no deployment was performed.
 
+## 2026-07-01 Private Upload Storage Disabled Route Criteria
+
+- Added `docs/qa/private-upload-storage-disabled-route-criteria-2026-07-01.md`.
+- Defined disabled-storage acceptance criteria for public quote-review, request-review and site-measure flows while
+  the approved local/staging Supabase apply gate remains blocked.
+- Extended `tests/public-api-safety.test.ts` so storage-looking fields submitted to quote-review, request-review and
+  site-measure APIs are not echoed in public responses.
+- Kept upload initiation routes, upload completion routes, admin download routes, Supabase Storage bucket creation,
+  storage policies, SQL apply, deployment and Quote OS locked.
+
 ## Operating Notes
 
 - Use `npm run qa:local` before handoff.

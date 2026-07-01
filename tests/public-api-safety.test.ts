@@ -15,12 +15,41 @@ function useLocalStorageOnly() {
 
 function assertPublicResponseIsSafe(payload: unknown) {
   const json = JSON.stringify(payload).toLowerCase();
-  assert.doesNotMatch(json, /internalnotes|internal_notes|qualificationnotes|qualification_notes/);
-  assert.doesNotMatch(json, /leadfitscore|lead_fit_score|leadfittier|lead_fit_tier/);
-  assert.doesNotMatch(json, /manualreviewreport|manual_review_report|reportbody|report_body/);
-  assert.doesNotMatch(json, /service_role|service role key|supplier cost|labou?r rate|margin logic|rate card/);
-  assert.doesNotMatch(json, /publicurl|public_url|signedurl|signed_url|storage_path|bucket|\.supabase\.co\/storage/i);
+  assert.doesNotMatch(
+    json,
+    /internalnotes|internal_notes|qualificationnotes|qualification_notes/
+  );
+  assert.doesNotMatch(
+    json,
+    /leadfitscore|lead_fit_score|leadfittier|lead_fit_tier/
+  );
+  assert.doesNotMatch(
+    json,
+    /manualreviewreport|manual_review_report|reportbody|report_body/
+  );
+  assert.doesNotMatch(
+    json,
+    /service_role|service role key|supplier cost|labou?r rate|margin logic|rate card/
+  );
+  assert.doesNotMatch(
+    json,
+    /publicurl|public_url|signedurl|signed_url|storage_path|bucket|\.supabase\.co\/storage/i
+  );
 }
+
+const storageLookingInput = {
+  fileName: "bathroom-evidence.pdf",
+  fileType: "application/pdf",
+  fileSize: 1000,
+  publicUrl:
+    "https://example.supabase.co/storage/v1/object/public/bathroom-quotes/evidence.pdf",
+  signedUrl:
+    "https://example.supabase.co/storage/v1/object/sign/bathroom-quotes/evidence.pdf",
+  storagePath: "bathroom-quotes/private/evidence.pdf",
+  storage_path: "bathroom-quotes/private/evidence.pdf",
+  object_path: "quote_review/lead/upload/evidence.pdf",
+  bucket: "bathroom-quotes"
+};
 
 test("public quote review response stays customer-safe", async () => {
   useLocalStorageOnly();
@@ -76,15 +105,14 @@ test("public quote review response stays customer-safe", async () => {
             exclusionsClearlyListed: "unclear"
           },
           upload: {
-            fileName: "quote.pdf",
-            fileType: "application/pdf",
-            fileSize: 1000,
-            publicUrl: "https://example.supabase.co/storage/v1/object/public/bathroom-quotes/quote.pdf",
-            signedUrl: "https://example.supabase.co/storage/v1/object/sign/bathroom-quotes/quote.pdf",
-            storagePath: "bathroom-quotes/private/quote.pdf",
-            bucket: "bathroom-quotes"
+            ...storageLookingInput,
+            fileName: "quote.pdf"
           },
-          consent: { privacyAccepted: true, termsAccepted: true, guidanceAccepted: true },
+          consent: {
+            privacyAccepted: true,
+            termsAccepted: true,
+            guidanceAccepted: true
+          },
           company: "",
           attribution: {
             sourceRoute: "/quote/review",
@@ -127,6 +155,12 @@ test("public request review and site measure responses stay customer-safe", asyn
         hasBuilderQuote: false,
         preferredNextStep: "email-review",
         message: "Please review the bathroom renovation scope before I commit.",
+        upload: storageLookingInput,
+        evidenceFiles: [storageLookingInput],
+        publicUrl: storageLookingInput.publicUrl,
+        signedUrl: storageLookingInput.signedUrl,
+        storagePath: storageLookingInput.storagePath,
+        bucket: storageLookingInput.bucket,
         privacyAccepted: true,
         termsAccepted: true,
         company: ""
@@ -155,6 +189,12 @@ test("public request review and site measure responses stay customer-safe", asyn
         strataApprovalStatus: "unknown",
         knownIssues: "Possible mould near shower.",
         message: "I want to prepare for a site measure.",
+        upload: storageLookingInput,
+        evidenceFiles: [storageLookingInput],
+        publicUrl: storageLookingInput.publicUrl,
+        signedUrl: storageLookingInput.signedUrl,
+        storagePath: storageLookingInput.storagePath,
+        bucket: storageLookingInput.bucket,
         privacyAccepted: true,
         termsAccepted: true,
         company: ""
@@ -174,7 +214,8 @@ test("public lead route survives email provider failure without leaking secrets"
   process.env.OPERON_BATHROOMS_ADMIN_EMAIL = "admin@example.com";
   process.env.OPERON_BATHROOMS_FROM_EMAIL = "bathrooms@example.com";
   process.env.OPERON_BATHROOMS_NOTIFICATION_MODE = "send";
-  globalThis.fetch = (async () => new Response("{}", { status: 500 })) as typeof fetch;
+  globalThis.fetch = (async () =>
+    new Response("{}", { status: 500 })) as typeof fetch;
 
   try {
     const response = await postRequestReview(
@@ -194,7 +235,8 @@ test("public lead route survives email provider failure without leaking secrets"
           hasPhotosPlans: true,
           hasBuilderQuote: false,
           preferredNextStep: "email-review",
-          message: "Please review my scope even if email provider delivery fails.",
+          message:
+            "Please review my scope even if email provider delivery fails.",
           privacyAccepted: true,
           termsAccepted: true,
           company: ""
@@ -207,8 +249,14 @@ test("public lead route survives email provider failure without leaking secrets"
     assert.equal(body.notificationPrepared, true);
     assert.equal(body.adminNotificationSent, false);
     assert.equal(body.customerAcknowledgementSent, false);
-    assert.match(body.notificationWarning, /provider returned a delivery error/i);
-    assert.doesNotMatch(JSON.stringify(body), /test-resend-secret-should-not-leak|authorization|bearer/i);
+    assert.match(
+      body.notificationWarning,
+      /provider returned a delivery error/i
+    );
+    assert.doesNotMatch(
+      JSON.stringify(body),
+      /test-resend-secret-should-not-leak|authorization|bearer/i
+    );
     assertPublicResponseIsSafe(body);
   } finally {
     globalThis.fetch = previousFetch;
@@ -240,15 +288,23 @@ test("public chatbot handoff response stays customer-safe and rejects honeypot",
   const response = await postChatbotQualification(
     new Request("http://localhost/api/chatbot-qualification", {
       method: "POST",
-      headers: { "Content-Type": "application/json", "x-operon-chat-session": "api-safety-session" },
+      headers: {
+        "Content-Type": "application/json",
+        "x-operon-chat-session": "api-safety-session"
+      },
       body: JSON.stringify({
         name: "Chat Public Test",
         email: "chat-public@example.com",
         phone: "0400000000",
         suburb: "Coogee",
         preferredNextStep: "manual_review",
-        message: "My apartment bathroom quote has unclear waterproofing and deposit wording.",
-        highRiskTopics: ["apartment / strata", "waterproofing uncertainty", "deposit concern"],
+        message:
+          "My apartment bathroom quote has unclear waterproofing and deposit wording.",
+        highRiskTopics: [
+          "apartment / strata",
+          "waterproofing uncertainty",
+          "deposit concern"
+        ],
         privacyAccepted: true,
         termsAccepted: true,
         guidanceAccepted: true,
