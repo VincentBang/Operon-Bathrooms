@@ -310,6 +310,20 @@ This log records local implementation and QA progress. It is not a deployment re
 - Kept deployment, production Supabase changes, production Netlify changes, private upload implementation and Quote
   OS implementation locked.
 
+## 2026-07-01 Private Upload Storage Apply Gate Follow-Up
+
+- Rechecked the current shell for approved local/staging Supabase inputs after the continuation queue merged.
+- Confirmed the shell still has only partial Supabase input visibility: `SUPABASE_URL` and
+  `SUPABASE_SERVICE_ROLE_KEY` are present, but approval flags, public URL/anon key, database connection URL, Supabase
+  CLI and `psql` are missing.
+- Ran `npm run qa:supabase:staging`; the verifier refused to run because the required approval and non-production
+  inputs were incomplete.
+- Ran `npm run verify:supabase:migrations`; the static migration safety verifier passed and confirmed anon insert is
+  limited to `bathroom_estimates`.
+- Updated `docs/qa/private-upload-storage-staging-apply-gate-2026-07-01.md` with the follow-up blocked attempt.
+- No SQL was applied, no Supabase Storage bucket or policy was created, no production Supabase or Netlify setting was
+  changed and no deployment was performed.
+
 ## Operating Notes
 
 - Use `npm run qa:local` before handoff.
