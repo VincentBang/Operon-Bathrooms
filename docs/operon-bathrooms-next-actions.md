@@ -35,7 +35,7 @@ Provide approved local/staging Supabase inputs for private upload storage apply:
 
 ## Overnight Follow-Up Queue
 
-Continue from `docs/next-100-tasks-2026-06-19.md`, `docs/next-200-continuation-tasks-2026-06-21.md`
-and `docs/next-500-continuation-tasks-2026-06-23.md` before starting Quote OS. The current priority is
-private upload storage local migration review, staging email send only if approved env vars are supplied, implementation
-only after explicit local/staging apply approval and Quote OS only after separate approval.
+Continue from `docs/next-100-continuation-tasks-2026-07-01.md` for the current storage gate queue, then refer back
+to `docs/next-500-continuation-tasks-2026-06-23.md` for broader QA. The current priority is private upload storage
+local/staging apply verification only after approved env vars are supplied; implementation only after explicit
+local/staging apply approval and Quote OS only after separate approval.

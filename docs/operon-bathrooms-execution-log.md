@@ -300,6 +300,16 @@ This log records local implementation and QA progress. It is not a deployment re
   service-role private metadata insert/read cleanup.
 - No SQL was applied locally, to staging or to production.
 
+## 2026-07-01 Next 100 Continuation Queue
+
+- Added `docs/next-100-continuation-tasks-2026-07-01.md`.
+- Converted the current private upload storage apply block into a 100-task continuation queue.
+- Prioritized approved local/staging Supabase inputs, migration apply, staging contract verification, implementation
+  readiness, public upload UI hardening, admin retrieval design, tests, manual QA, release boundary and post-storage
+  decisions.
+- Kept deployment, production Supabase changes, production Netlify changes, private upload implementation and Quote
+  OS implementation locked.
+
 ## Operating Notes
 
 - Use `npm run qa:local` before handoff.
