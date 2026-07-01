@@ -46,6 +46,41 @@ No production Netlify changes were made.
 
 No deployment was performed.
 
+## Follow-Up Attempt - 2026-07-01
+
+Vincent approved continuing the gate run after PR #47 merged. The follow-up shell check still did not contain the
+complete approved local/staging inputs required to apply SQL safely.
+
+Present in the shell:
+
+- `SUPABASE_URL`
+- `SUPABASE_SERVICE_ROLE_KEY`
+
+Missing from the shell:
+
+- `OPERON_BATHROOMS_SUPABASE_QA_APPROVED=true`
+- `OPERON_BATHROOMS_SUPABASE_QA_TARGET=local` or `staging`
+- `NEXT_PUBLIC_SUPABASE_URL`
+- `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+- A database connection URL such as `SUPABASE_DB_URL`, `DATABASE_URL` or `POSTGRES_URL`
+- Supabase CLI
+- `psql`
+
+Verifier result:
+
+- `npm run qa:supabase:staging` refused to run because the approval flag, target and public Supabase inputs were
+  missing.
+- `npm run verify:supabase:migrations` passed locally and confirmed the migration contract still limits anon insert
+  to `bathroom_estimates`.
+
+Follow-up result:
+
+- No SQL was applied.
+- No local/staging Supabase database was changed.
+- No production Supabase database was changed.
+- No Supabase Storage bucket or storage policy was created.
+- No deployment was performed.
+
 ## Verifier Update
 
 The staging contract verifier was updated so it is ready once approved credentials are supplied:
@@ -85,4 +120,3 @@ After approved non-production inputs are available:
 
 Provide approved local/staging Supabase environment variables and a database connection method, then rerun the staging
 apply and verification gate. Production remains locked.
-
