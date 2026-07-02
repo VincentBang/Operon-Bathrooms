@@ -25,13 +25,15 @@
 
 ## Current Recommended Next Task
 
-Provide approved local/staging Supabase inputs for private upload storage apply:
+Review and approve the private upload storage readiness closeout PR, then provide approved local/staging Supabase
+inputs for private upload storage apply:
 
 1. Review `docs/qa/private-upload-storage-staging-apply-gate-2026-07-01.md`.
-2. Supply approved non-production Supabase URL, anon key, service role key and database connection method.
-3. Set `OPERON_BATHROOMS_SUPABASE_QA_APPROVED=true` and `OPERON_BATHROOMS_SUPABASE_QA_TARGET=local` or `staging`.
-4. Apply `supabase/migrations/202606290001_create_bathroom_lead_evidence_files.sql` only to that approved target.
-5. Run `npm run qa:supabase:staging`; keep production Supabase, production Netlify, deployment and Quote OS locked.
+2. Review `docs/qa/private-upload-storage-readiness-closeout-2026-07-02.md`.
+3. Supply approved non-production Supabase URL, anon key, service role key and database connection method.
+4. Set `OPERON_BATHROOMS_SUPABASE_QA_APPROVED=true` and `OPERON_BATHROOMS_SUPABASE_QA_TARGET=local` or `staging`.
+5. Apply `supabase/migrations/202606290001_create_bathroom_lead_evidence_files.sql` only to that approved target.
+6. Run `npm run qa:supabase:staging`; keep production Supabase, production Netlify, deployment and Quote OS locked.
 
 ## Overnight Follow-Up Queue
 

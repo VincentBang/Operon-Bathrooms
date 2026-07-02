@@ -29,14 +29,24 @@ function lead(overrides: Partial<NormalizedLead>): NormalizedLead {
     utmSource: "",
     utmMedium: "",
     utmCampaign: "",
-    contact: { name: "Report Lead", email: "report@example.com", phone: "0400000000", suburb: "Marrickville", propertyType: "apartment-strata" },
+    contact: {
+      name: "Report Lead",
+      email: "report@example.com",
+      phone: "0400000000",
+      suburb: "Marrickville",
+      propertyType: "apartment-strata"
+    },
     suburb: "Marrickville",
     propertyType: "apartment-strata",
     bathroomType: "main-bathroom",
     timeline: "urgent",
     quoteAmount: 52000,
     quoteClarityScore: 42,
-    riskFlags: ["Waterproofing is not clearly included.", "Deposit/HBCF prompt should be clarified.", "Apartment / strata approval may be required."],
+    riskFlags: [
+      "Waterproofing is not clearly included.",
+      "Deposit/HBCF prompt should be clarified.",
+      "Apartment / strata approval may be required."
+    ],
     scoringResult: {
       missingInclusions: ["Waterproofing certificate", "Waste removal"],
       allowanceRisk: ["PC sums unclear"],
@@ -44,9 +54,23 @@ function lead(overrides: Partial<NormalizedLead>): NormalizedLead {
       questionsToAsk: ["Does the quote include waterproofing evidence?"]
     },
     payload: {
-      quote: { amount: 52000, gstStatus: "unclear", depositRequested: 8000, timeline: "urgent", builderName: "Builder Co" },
-      allowances: { pcSumsPresent: "unclear", provisionalSumsPresent: "unclear", exclusionsClearlyListed: "unclear" },
-      upload: { fileName: "quote.pdf", fileType: "application/pdf", fileSize: 1000 }
+      quote: {
+        amount: 52000,
+        gstStatus: "unclear",
+        depositRequested: 8000,
+        timeline: "urgent",
+        builderName: "Builder Co"
+      },
+      allowances: {
+        pcSumsPresent: "unclear",
+        provisionalSumsPresent: "unclear",
+        exclusionsClearlyListed: "unclear"
+      },
+      upload: {
+        fileName: "quote.pdf",
+        fileType: "application/pdf",
+        fileSize: 1000
+      }
     },
     internalNotes: "",
     responseStatus: "not_started",
@@ -98,9 +122,20 @@ test("manual review report summarizes quote review risks without public pricing 
   assert.equal(report.leadType, "quote_review");
   assert.equal(report.recommendedNextAction, "prepare_manual_quote_review");
   assert.equal(report.manualReviewRequired, true);
-  assert.ok(report.quoteReviewSummary?.some((item) => item.includes("Quote clarity score")));
-  assert.ok(report.customerFollowUpQuestions.some((question) => /quote|photo|strata/i.test(question)));
-  assert.doesNotMatch(JSON.stringify(report), /supplier cost|margin|rate card|final quote/i);
+  assert.ok(
+    report.quoteReviewSummary?.some((item) =>
+      item.includes("Quote clarity score")
+    )
+  );
+  assert.ok(
+    report.customerFollowUpQuestions.some((question) =>
+      /quote|photo|strata/i.test(question)
+    )
+  );
+  assert.doesNotMatch(
+    JSON.stringify(report),
+    /supplier cost|margin|rate card|final quote/i
+  );
 });
 
 test("manual review report flags bad-fit lead internally", () => {
@@ -117,7 +152,10 @@ test("manual review report flags bad-fit lead internally", () => {
 
   assert.ok(report.doNotQuoteReasons.length > 0);
   assert.equal(report.recommendedAdminStatus, "not_fit");
-  assert.doesNotMatch(report.copyTemplates.customerFollowUpMessage, /not fit|do not quote/i);
+  assert.doesNotMatch(
+    report.copyTemplates.customerFollowUpMessage,
+    /not fit|do not quote/i
+  );
 });
 
 test("manual review report asks for missing evidence and high-risk clarifications", () => {
@@ -219,10 +257,15 @@ test("manual review report distinguishes site-measure readiness states", () => {
       table: "bathroom_site_measure_requests",
       leadFitTier: "not_fit",
       recommendedNextAction: "refer_out",
-      disqualificationFlags: ["Emergency repair-only request is outside the preferred renovation workflow."]
+      disqualificationFlags: [
+        "Emergency repair-only request is outside the preferred renovation workflow."
+      ]
     })
   );
-  assert.match(blockedReport.siteMeasureReadiness, /Not ready for site measure/i);
+  assert.match(
+    blockedReport.siteMeasureReadiness,
+    /Not ready for site measure/i
+  );
   assert.equal(blockedReport.recommendedAdminStatus, "not_fit");
 });
 
@@ -230,7 +273,10 @@ test("manual review report copy remains internal and not a customer proposal", (
   const report = buildManualReviewReport(
     lead({
       disqualificationFlags: ["Supply-only fixture request is outside scope."],
-      payload: { message: "I need supply only fixtures and a final quote without site measure." }
+      payload: {
+        message:
+          "I need supply only fixtures and a final quote without site measure."
+      }
     })
   );
   const internalText = report.internalReviewNotes.join(" ");
@@ -241,9 +287,58 @@ test("manual review report copy remains internal and not a customer proposal", (
   assert.match(internalText, /Internal report only/i);
   assert.match(internalText, /Do not send to customer as a proposal or quote/i);
   assert.match(customerText, /planning guidance only/i);
-  assert.match(customerText, /site measure, selections, licensed trade checks and written scope confirmation/i);
-  assert.doesNotMatch(customerText, /do not quote|not fit|supplier cost|margin|rate card/i);
-  assert.doesNotMatch(serialized, /labou?r rate|supplier cost|margin|rate card/i);
+  assert.match(
+    customerText,
+    /site measure, selections, licensed trade checks and written scope confirmation/i
+  );
+  assert.doesNotMatch(
+    customerText,
+    /do not quote|not fit|supplier cost|margin|rate card/i
+  );
+  assert.doesNotMatch(
+    serialized,
+    /labou?r rate|supplier cost|margin|rate card/i
+  );
+});
+
+test("manual review report hides private upload storage paths", () => {
+  const report = buildManualReviewReport(
+    lead({
+      payload: {
+        quote: {
+          amount: 52000,
+          gstStatus: "unclear",
+          depositRequested: 8000,
+          timeline: "urgent",
+          builderName: "Builder Co"
+        },
+        allowances: {
+          pcSumsPresent: "unclear",
+          provisionalSumsPresent: "unclear",
+          exclusionsClearlyListed: "unclear"
+        },
+        upload: {
+          fileName: "quote.pdf",
+          fileType: "application/pdf",
+          fileSize: 1000,
+          bucket: "bathroom-lead-evidence-files",
+          object_path: "quote_review/manual-report-lead/upload-id/quote.pdf",
+          storagePath: "quote_review/manual-report-lead/upload-id/quote.pdf",
+          publicUrl:
+            "https://example.supabase.co/storage/v1/object/public/bathroom/quote.pdf",
+          signedUrl:
+            "https://example.supabase.co/storage/v1/object/sign/bathroom/quote.pdf"
+        }
+      }
+    })
+  );
+  const serialized = JSON.stringify(report);
+
+  assert.match(serialized, /Uploaded file: quote\.pdf/i);
+  assert.doesNotMatch(
+    serialized,
+    /bathroom-lead-evidence-files|object_path|storagePath|publicUrl|signedUrl|supabase\.co\/storage/i
+  );
 });
 
 test("manual review report admin routes require token, preview and persist locally", async () => {
@@ -277,7 +372,10 @@ test("manual review report admin routes require token, preview and persist local
     new Request("http://localhost/api/admin/manual-review-report-preview", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ leadType: stored.lead.leadType, leadId: stored.lead.id })
+      body: JSON.stringify({
+        leadType: stored.lead.leadType,
+        leadId: stored.lead.id
+      })
     })
   );
   assert.equal(unauth.status, 401);
@@ -285,8 +383,14 @@ test("manual review report admin routes require token, preview and persist local
   const preview = await previewReport(
     new Request("http://localhost/api/admin/manual-review-report-preview", {
       method: "POST",
-      headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
-      body: JSON.stringify({ leadType: stored.lead.leadType, leadId: stored.lead.id })
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`
+      },
+      body: JSON.stringify({
+        leadType: stored.lead.leadType,
+        leadId: stored.lead.id
+      })
     })
   );
   const previewBody = await preview.json();
@@ -297,8 +401,14 @@ test("manual review report admin routes require token, preview and persist local
   const generated = await generateReport(
     new Request("http://localhost/api/admin/manual-review-report", {
       method: "POST",
-      headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
-      body: JSON.stringify({ leadType: stored.lead.leadType, leadId: stored.lead.id })
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`
+      },
+      body: JSON.stringify({
+        leadType: stored.lead.leadType,
+        leadId: stored.lead.id
+      })
     })
   );
   const generatedBody = await generated.json();
@@ -308,12 +418,23 @@ test("manual review report admin routes require token, preview and persist local
   const updated = await updateReport(
     new Request("http://localhost/api/admin/manual-review-report-update", {
       method: "POST",
-      headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
-      body: JSON.stringify({ reportId: generatedBody.report.reportId, reportStatus: "reviewed", internalReviewNote: "<script>safe text</script>" })
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`
+      },
+      body: JSON.stringify({
+        reportId: generatedBody.report.reportId,
+        reportStatus: "reviewed",
+        internalReviewNote: "<script>safe text</script>"
+      })
     })
   );
   const updatedBody = await updated.json();
   assert.equal(updated.status, 200);
   assert.equal(updatedBody.report.reportStatus, "reviewed");
-  assert.ok(updatedBody.report.internalReviewNotes.some((note: string) => note.includes("<script>safe text</script>")));
+  assert.ok(
+    updatedBody.report.internalReviewNotes.some((note: string) =>
+      note.includes("<script>safe text</script>")
+    )
+  );
 });

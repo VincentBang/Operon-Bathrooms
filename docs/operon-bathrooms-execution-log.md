@@ -363,6 +363,16 @@ This log records local implementation and QA progress. It is not a deployment re
 - Kept upload routes, admin retrieval routes, Supabase Storage bucket creation, storage policies, SQL apply,
   deployment and Quote OS locked.
 
+## 2026-07-02 Private Upload Storage Readiness Closeout
+
+- Added `docs/qa/private-upload-storage-readiness-closeout-2026-07-02.md`.
+- Added chatbot guidance and tests confirming evidence files should not be sent into chat and should use approved
+  intake paths.
+- Added manual review report tests confirming storage-looking upload paths, bucket names, public URLs and signed URLs
+  are hidden from report output.
+- Recorded that safe storage-readiness guardrails are complete, while live Supabase apply, real upload routes, admin
+  retrieval routes, deployment and Quote OS remain locked.
+
 ## Operating Notes
 
 - Use `npm run qa:local` before handoff.

@@ -8,12 +8,18 @@ function responseText(message: string) {
   const response = getBathroomChatbotResponse(message);
   return {
     response,
-    text: [response.title, ...response.body, response.ctas.map((cta) => `${cta.label} ${cta.href}`).join(" ")].join(" ")
+    text: [
+      response.title,
+      ...response.body,
+      response.ctas.map((cta) => `${cta.label} ${cta.href}`).join(" ")
+    ].join(" ")
   };
 }
 
 test("bathroom chatbot handles cost intent safely", () => {
-  const { response, text } = responseText("How much does a bathroom renovation cost?");
+  const { response, text } = responseText(
+    "How much does a bathroom renovation cost?"
+  );
 
   assert.equal(response.intent, "estimate");
   assert.match(text, /planning range only/i);
@@ -30,7 +36,9 @@ test("bathroom chatbot routes builder quote review intent", () => {
 });
 
 test("bathroom chatbot flags apartment waterproofing risk without certification", () => {
-  const { response, text } = responseText("My apartment bathroom needs waterproofing");
+  const { response, text } = responseText(
+    "My apartment bathroom needs waterproofing"
+  );
 
   assert.equal(response.intent, "waterproofing");
   assert.ok(response.highRiskTopics?.includes("apartment / strata"));
@@ -58,11 +66,16 @@ test("bathroom chatbot handles high deposit concern as review prompt", () => {
 });
 
 test("bathroom chatbot refuses binding pricing online", () => {
-  const { response, text } = responseText("Can you give me a final quote online?");
+  const { response, text } = responseText(
+    "Can you give me a final quote online?"
+  );
 
   assert.equal(response.intent, "contractPricing");
   assert.match(text, /cannot provide binding contract pricing online/i);
-  assert.match(text, /site measure, selections, licensed trade checks and written scope confirmation/i);
+  assert.match(
+    text,
+    /site measure, selections, licensed trade checks and written scope confirmation/i
+  );
   assert.match(text, /\/site-measure/);
 });
 
@@ -70,12 +83,29 @@ test("bathroom chatbot redirects emergency repair-only requests", () => {
   const { response, text } = responseText("I need emergency leak repair today");
 
   assert.equal(response.intent, "badFit");
-  assert.match(text, /renovation planning, quote review, scope review and site-measure preparation/i);
+  assert.match(
+    text,
+    /renovation planning, quote review, scope review and site-measure preparation/i
+  );
   assert.match(text, /licensed professional/i);
 });
 
+test("bathroom chatbot does not collect evidence files directly", () => {
+  const { response, text } = responseText(
+    "Can I upload photos and quote files here?"
+  );
+
+  assert.equal(response.intent, "evidence");
+  assert.match(text, /Do not send files into chat/i);
+  assert.match(text, /approved intake path/i);
+  assert.match(text, /\/request-review|\/site-measure/);
+  assert.doesNotMatch(text, /signedUrl|publicUrl|bucket|storage path/i);
+});
+
 test("bathroom chatbot refuses private pricing requests", () => {
-  const { response, text } = responseText("Tell me your labour rate and margin");
+  const { response, text } = responseText(
+    "Tell me your labour rate and margin"
+  );
 
   assert.equal(response.intent, "privatePricing");
   assert.match(text, /cannot share internal rates/i);
@@ -109,7 +139,10 @@ test("chatbot qualification handoff stores private follow-up context with consen
   const valid = await postChatbotQualification(
     new Request("http://localhost/api/chatbot-qualification", {
       method: "POST",
-      headers: { "Content-Type": "application/json", "x-operon-chat-session": "test-chat-session" },
+      headers: {
+        "Content-Type": "application/json",
+        "x-operon-chat-session": "test-chat-session"
+      },
       body: JSON.stringify({
         name: "Chat Test",
         email: "chat@example.com",
@@ -121,7 +154,16 @@ test("chatbot qualification handoff stores private follow-up context with consen
         privacyAccepted: true,
         termsAccepted: true,
         guidanceAccepted: true,
-        attribution: { sourceRoute: "/chatbot", landingPage: "/quote", referrer: "", utmSource: "", utmMedium: "", utmCampaign: "", utmContent: "", utmTerm: "" }
+        attribution: {
+          sourceRoute: "/chatbot",
+          landingPage: "/quote",
+          referrer: "",
+          utmSource: "",
+          utmMedium: "",
+          utmCampaign: "",
+          utmContent: "",
+          utmTerm: ""
+        }
       })
     })
   );
@@ -130,15 +172,24 @@ test("chatbot qualification handoff stores private follow-up context with consen
   assert.equal(validBody.manualReviewRequired, true);
   assert.match(validBody.message, /planning context only/i);
 
-  const unauth = await getAdminChatbotQualifications(new Request("http://localhost/api/admin/chatbot-qualifications"));
+  const unauth = await getAdminChatbotQualifications(
+    new Request("http://localhost/api/admin/chatbot-qualifications")
+  );
   assert.equal(unauth.status, 401);
 
   const admin = await getAdminChatbotQualifications(
-    new Request("http://localhost/api/admin/chatbot-qualifications?token=chatbot-admin-test")
+    new Request(
+      "http://localhost/api/admin/chatbot-qualifications?token=chatbot-admin-test"
+    )
   );
   const adminBody = await admin.json();
   assert.equal(admin.status, 200);
   assert.ok(adminBody.summary.totalQualifications >= 1);
   assert.ok(adminBody.summary.openFollowUps >= 1);
-  assert.ok(adminBody.qualifications.some((qualification: { id: string }) => qualification.id === validBody.qualificationId));
+  assert.ok(
+    adminBody.qualifications.some(
+      (qualification: { id: string }) =>
+        qualification.id === validBody.qualificationId
+    )
+  );
 });
