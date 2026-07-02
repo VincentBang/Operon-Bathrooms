@@ -1,5 +1,12 @@
-import { bathroomChatbotRoutes, ChatbotCta, fallbackCtas } from "./bathroomChatbotRoutes";
-import { noLegalAdviceNotice, planningGuidanceNotice } from "./bathroomChatbotSafety";
+import {
+  bathroomChatbotRoutes,
+  ChatbotCta,
+  fallbackCtas
+} from "./bathroomChatbotRoutes";
+import {
+  noLegalAdviceNotice,
+  planningGuidanceNotice
+} from "./bathroomChatbotSafety";
 
 export type ChatbotIntent =
   | "estimate"
@@ -38,7 +45,10 @@ export const quickPrompts = [
   "Book or request a review"
 ];
 
-export const chatbotResponses: Record<ChatbotIntent, Omit<ChatbotResponse, "intent" | "highRiskTopics">> = {
+export const chatbotResponses: Record<
+  ChatbotIntent,
+  Omit<ChatbotResponse, "intent" | "highRiskTopics">
+> = {
   estimate: {
     title: "Bathroom estimate help",
     body: [
@@ -72,7 +82,11 @@ export const chatbotResponses: Record<ChatbotIntent, Omit<ChatbotResponse, "inte
       "Check whether waterproofing, substrate preparation and any certificate wording are included in the quote. Do not treat an online answer as a compliance confirmation.",
       noLegalAdviceNotice
     ],
-    ctas: [bathroomChatbotRoutes.quoteReview, bathroomChatbotRoutes.scopeReview, bathroomChatbotRoutes.waterproofingGuide]
+    ctas: [
+      bathroomChatbotRoutes.quoteReview,
+      bathroomChatbotRoutes.scopeReview,
+      bathroomChatbotRoutes.waterproofingGuide
+    ]
   },
   services: {
     title: "Plumbing, electrical and ventilation",
@@ -90,7 +104,11 @@ export const chatbotResponses: Record<ChatbotIntent, Omit<ChatbotResponse, "inte
       "Confirm requirements in writing with the relevant parties. This chat cannot give legal advice or confirm compliance.",
       planningGuidanceNotice
     ],
-    ctas: [bathroomChatbotRoutes.scopeReview, bathroomChatbotRoutes.siteMeasure, bathroomChatbotRoutes.strataGuide]
+    ctas: [
+      bathroomChatbotRoutes.scopeReview,
+      bathroomChatbotRoutes.siteMeasure,
+      bathroomChatbotRoutes.strataGuide
+    ]
   },
   asbestos: {
     title: "Older bathrooms and asbestos",
@@ -108,13 +126,17 @@ export const chatbotResponses: Record<ChatbotIntent, Omit<ChatbotResponse, "inte
       "Clarify tile, fixture, demolition, waterproofing, plumbing/electrical, access and exclusion wording before signing. Unclear allowances may reduce quote certainty.",
       "A quote review is the best next step if your written quote has unclear allowances."
     ],
-    ctas: [bathroomChatbotRoutes.quoteReview, bathroomChatbotRoutes.allowancesGuide]
+    ctas: [
+      bathroomChatbotRoutes.quoteReview,
+      bathroomChatbotRoutes.allowancesGuide
+    ]
   },
   evidence: {
     title: "What to prepare",
     body: [
       "Prepare photos of the whole bathroom, shower area, vanity, toilet, floor/wall tiles, ceiling/ventilation, access path and any leaks or mould.",
       "If you have them, add the written quote, plans, strata notes, preferred fixtures, finish ideas, budget range and timing.",
+      "Do not send files into chat. Use the scope review, quote review or site-measure flow so evidence can be handled through the approved intake path.",
       "The more complete the evidence, the easier it is to give useful planning guidance before site measure."
     ],
     ctas: [bathroomChatbotRoutes.scopeReview, bathroomChatbotRoutes.siteMeasure]

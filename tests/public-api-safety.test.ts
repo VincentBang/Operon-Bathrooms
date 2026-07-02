@@ -84,6 +84,29 @@ test("public evidence upload routes remain locked until private storage is appro
   );
 });
 
+test("quote review upload placeholder keeps bounded file QA rules", () => {
+  const quoteReviewForm = readFileSync(
+    join(process.cwd(), "components/QuoteReviewForm.tsx"),
+    "utf8"
+  );
+  const allowedMimeTypes = [
+    "application/pdf",
+    "image/png",
+    "image/jpeg",
+    "image/webp"
+  ];
+
+  for (const mimeType of allowedMimeTypes) {
+    assert.match(quoteReviewForm, new RegExp(mimeType.replace("/", "\\/")));
+  }
+  assert.match(quoteReviewForm, /10_000_000/);
+  assert.match(quoteReviewForm, /PDF\/JPG\/PNG\/WebP files up to 10MB/);
+  assert.doesNotMatch(
+    quoteReviewForm,
+    /application\/zip|application\/msword|text\/html|image\/svg|unlimited|final quote/i
+  );
+});
+
 test("public quote review response stays customer-safe", async () => {
   useLocalStorageOnly();
   const response = await postQuoteReview(
