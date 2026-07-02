@@ -334,6 +334,15 @@ This log records local implementation and QA progress. It is not a deployment re
 - Kept upload initiation routes, upload completion routes, admin download routes, Supabase Storage bucket creation,
   storage policies, SQL apply, deployment and Quote OS locked.
 
+## 2026-07-01 Private Upload Storage Admin Retrieval Criteria
+
+- Added `docs/qa/private-upload-storage-admin-retrieval-criteria-2026-07-01.md`.
+- Defined future admin-only evidence file list/download acceptance criteria while implementation remains locked.
+- Added `tests/admin-boundary.test.ts` coverage confirming common admin evidence retrieval route folders remain absent
+  and the admin dashboard does not expose signed/public URL, storage path, object path or download-file wording.
+- Kept admin retrieval routes, upload routes, Supabase Storage bucket creation, storage policies, SQL apply,
+  deployment and Quote OS locked.
+
 ## Operating Notes
 
 - Use `npm run qa:local` before handoff.
