@@ -343,6 +343,16 @@ This log records local implementation and QA progress. It is not a deployment re
 - Kept admin retrieval routes, upload routes, Supabase Storage bucket creation, storage policies, SQL apply,
   deployment and Quote OS locked.
 
+## 2026-07-02 Private Upload Storage Upload Route Contracts
+
+- Added `docs/qa/private-upload-storage-upload-route-contracts-2026-07-02.md`.
+- Defined future `POST /api/prepare-lead-evidence-upload` and `POST /api/complete-lead-evidence-upload` contracts
+  while implementation remains locked.
+- Added `tests/public-api-safety.test.ts` coverage confirming common public evidence upload route folders remain absent
+  and the quote-review upload UI keeps disabled-storage wording without signed/public URL markers.
+- Kept upload routes, admin retrieval routes, Supabase Storage bucket creation, storage policies, SQL apply,
+  deployment and Quote OS locked.
+
 ## Operating Notes
 
 - Use `npm run qa:local` before handoff.

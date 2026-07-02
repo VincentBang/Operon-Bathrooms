@@ -1,4 +1,6 @@
 import assert from "node:assert/strict";
+import { existsSync, readFileSync } from "node:fs";
+import { join } from "node:path";
 import test from "node:test";
 import { POST as postChatbotQualification } from "../app/api/chatbot-qualification/route";
 import { POST as postQuoteReview } from "../app/api/quote-review/route";
@@ -50,6 +52,37 @@ const storageLookingInput = {
   object_path: "quote_review/lead/upload/evidence.pdf",
   bucket: "bathroom-quotes"
 };
+
+test("public evidence upload routes remain locked until private storage is approved", () => {
+  const blockedRouteDirs = [
+    "app/api/prepare-lead-evidence-upload",
+    "app/api/complete-lead-evidence-upload",
+    "app/api/lead-evidence-upload",
+    "app/api/evidence-upload",
+    "app/api/upload-evidence"
+  ];
+
+  for (const routeDir of blockedRouteDirs) {
+    assert.equal(
+      existsSync(join(process.cwd(), routeDir)),
+      false,
+      `${routeDir} must stay absent while storage is locked`
+    );
+  }
+
+  const quoteReviewForm = readFileSync(
+    join(process.cwd(), "components/QuoteReviewForm.tsx"),
+    "utf8"
+  );
+  assert.match(
+    quoteReviewForm,
+    /Public file storage is not enabled in this MVP/i
+  );
+  assert.doesNotMatch(
+    quoteReviewForm,
+    /prepare-lead-evidence-upload|complete-lead-evidence-upload|signedUrl|signed_url|publicUrl|public_url/i
+  );
+});
 
 test("public quote review response stays customer-safe", async () => {
   useLocalStorageOnly();
