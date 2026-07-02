@@ -353,6 +353,16 @@ This log records local implementation and QA progress. It is not a deployment re
 - Kept upload routes, admin retrieval routes, Supabase Storage bucket creation, storage policies, SQL apply,
   deployment and Quote OS locked.
 
+## 2026-07-02 Private Upload Storage QA Checklist Packet
+
+- Added `docs/qa/private-upload-storage-qa-checklist-2026-07-02.md`.
+- Defined future file limit, MIME allowlist, filename sanitisation, safe failure copy and manual QA evidence checks
+  for private upload implementation.
+- Added `tests/public-api-safety.test.ts` coverage confirming the disabled quote-review upload placeholder keeps the
+  approved MIME list, 10MB limit and safe failure copy while avoiding disallowed file formats and final-quote wording.
+- Kept upload routes, admin retrieval routes, Supabase Storage bucket creation, storage policies, SQL apply,
+  deployment and Quote OS locked.
+
 ## Operating Notes
 
 - Use `npm run qa:local` before handoff.
