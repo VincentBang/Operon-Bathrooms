@@ -189,6 +189,15 @@ function acknowledgementLabel(lead: NormalizedLead) {
   return "not configured";
 }
 
+function loadedLabel(value: string | null) {
+  if (!value) return "Not loaded yet";
+  return new Intl.DateTimeFormat(undefined, {
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit"
+  }).format(new Date(value));
+}
+
 export function AdminLeadsDashboard() {
   const [token, setToken] = useState("");
   const [leads, setLeads] = useState<NormalizedLead[]>([]);
@@ -204,6 +213,10 @@ export function AdminLeadsDashboard() {
   const [chatbotQualifications, setChatbotQualifications] = useState<ChatbotQualification[]>([]);
   const [followUpTasks, setFollowUpTasks] = useState<FollowUpTask[]>([]);
   const [productSchedules, setProductSchedules] = useState<ProductScheduleAdminRecord[]>([]);
+  const [mainLeadsLoadedAt, setMainLeadsLoadedAt] = useState<string | null>(null);
+  const [chatbotLoadedAt, setChatbotLoadedAt] = useState<string | null>(null);
+  const [productSchedulesLoadedAt, setProductSchedulesLoadedAt] = useState<string | null>(null);
+  const [loadingQueue, setLoadingQueue] = useState("");
   const [productScheduleSummary, setProductScheduleSummary] = useState<ProductScheduleSummary>({
     totalSchedules: 0,
     newSchedules: 0,
@@ -274,6 +287,7 @@ export function AdminLeadsDashboard() {
   }, [selected?.id, selected?.leadType, token]);
 
   async function loadLeads(nextToken = token) {
+    setLoadingQueue("leads");
     const params = new URLSearchParams({ token: nextToken });
     Object.entries(filters).forEach(([key, value]) => {
       if (typeof value === "boolean") {
@@ -286,32 +300,41 @@ export function AdminLeadsDashboard() {
     const json = await response.json();
     if (!response.ok) {
       setMessage(json.error || "Unable to load leads");
+      setLoadingQueue("");
       return;
     }
     setLeads(json.leads);
     setSummary(json.summary);
+    setMainLeadsLoadedAt(new Date().toISOString());
     setMessage("");
+    setLoadingQueue("");
   }
 
   async function loadChatbotQualifications(nextToken = token) {
+    setLoadingQueue("chatbot");
     const params = new URLSearchParams({ token: nextToken });
     const response = await fetch(`/api/admin/chatbot-qualifications?${params.toString()}`);
     const json = await response.json();
     if (!response.ok) {
       setMessage(json.error || "Unable to load chatbot handoffs");
+      setLoadingQueue("");
       return;
     }
     setChatbotQualifications(json.qualifications || []);
     setFollowUpTasks(json.tasks || []);
     setChatbotSummary(json.summary || { totalQualifications: 0, manualReviewNeeded: 0, openFollowUps: 0, urgentFollowUps: 0 });
+    setChatbotLoadedAt(new Date().toISOString());
+    setLoadingQueue("");
   }
 
   async function loadProductSchedules(nextToken = token) {
+    setLoadingQueue("product-schedules");
     const params = new URLSearchParams({ token: nextToken });
     const response = await fetch(`/api/admin/product-schedules?${params.toString()}`);
     const json = await response.json();
     if (!response.ok) {
       setMessage(json.error || "Unable to load product schedules");
+      setLoadingQueue("");
       return;
     }
     setProductSchedules(json.records || []);
@@ -325,6 +348,18 @@ export function AdminLeadsDashboard() {
         allowanceFlagged: 0
       }
     );
+    setProductSchedulesLoadedAt(new Date().toISOString());
+    setLoadingQueue("");
+  }
+
+  async function refreshAllQueues() {
+    if (!token) {
+      setMessage("Enter the admin token before refreshing queues.");
+      return;
+    }
+    setLoadingQueue("all");
+    await Promise.all([loadLeads(token), loadChatbotQualifications(token), loadProductSchedules(token)]);
+    setLoadingQueue("");
   }
 
   function mergeLead(nextLead: NormalizedLead) {
@@ -497,8 +532,34 @@ export function AdminLeadsDashboard() {
           <button onClick={() => loadLeads()}>Load leads</button>
           <button className="secondary" onClick={() => loadChatbotQualifications()}>Load chatbot handoffs</button>
           <button className="secondary" onClick={() => loadProductSchedules()}>Load product schedules</button>
+          <button className="secondary" onClick={refreshAllQueues}>Refresh all queues</button>
           <button className="secondary" onClick={bulkQualify}>Run qualification on unreviewed</button>
           {message ? <p className="notice">{message}</p> : null}
+        </div>
+
+        <div className="admin-load-status" aria-live="polite">
+          <div>
+            <strong>Main leads</strong>
+            <span>{summary.totalLeads ?? leads.length} total · {leads.length} shown</span>
+            <small>Last loaded: {loadedLabel(mainLeadsLoadedAt)}</small>
+          </div>
+          <div>
+            <strong>Product Schedule leads</strong>
+            <span>{productScheduleSummary.totalSchedules} total · {productSchedules.length} loaded</span>
+            <small>Last loaded: {loadedLabel(productSchedulesLoadedAt)}</small>
+          </div>
+          <div>
+            <strong>Chatbot handoffs</strong>
+            <span>
+              {chatbotSummary.totalQualifications} handoffs · {chatbotSummary.openFollowUps} open follow-ups
+            </span>
+            <small>Last loaded: {loadedLabel(chatbotLoadedAt)}</small>
+          </div>
+          <div>
+            <strong>Refresh status</strong>
+            <span>{loadingQueue ? `Loading ${label(loadingQueue)}...` : "Idle"}</span>
+            <small>Counts are loaded from separate protected admin endpoints.</small>
+          </div>
         </div>
 
         <div className="grid four">

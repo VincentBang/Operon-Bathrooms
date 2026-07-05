@@ -460,6 +460,32 @@ summary:focus-visible {
   min-width: min(420px, 100%);
 }
 
+.admin-load-status {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin: 0 0 18px;
+}
+
+.admin-load-status div {
+  display: grid;
+  gap: 4px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 12px;
+}
+
+.admin-load-status span,
+.admin-load-status small {
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.admin-load-status small {
+  font-size: 0.82rem;
+}
+
 .admin-grid {
   display: grid;
   grid-template-columns: minmax(280px, 0.7fr) minmax(0, 1.3fr);
@@ -778,6 +804,7 @@ summary:focus-visible {
   .admin-actions,
   .admin-filters,
   .admin-login,
+  .admin-load-status,
   .admin-evidence-row {
     align-items: stretch;
     grid-template-columns: 1fr;
