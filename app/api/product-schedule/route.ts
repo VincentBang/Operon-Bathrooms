@@ -31,7 +31,7 @@ export async function POST(request: Request) {
 
     const result = generateBathroomProductSchedule(input);
     const createdLead = createProductScheduleLead(input, lead, result.schedule);
-    const stored = await storeBathroomProductSchedule(result.schedule, lead);
+    const stored = await storeBathroomProductSchedule(result.schedule, lead, input);
     const completionEvent = trackBathroomProductScheduleEvent("bathroom_schedule_completed", {
       bathroomType: input.bathroomType,
       budgetLevel: input.budgetLevel,

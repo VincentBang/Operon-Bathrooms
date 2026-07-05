@@ -81,6 +81,56 @@ type ChatbotSummary = {
   urgentFollowUps: number;
 };
 
+type ProductScheduleAdminRecord = {
+  id: string;
+  createdAt: string;
+  updatedAt: string;
+  adminStatus: string;
+  followUpStatus: string;
+  contact: {
+    name?: string;
+    email?: string;
+    phone?: string;
+  } | null;
+  postcode: string;
+  bathroomType: string;
+  budgetLevel: string;
+  timeline: string;
+  confidence: string;
+  allowanceRange: string;
+  requested: {
+    productQuote: boolean;
+    quoteReview: boolean;
+    renovationHelp: boolean;
+  };
+  packInterests: Array<{
+    id: string;
+    name: string;
+    allowanceRange: string;
+    scheduleFit: string;
+    allowanceAlignment: string;
+    watchouts: string[];
+  }>;
+  allowanceFlags: string[];
+  substitutionNotes: Array<{
+    category: string;
+    selected: string;
+    alternatives: string[];
+  }>;
+  riskFlags: string[];
+  builderExport: string;
+  internalNotes: string;
+};
+
+type ProductScheduleSummary = {
+  totalSchedules: number;
+  newSchedules: number;
+  productQuoteRequests: number;
+  quoteReviewRequests: number;
+  followUpNeeded: number;
+  allowanceFlagged: number;
+};
+
 type ReportResponse = {
   ok: boolean;
   report: ManualReviewReport | null;
@@ -153,6 +203,15 @@ export function AdminLeadsDashboard() {
   const [qualificationNote, setQualificationNote] = useState("");
   const [chatbotQualifications, setChatbotQualifications] = useState<ChatbotQualification[]>([]);
   const [followUpTasks, setFollowUpTasks] = useState<FollowUpTask[]>([]);
+  const [productSchedules, setProductSchedules] = useState<ProductScheduleAdminRecord[]>([]);
+  const [productScheduleSummary, setProductScheduleSummary] = useState<ProductScheduleSummary>({
+    totalSchedules: 0,
+    newSchedules: 0,
+    productQuoteRequests: 0,
+    quoteReviewRequests: 0,
+    followUpNeeded: 0,
+    allowanceFlagged: 0
+  });
   const [chatbotSummary, setChatbotSummary] = useState<ChatbotSummary>({
     totalQualifications: 0,
     manualReviewNeeded: 0,
@@ -206,6 +265,7 @@ export function AdminLeadsDashboard() {
     window.localStorage.setItem("operonBathroomsAdminToken", token);
     void loadLeads(token);
     void loadChatbotQualifications(token);
+    void loadProductSchedules(token);
   }, [token]);
 
   useEffect(() => {
@@ -244,6 +304,27 @@ export function AdminLeadsDashboard() {
     setChatbotQualifications(json.qualifications || []);
     setFollowUpTasks(json.tasks || []);
     setChatbotSummary(json.summary || { totalQualifications: 0, manualReviewNeeded: 0, openFollowUps: 0, urgentFollowUps: 0 });
+  }
+
+  async function loadProductSchedules(nextToken = token) {
+    const params = new URLSearchParams({ token: nextToken });
+    const response = await fetch(`/api/admin/product-schedules?${params.toString()}`);
+    const json = await response.json();
+    if (!response.ok) {
+      setMessage(json.error || "Unable to load product schedules");
+      return;
+    }
+    setProductSchedules(json.records || []);
+    setProductScheduleSummary(
+      json.summary || {
+        totalSchedules: 0,
+        newSchedules: 0,
+        productQuoteRequests: 0,
+        quoteReviewRequests: 0,
+        followUpNeeded: 0,
+        allowanceFlagged: 0
+      }
+    );
   }
 
   function mergeLead(nextLead: NormalizedLead) {
@@ -382,6 +463,17 @@ export function AdminLeadsDashboard() {
     setMessage(copiedMessage);
   }
 
+  async function updateProductSchedule(recordId: string, patch: Record<string, unknown>, success: string) {
+    try {
+      const json = await adminPost("/api/admin/product-schedules", { recordId, ...patch });
+      setProductSchedules((current) => current.map((record) => (record.id === recordId ? json.record : record)));
+      setMessage(success);
+      await loadProductSchedules();
+    } catch (error) {
+      setMessage(error instanceof Error ? error.message : "Unable to update product schedule");
+    }
+  }
+
   return (
     <section className="page-section">
       <div className="container">
@@ -404,6 +496,7 @@ export function AdminLeadsDashboard() {
           </label>
           <button onClick={() => loadLeads()}>Load leads</button>
           <button className="secondary" onClick={() => loadChatbotQualifications()}>Load chatbot handoffs</button>
+          <button className="secondary" onClick={() => loadProductSchedules()}>Load product schedules</button>
           <button className="secondary" onClick={bulkQualify}>Run qualification on unreviewed</button>
           {message ? <p className="notice">{message}</p> : null}
         </div>
@@ -429,6 +522,100 @@ export function AdminLeadsDashboard() {
           <SummaryCard title="Chat manual review" value={chatbotSummary.manualReviewNeeded} />
           <SummaryCard title="Open follow-ups" value={chatbotSummary.openFollowUps} />
           <SummaryCard title="Urgent follow-ups" value={chatbotSummary.urgentFollowUps} />
+          <SummaryCard title="Product schedules" value={productScheduleSummary.totalSchedules} />
+          <SummaryCard title="Pack quote requests" value={productScheduleSummary.productQuoteRequests} />
+          <SummaryCard title="Schedule follow-ups" value={productScheduleSummary.followUpNeeded} />
+          <SummaryCard title="Allowance flagged" value={productScheduleSummary.allowanceFlagged} />
+        </div>
+
+        <div className="panel">
+          <h2>Product Schedule leads</h2>
+          <p className="muted">
+            Internal review queue for Bathroom Product Schedule submissions. Use this for pack
+            interest, allowance flags, substitution notes and builder-ready planning exports only.
+            It is not checkout, procurement or final pricing.
+          </p>
+          <div className="grid two">
+            {productSchedules.slice(0, 8).map((record) => (
+              <article className="card" key={record.id}>
+                <div className="score-row">
+                  <span className="pill">{label(record.adminStatus)}</span>
+                  <span className="pill">{label(record.followUpStatus)}</span>
+                  <span className="pill">{label(record.confidence)} confidence</span>
+                </div>
+                <h3>{record.contact?.name || record.contact?.email || "Unnamed product schedule"}</h3>
+                <p>
+                  {label(record.bathroomType)} · {label(record.budgetLevel)} · postcode{" "}
+                  {record.postcode || "not supplied"}
+                </p>
+                <p>PC allowance planning range: {record.allowanceRange}</p>
+                <Detail
+                  title="Requested"
+                  items={[
+                    `Product quote: ${record.requested.productQuote ? "yes" : "no"}`,
+                    `Quote review: ${record.requested.quoteReview ? "yes" : "no"}`,
+                    `Renovation help: ${record.requested.renovationHelp ? "yes" : "no"}`
+                  ]}
+                />
+                <Detail
+                  title="Pack interests"
+                  items={record.packInterests.length ? record.packInterests.map((pack) => `${pack.name}: ${label(pack.scheduleFit)} / ${label(pack.allowanceAlignment)}`) : ["No pack interests recorded"]}
+                />
+                <Detail
+                  title="Allowance flags"
+                  items={record.allowanceFlags.length ? record.allowanceFlags : ["No allowance flags recorded"]}
+                />
+                <Detail
+                  title="Substitution notes"
+                  items={
+                    record.substitutionNotes.length
+                      ? record.substitutionNotes.map((note) => `${note.category}: ${note.selected} -> ${note.alternatives.join(", ")}`)
+                      : ["No substitutions suggested"]
+                  }
+                />
+                <div className="admin-actions">
+                  <button
+                    className="secondary"
+                    onClick={() => updateProductSchedule(record.id, { adminStatus: "reviewed" }, "Product schedule marked reviewed.")}
+                  >
+                    Mark reviewed
+                  </button>
+                  <button
+                    className="secondary"
+                    onClick={() =>
+                      updateProductSchedule(
+                        record.id,
+                        { adminStatus: "follow_up_needed", followUpStatus: "requested" },
+                        "Product schedule marked for follow-up."
+                      )
+                    }
+                  >
+                    Follow up
+                  </button>
+                  <button
+                    className="ghost"
+                    onClick={() => copyText(record.builderExport, "Builder-ready product schedule copied.")}
+                  >
+                    Copy builder export
+                  </button>
+                </div>
+                <label>
+                  Internal product schedule notes
+                  <textarea
+                    defaultValue={record.internalNotes}
+                    onBlur={(event) =>
+                      updateProductSchedule(
+                        record.id,
+                        { internalNotes: event.target.value },
+                        "Product schedule notes saved."
+                      )
+                    }
+                  />
+                </label>
+              </article>
+            ))}
+            {!productSchedules.length ? <p>No product schedule submissions loaded.</p> : null}
+          </div>
         </div>
 
         <div className="panel">

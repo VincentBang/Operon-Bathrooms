@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
+import { GET as getAdminProductSchedules, POST as postAdminProductSchedule } from "../app/api/admin/product-schedules/route";
 import { POST } from "../app/api/product-schedule/route";
 import {
   calculatePcAllowanceRange,
@@ -33,6 +34,14 @@ const baseInput: ProductScheduleInput = {
   wantsQuoteReview: false,
   quoteText: ""
 };
+
+const adminToken = "product-schedule-admin-token";
+
+function useProductScheduleAdminToken() {
+  process.env.OPERON_BATHROOMS_ADMIN_TOKEN = adminToken;
+  process.env.NEXT_PUBLIC_SUPABASE_URL = "";
+  process.env.SUPABASE_SERVICE_ROLE_KEY = "";
+}
 
 test("product schedule validation accepts complete MVP input", () => {
   const parsed = productScheduleInputSchema.safeParse(baseInput);
@@ -171,4 +180,74 @@ test("product schedule API validates, stores lead, and returns safe schedule", a
   assert.match(payload.schedule.builderReadySummary, /Planning guidance only/);
   assert.doesNotMatch(publicJson, /estimated_margin/);
   assert.doesNotMatch(publicJson, /default_margin_range/);
+});
+
+test("phase 3 admin endpoint lists and updates product schedule follow-up context", async () => {
+  useProductScheduleAdminToken();
+  const marker = globalThis.crypto.randomUUID();
+  const email = `product-schedule-${marker}@example.com`;
+  const submit = await POST(
+    new Request("http://localhost/api/product-schedule", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        input: {
+          ...baseInput,
+          wantsProductQuote: true,
+          wantsQuoteReview: true,
+          quoteText: "Vanity allowance $500. Basin allowance $200. Tapware allowance $300."
+        },
+        lead: {
+          name: "Product Schedule Admin",
+          email,
+          phone: "0400000000",
+          consentAccepted: true,
+          company: ""
+        }
+      })
+    })
+  );
+  const submitBody = await submit.json();
+  assert.equal(submit.status, 200);
+  assert.equal(submitBody.ok, true);
+
+  const unauthorized = await getAdminProductSchedules(new Request("http://localhost/api/admin/product-schedules"));
+  assert.equal(unauthorized.status, 401);
+
+  const list = await getAdminProductSchedules(
+    new Request(`http://localhost/api/admin/product-schedules?token=${adminToken}`)
+  );
+  const listBody = await list.json();
+  assert.equal(list.status, 200);
+  assert.equal(listBody.ok, true);
+  const record = listBody.records.find((item: { contact?: { email?: string } }) => item.contact?.email === email);
+  assert.ok(record);
+  assert.equal(record.requested.productQuote, true);
+  assert.equal(record.requested.quoteReview, true);
+  assert.ok(record.packInterests.length >= 1);
+  assert.ok(record.allowanceFlags.length >= 1);
+  assert.ok(record.substitutionNotes.length >= 1);
+  assert.match(record.builderExport, /planning guidance/i);
+  assert.doesNotMatch(JSON.stringify(record), /estimated_margin|default_margin_range|supplier cost|rate card/i);
+
+  const updated = await postAdminProductSchedule(
+    new Request("http://localhost/api/admin/product-schedules", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${adminToken}`
+      },
+      body: JSON.stringify({
+        recordId: record.id,
+        adminStatus: "follow_up_needed",
+        followUpStatus: "requested",
+        internalNotes: "Ask customer whether they want curated pack follow-up."
+      })
+    })
+  );
+  const updatedBody = await updated.json();
+  assert.equal(updated.status, 200);
+  assert.equal(updatedBody.record.adminStatus, "follow_up_needed");
+  assert.equal(updatedBody.record.followUpStatus, "requested");
+  assert.match(updatedBody.record.internalNotes, /curated pack/i);
 });
