@@ -40,7 +40,8 @@ export default function QuoteReviewPage() {
           </p>
           <p>
             Comparing totals? Read the <Link href="/bathroom-renovation-cost-sydney">Sydney bathroom cost guide</Link>{" "}
-            before relying on allowances or exclusions.
+            before relying on allowances or exclusions. You can also open the{" "}
+            <Link href="/guides/bathroom-quote-checklist">bathroom quote checklist</Link>.
           </p>
           <div className="card">
             <h2>What the review checks</h2>

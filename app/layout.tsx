@@ -129,9 +129,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <div className="footer-group">
                 <h3>Guides</h3>
                 <Link href="/guides">Bathroom renovation process</Link>
-                <Link href="/guides#allowances">PC sums and provisional sums</Link>
-                <Link href="/guides#waterproofing">Waterproofing and bathroom quotes</Link>
-                <Link href="/guides#strata">Apartment bathroom strata review</Link>
+                <Link href="/guides/bathroom-quote-checklist">Bathroom quote checklist</Link>
+                <Link href="/guides/bathroom-pc-sums-provisional-sums">PC sums and provisional sums</Link>
+                <Link href="/guides/waterproofing-and-bathroom-quotes">Waterproofing and bathroom quotes</Link>
+                <Link href="/guides/apartment-bathroom-strata-review">Apartment bathroom strata review</Link>
+                <Link href="/guides/site-measure-checklist">Site measure checklist</Link>
                 <Link href="/faq">FAQ</Link>
               </div>
               <div className="footer-group">

@@ -5,6 +5,11 @@ import { renderToString } from "react-dom/server";
 import HomePage from "../app/page";
 import CostGuidePage from "../app/bathroom-renovation-cost-sydney/page";
 import BathroomQuoteSydneyPage from "../app/bathroom-quote-sydney/page";
+import ApartmentStrataGuidePage from "../app/guides/apartment-bathroom-strata-review/page";
+import PcSumsGuidePage from "../app/guides/bathroom-pc-sums-provisional-sums/page";
+import QuoteChecklistGuidePage from "../app/guides/bathroom-quote-checklist/page";
+import SiteMeasureChecklistGuidePage from "../app/guides/site-measure-checklist/page";
+import WaterproofingGuidePage from "../app/guides/waterproofing-and-bathroom-quotes/page";
 import ProductSchedulePage from "../app/product-schedule/page";
 import QuoteReviewPage from "../app/quote/review/page";
 import RequestReviewPage from "../app/request-review/page";
@@ -59,4 +64,19 @@ test("product schedule page renders planning-only product workflow", () => {
   assert.match(html, /Generate Bathroom Product Schedule/);
   assert.match(html, /not checkout/);
   assert.match(html, /Site measure, selections, licensed trade checks and written scope confirmation/);
+});
+
+test("phase 2 authority guides render safe SEO copy", () => {
+  const quoteChecklist = renderToString(<QuoteChecklistGuidePage />);
+  const waterproofing = renderToString(<WaterproofingGuidePage />);
+  const allowances = renderToString(<PcSumsGuidePage />);
+  const strata = renderToString(<ApartmentStrataGuidePage />);
+  const siteMeasure = renderToString(<SiteMeasureChecklistGuidePage />);
+
+  assert.match(quoteChecklist, /Bathroom quote checklist before you commit/);
+  assert.match(quoteChecklist, /planning guidance only, not legal advice/);
+  assert.match(waterproofing, /does not certify compliance/);
+  assert.match(allowances, /does not expose internal rates/);
+  assert.match(strata, /not legal advice/);
+  assert.match(siteMeasure, /not a contract price/);
 });

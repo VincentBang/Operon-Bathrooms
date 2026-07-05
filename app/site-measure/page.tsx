@@ -31,7 +31,8 @@ export default function SiteMeasurePage() {
             This page provides planning guidance only and helps prepare the information needed for a
             site inspection.
             If you are still budgeting, start with the <Link href="/quote">planning estimate</Link> or read the{" "}
-            <Link href="/bathroom-renovation-cost-sydney">cost guide</Link>.
+            <Link href="/bathroom-renovation-cost-sydney">cost guide</Link>. If you are preparing evidence, use the{" "}
+            <Link href="/guides/site-measure-checklist">site measure checklist</Link>.
           </p>
           <div className="notice">
             <p>

@@ -41,6 +41,9 @@ export default function CostGuidePage() {
             PC sums, provisional sums, exclusions, GST status and variation wording should be
             clarified before comparing quote totals.
           </p>
+          <Link className="button secondary" href="/guides/bathroom-pc-sums-provisional-sums">
+            Understand allowances
+          </Link>
         </div>
         <div className="card">
           <h2>Next steps</h2>
@@ -64,6 +67,9 @@ export default function CostGuidePage() {
         </p>
         <Link className="button secondary" href="/quote/review">
           Review an existing quote
+        </Link>
+        <Link className="button ghost" href="/guides/bathroom-quote-checklist">
+          Open quote checklist
         </Link>
       </div>
       <div className="grid two">

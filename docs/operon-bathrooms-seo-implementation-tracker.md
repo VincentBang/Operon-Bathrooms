@@ -16,4 +16,9 @@
 | Bathroom refresh | `/services/bathroom-refresh` | Service | bathroom refresh Sydney | Done | Done | Done | Done | Done | Done | Done | Fit-filtered refresh. |
 | Laundry bathroom | `/services/laundry-bathroom-renovation` | Service | laundry bathroom renovation | Done | Done | Done | Done | Done | Done | Done | Combined wet area. |
 | Guides hub | `/guides` | Authority | bathroom renovation guides | Hub | Done | Done | Done | Done | Done | Done | No thin child pages. |
+| Quote checklist guide | `/guides/bathroom-quote-checklist` | Authority | bathroom quote checklist | Done | Done | Done | Done | Done | Done | Done | Phase 2 guide; planning only. |
+| Waterproofing guide | `/guides/waterproofing-and-bathroom-quotes` | Authority | bathroom waterproofing requirements NSW | Done | Done | Done | Done | Done | Done | Done | No compliance certification. |
+| PC/provisional sums guide | `/guides/bathroom-pc-sums-provisional-sums` | Authority | bathroom PC sums | Done | Done | Done | Done | Done | Done | Done | No private allowance rates. |
+| Apartment strata guide | `/guides/apartment-bathroom-strata-review` | Authority | apartment bathroom strata review | Done | Done | Done | Done | Done | Done | Done | No legal advice. |
+| Site measure checklist | `/guides/site-measure-checklist` | Authority | bathroom site measure checklist | Done | Done | Done | Done | Done | Done | Done | Contract-pricing guard. |
 | Areas hub | `/areas` | Local | Sydney bathroom areas | Hub | Done | Done | Done | Done | Done | Done | No suburb pages. |
