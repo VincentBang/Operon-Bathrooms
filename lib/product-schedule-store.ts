@@ -3,7 +3,10 @@ import path from "node:path";
 import type { BathroomSchedule, ProductScheduleLeadInput } from "@/lib/product-schedule";
 import type { ProductScheduleInput } from "@/lib/product-schedule";
 
-const storePath = path.join(process.cwd(), ".local", "bathroom-product-schedules.json");
+const storePath =
+  process.env.NETLIFY || process.env.AWS_LAMBDA_FUNCTION_NAME
+    ? path.join("/tmp", "bathroom-product-schedules.json")
+    : path.join(process.cwd(), ".local", "bathroom-product-schedules.json");
 
 export type StoredBathroomProductSchedule = {
   id: string;
