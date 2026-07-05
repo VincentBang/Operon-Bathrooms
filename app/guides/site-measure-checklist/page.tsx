@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import React from "react";
+import { FaqJsonLd } from "@/components/FaqJsonLd";
 
 export const metadata: Metadata = {
   title: "Bathroom Site Measure Checklist | Sydney Planning",
@@ -15,8 +16,27 @@ export const metadata: Metadata = {
 };
 
 export default function SiteMeasureChecklistGuide() {
+  const faqItems = [
+    {
+      question: "What should I prepare before a bathroom site measure?",
+      answer:
+        "Prepare photos, any existing quote, plans, strata notes, known leaks or mould, access notes, parking or lift constraints and preferred fixture or finish ideas."
+    },
+    {
+      question: "Can an online estimate replace a bathroom site measure?",
+      answer:
+        "No. Online estimates are planning guidance only. Site measure, selections, licensed trade checks and written scope confirmation are required before contract pricing."
+    },
+    {
+      question: "What can a site measure check that online planning cannot?",
+      answer:
+        "A site measure can help assess access, existing conditions, waterproofing prompts, substrate, falls, plumbing access, electrical condition, ventilation and site-specific constraints."
+    }
+  ];
+
   return (
     <section className="page-section">
+      <FaqJsonLd items={faqItems} />
       <div className="container">
         <p className="pill">Site measure guide</p>
         <h1>Bathroom site measure checklist.</h1>
@@ -62,6 +82,14 @@ export default function SiteMeasureChecklistGuide() {
               <Link className="button ghost" href="/quote/review">Review quote</Link>
             </div>
           </div>
+        </div>
+        <div className="grid two">
+          {faqItems.map((item) => (
+            <div className="card" key={item.question}>
+              <h2>{item.question}</h2>
+              <p>{item.answer}</p>
+            </div>
+          ))}
         </div>
       </div>
     </section>

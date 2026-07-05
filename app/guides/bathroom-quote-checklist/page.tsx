@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import React from "react";
+import { FaqJsonLd } from "@/components/FaqJsonLd";
 
 export const metadata: Metadata = {
   title: "Bathroom Quote Checklist | Sydney Renovation Planning",
@@ -15,8 +16,27 @@ export const metadata: Metadata = {
 };
 
 export default function BathroomQuoteChecklistGuide() {
+  const faqItems = [
+    {
+      question: "What should a bathroom renovation quote include?",
+      answer:
+        "A bathroom renovation quote should clearly describe scope inclusions, exclusions, allowances, waterproofing prompts, trade scope, GST status, deposit request, timeline assumptions and what needs confirmation before contract pricing."
+    },
+    {
+      question: "Can Operon confirm if my bathroom quote is complete online?",
+      answer:
+        "No. Operon can provide planning guidance and quote clarity prompts online, but site measure, selections, licensed trade checks and written scope confirmation are required before contract pricing."
+    },
+    {
+      question: "When should I request a bathroom quote review?",
+      answer:
+        "Request review when waterproofing, PC sums, provisional sums, exclusions, access, strata, asbestos risk or plumbing and electrical scope is unclear before signing."
+    }
+  ];
+
   return (
     <section className="page-section">
+      <FaqJsonLd items={faqItems} />
       <div className="container">
         <p className="pill">Quote clarity guide</p>
         <h1>Bathroom quote checklist before you commit.</h1>
@@ -75,6 +95,14 @@ export default function BathroomQuoteChecklistGuide() {
               <Link className="button ghost" href="/site-measure">Prepare site measure</Link>
             </div>
           </div>
+        </div>
+        <div className="grid two">
+          {faqItems.map((item) => (
+            <div className="card" key={item.question}>
+              <h2>{item.question}</h2>
+              <p>{item.answer}</p>
+            </div>
+          ))}
         </div>
       </div>
     </section>

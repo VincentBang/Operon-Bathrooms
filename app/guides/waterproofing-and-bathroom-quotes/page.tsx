@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import React from "react";
+import { FaqJsonLd } from "@/components/FaqJsonLd";
 
 export const metadata: Metadata = {
   title: "Waterproofing and Bathroom Quotes | NSW Planning Guide",
@@ -15,8 +16,27 @@ export const metadata: Metadata = {
 };
 
 export default function WaterproofingBathroomQuotesGuide() {
+  const faqItems = [
+    {
+      question: "Should waterproofing be mentioned in a bathroom quote?",
+      answer:
+        "Yes, waterproofing scope, wet-area coverage, responsibility and certificate prompts should be clarified in writing. Online guidance cannot certify compliance."
+    },
+    {
+      question: "Can waterproofing condition be confirmed online?",
+      answer:
+        "No. Waterproofing condition, substrate, falls, leaks and hidden site issues require site inspection and appropriate licensed trade checks."
+    },
+    {
+      question: "What should I do if waterproofing is unclear in my quote?",
+      answer:
+        "Clarify it before signing. Quote review or scope review can help prepare questions, but contract pricing still requires site measure, selections and written scope confirmation."
+    }
+  ];
+
   return (
     <section className="page-section">
+      <FaqJsonLd items={faqItems} />
       <div className="container">
         <p className="pill">Waterproofing guide</p>
         <h1>Bathroom waterproofing and quote clarity.</h1>
@@ -66,6 +86,14 @@ export default function WaterproofingBathroomQuotesGuide() {
               <Link className="button ghost" href="/site-measure">Prepare site measure</Link>
             </div>
           </div>
+        </div>
+        <div className="grid two">
+          {faqItems.map((item) => (
+            <div className="card" key={item.question}>
+              <h2>{item.question}</h2>
+              <p>{item.answer}</p>
+            </div>
+          ))}
         </div>
       </div>
     </section>

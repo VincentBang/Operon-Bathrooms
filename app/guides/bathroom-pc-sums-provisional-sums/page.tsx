@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import React from "react";
+import { FaqJsonLd } from "@/components/FaqJsonLd";
 
 export const metadata: Metadata = {
   title: "Bathroom PC Sums and Provisional Sums | Quote Clarity",
@@ -15,8 +16,27 @@ export const metadata: Metadata = {
 };
 
 export default function BathroomAllowancesGuide() {
+  const faqItems = [
+    {
+      question: "What is a PC sum in a bathroom quote?",
+      answer:
+        "A PC sum is commonly used for selectable products or finishes, such as vanity, tapware, toilet, tiles, mirror or accessories. Confirm whether the allowance matches the finish level you expect."
+    },
+    {
+      question: "What is a provisional sum in a bathroom quote?",
+      answer:
+        "A provisional sum is commonly used where work cannot be fully known until inspection or demolition, such as substrate repair, plumbing changes, access constraints or hidden conditions."
+    },
+    {
+      question: "How do I compare bathroom quotes with allowances?",
+      answer:
+        "Compare the written scope, exclusions and assumptions before comparing totals. Allowances can change quote certainty, and online guidance is not contract pricing."
+    }
+  ];
+
   return (
     <section className="page-section">
+      <FaqJsonLd items={faqItems} />
       <div className="container">
         <p className="pill">Allowance guide</p>
         <h1>PC sums and provisional sums in bathroom renovation quotes.</h1>
@@ -69,6 +89,14 @@ export default function BathroomAllowancesGuide() {
               <Link className="button ghost" href="/bathroom-renovation-cost-sydney">Read cost guide</Link>
             </div>
           </div>
+        </div>
+        <div className="grid two">
+          {faqItems.map((item) => (
+            <div className="card" key={item.question}>
+              <h2>{item.question}</h2>
+              <p>{item.answer}</p>
+            </div>
+          ))}
         </div>
       </div>
     </section>

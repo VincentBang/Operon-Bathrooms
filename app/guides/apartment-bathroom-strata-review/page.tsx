@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import React from "react";
+import { FaqJsonLd } from "@/components/FaqJsonLd";
 
 export const metadata: Metadata = {
   title: "Apartment Bathroom Strata Review | Sydney Planning Guide",
@@ -15,8 +16,27 @@ export const metadata: Metadata = {
 };
 
 export default function ApartmentBathroomStrataReviewGuide() {
+  const faqItems = [
+    {
+      question: "Do apartment bathrooms need strata review before renovation?",
+      answer:
+        "Many apartment bathroom projects should clarify strata approval, access, work hours, lift bookings and building rules before committing. This is planning guidance only, not legal advice."
+    },
+    {
+      question: "Can Class 2 or DBP requirements be confirmed online?",
+      answer:
+        "No. Online planning can prompt questions, but project-specific Class 2 or DBP obligations need appropriate professional review and written confirmation."
+    },
+    {
+      question: "What should I prepare for an apartment bathroom site measure?",
+      answer:
+        "Prepare photos, quote documents, strata notes, access details, lift or parking constraints, known leak or mould issues and preferred selections."
+    }
+  ];
+
   return (
     <section className="page-section">
+      <FaqJsonLd items={faqItems} />
       <div className="container">
         <p className="pill">Apartment guide</p>
         <h1>Apartment bathroom strata review before renovation.</h1>
@@ -66,6 +86,14 @@ export default function ApartmentBathroomStrataReviewGuide() {
               <Link className="button ghost" href="/services/apartment-bathroom-renovation-sydney">Apartment service page</Link>
             </div>
           </div>
+        </div>
+        <div className="grid two">
+          {faqItems.map((item) => (
+            <div className="card" key={item.question}>
+              <h2>{item.question}</h2>
+              <p>{item.answer}</p>
+            </div>
+          ))}
         </div>
       </div>
     </section>

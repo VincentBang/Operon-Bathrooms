@@ -79,4 +79,7 @@ test("phase 2 authority guides render safe SEO copy", () => {
   assert.match(allowances, /does not expose internal rates/);
   assert.match(strata, /not legal advice/);
   assert.match(siteMeasure, /not a contract price/);
+  assert.match(quoteChecklist, /"@type":"FAQPage"/);
+  assert.match(waterproofing, /Online guidance cannot certify compliance/);
+  assert.doesNotMatch(`${quoteChecklist}${waterproofing}${allowances}${strata}${siteMeasure}`, /supplier cost|rate card|final quote online/i);
 });
