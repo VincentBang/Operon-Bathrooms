@@ -51,7 +51,13 @@ type StoreResult = {
 };
 
 const localStorePath = path.join(process.cwd(), ".local", "bathroom-leads.json");
+const blobLeadStoreName = "bathroom-leads";
+const blobLeadIndexKey = "index";
 let localStoreQueue = Promise.resolve();
+
+function useNetlifyBlobs() {
+  return process.env.NETLIFY === "true" || Boolean(process.env.AWS_LAMBDA_FUNCTION_NAME);
+}
 
 function supabaseConfig() {
   return {
@@ -233,6 +239,17 @@ function toRecord(input: LeadStoreInput, lead: NormalizedLead) {
 }
 
 async function readLocalLeads() {
+  if (useNetlifyBlobs()) {
+    const { getStore } = await import("@netlify/blobs");
+    const store = getStore({ name: blobLeadStoreName, consistency: "strong" });
+    const index = (await store.get(blobLeadIndexKey, { type: "json" })) as { keys?: string[] } | null;
+    const keys = index?.keys ?? [];
+    const leads = await Promise.all(
+      keys.map((key) => store.get(key, { type: "json" }) as Promise<NormalizedLead | null>)
+    );
+    return leads.filter((lead): lead is NormalizedLead => Boolean(lead));
+  }
+
   try {
     const raw = await readFile(localStorePath, "utf8");
     return JSON.parse(raw) as NormalizedLead[];
@@ -242,6 +259,16 @@ async function readLocalLeads() {
 }
 
 async function writeLocalLeads(leads: NormalizedLead[]) {
+  if (useNetlifyBlobs()) {
+    const { getStore } = await import("@netlify/blobs");
+    const store = getStore({ name: blobLeadStoreName, consistency: "strong" });
+    const nextLeads = leads.slice(0, 500);
+    const keys = nextLeads.map((lead) => `records/${lead.leadType}/${lead.id}`);
+    await Promise.all(nextLeads.map((lead, index) => store.setJSON(keys[index], lead)));
+    await store.setJSON(blobLeadIndexKey, { keys });
+    return;
+  }
+
   await mkdir(path.dirname(localStorePath), { recursive: true });
   await writeFile(localStorePath, JSON.stringify(leads, null, 2));
 }
