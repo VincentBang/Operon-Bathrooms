@@ -45,11 +45,12 @@ export default function CostGuidePage() {
         <div className="card">
           <h2>Next steps</h2>
           <p>
-            Start the wizard for a project-specific planning range, review an existing quote or
-            prepare a site measure before written scope confirmation.
+            Start the wizard for a project-specific planning range, prepare a product schedule,
+            review an existing quote or prepare a site measure before written scope confirmation.
           </p>
           <div className="actions" style={{ justifyContent: "flex-start" }}>
             <Link className="button" href="/quote">Get your planning estimate</Link>
+            <Link className="button secondary" href="/product-schedule">Build product schedule</Link>
             <Link className="button secondary" href="/site-measure">Prepare site measure</Link>
           </div>
         </div>

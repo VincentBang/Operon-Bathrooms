@@ -328,6 +328,19 @@ legend {
   margin-top: 3px;
 }
 
+.checkbox-line {
+  display: grid;
+  grid-template-columns: 20px minmax(0, 1fr);
+  align-items: start;
+  gap: 10px;
+  font-weight: 650;
+}
+
+.checkbox-line input {
+  width: 18px;
+  margin-top: 4px;
+}
+
 .honeypot {
   position: absolute;
   left: -10000px;
@@ -365,6 +378,23 @@ summary:focus-visible {
   border: 1px solid #f0c8ae;
   border-radius: var(--radius);
   padding: 16px;
+}
+
+.notice.error {
+  border-color: #d8897b;
+  background: #fff0ee;
+}
+
+.summary-box {
+  white-space: pre-wrap;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 14px;
+  overflow: auto;
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.92rem;
 }
 
 .estimate-range {

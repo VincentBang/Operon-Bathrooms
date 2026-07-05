@@ -6,6 +6,7 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.operonbathrooms
 const routes = [
   "/",
   "/quote",
+  "/product-schedule",
   "/quote/review",
   "/request-review",
   "/site-measure",

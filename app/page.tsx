@@ -33,6 +33,9 @@ export default function HomePage() {
               <Link className="button secondary" href="/quote/review">
                 Review existing quote
               </Link>
+              <Link className="button ghost" href="/product-schedule">
+                Product schedule
+              </Link>
               <Link className="button ghost" href="/request-review">
                 Request review
               </Link>
@@ -110,6 +113,7 @@ export default function HomePage() {
           <div className="grid four">
             {[
               ["Start bathroom estimate", "/quote", "Build a planning range with confidence score and review flags."],
+              ["Build product schedule", "/product-schedule", "Plan vanity, basin, tapware, mirror, accessories and PC allowance prompts."],
               ["Review existing quote", "/quote/review", "Check inclusions, exclusions, PC sums and scope risk before comparing totals."],
               ["Request scope review", "/request-review", "Send project details so Operon Bathrooms can prepare the next review step."],
               ["Prepare for site measure", "/site-measure", "Understand what needs checking before written scope and project-specific pricing."]

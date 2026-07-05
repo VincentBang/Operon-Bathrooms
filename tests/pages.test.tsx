@@ -5,6 +5,7 @@ import { renderToString } from "react-dom/server";
 import HomePage from "../app/page";
 import CostGuidePage from "../app/bathroom-renovation-cost-sydney/page";
 import BathroomQuoteSydneyPage from "../app/bathroom-quote-sydney/page";
+import ProductSchedulePage from "../app/product-schedule/page";
 import QuoteReviewPage from "../app/quote/review/page";
 import RequestReviewPage from "../app/request-review/page";
 import ApartmentBathroomPage from "../app/services/apartment-bathroom-renovation-sydney/page";
@@ -17,6 +18,7 @@ test("home page renders planning-only positioning", () => {
   assert.match(html, /Sydney bathroom renovation estimates and quote review before you commit/);
   assert.match(html, /Planning estimate only/);
   assert.match(html, /Site measure, selections, licensed trade checks and written scope confirmation/);
+  assert.match(html, /Build product schedule/);
 });
 
 test("cost guide renders compliance prompts", () => {
@@ -48,4 +50,13 @@ test("new phase 1 seo pages render safe routing copy", () => {
   assert.match(apartment, /Apartment and strata bathroom renovations in Sydney/);
   assert.match(apartment, /Class 2 screening/);
   assert.match(refresh, /does not position around cheap or supply-only bathroom work/);
+});
+
+test("product schedule page renders planning-only product workflow", () => {
+  const html = renderToString(<ProductSchedulePage />);
+
+  assert.match(html, /Operon Bathroom Product Schedule/);
+  assert.match(html, /Generate Bathroom Product Schedule/);
+  assert.match(html, /not checkout/);
+  assert.match(html, /Site measure, selections, licensed trade checks and written scope confirmation/);
 });

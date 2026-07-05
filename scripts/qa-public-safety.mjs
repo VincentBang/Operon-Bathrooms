@@ -5,6 +5,7 @@ const baseUrl = process.argv[2] || "http://localhost:3000";
 const publicRoutes = [
   "/",
   "/quote",
+  "/product-schedule",
   "/quote/review",
   "/request-review",
   "/site-measure",
@@ -24,7 +25,7 @@ const publicRoutes = [
   "/terms"
 ];
 
-const conversionRoutes = ["/", "/quote", "/quote/review", "/request-review", "/site-measure", "/bathroom-renovation-cost-sydney"];
+const conversionRoutes = ["/", "/quote", "/product-schedule", "/quote/review", "/request-review", "/site-measure", "/bathroom-renovation-cost-sydney"];
 
 const forbiddenPublicPatterns = [
   ["final quote promise", /\b(?:free\s+)?final quote online\b|binding quote online|confirmed quote online/i],

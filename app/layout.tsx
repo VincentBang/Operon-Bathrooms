@@ -33,6 +33,7 @@ const designStudioDiscoverable = isBathroomDesignStudioDiscoverable();
 
 const navLinks = [
   ["Estimate", "/quote"],
+  ["Product schedule", "/product-schedule"],
   ...(designStudioDiscoverable ? [["Design studio", "/design-studio"]] : []),
   ["Review quote", "/quote/review"],
   ["Costs", "/bathroom-renovation-cost-sydney"],
@@ -109,6 +110,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               <div className="footer-group">
                 <h3>Quote & review</h3>
                 {designStudioDiscoverable ? <Link href="/design-studio">Bathroom Design Studio</Link> : null}
+                <Link href="/product-schedule">Bathroom Product Schedule</Link>
                 <Link href="/quote">Start bathroom estimate</Link>
                 <Link href="/quote/review">Review existing bathroom quote</Link>
                 <Link href="/request-review">Request review</Link>
