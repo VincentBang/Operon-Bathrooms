@@ -50,6 +50,7 @@ npm run build
 npm run verify:supabase:migrations
 npm run qa:supabase:staging
 npm run qa:email:staging
+npm run qa:admin:smoke
 npm run qa:bundle-safety
 npm run qa:local
 ```
@@ -65,6 +66,32 @@ npm run qa:responsive -- http://127.0.0.1:3000
 
 Restart `next dev` after running `npm run build` before server-based crawls. Keeping a dev server
 open while `.next` is rewritten can cause transient Next.js dev-manifest errors unrelated to app code.
+
+## Admin smoke test
+
+Use the admin smoke test after a local build or live deploy when you need to prove the admin lead
+queues are reading the same storage as the public lead forms. The script submits one scope-review
+lead and one Product Schedule lead, then verifies both protected admin endpoints return the new
+records and summary counts.
+
+Local production-server run:
+
+```bash
+OPERON_BATHROOMS_ADMIN_TOKEN="local-smoke-token" npm run start
+OPERON_BATHROOMS_ADMIN_TOKEN="local-smoke-token" npm run qa:admin:smoke -- http://localhost:3000
+```
+
+Live Netlify run:
+
+```bash
+OPERON_BATHROOMS_ADMIN_TOKEN="your-token" \
+OPERON_BATHROOMS_ADMIN_SMOKE_APPROVED=true \
+npm run qa:admin:smoke -- https://operonbathrooms.netlify.app
+```
+
+The script refuses non-local URLs unless `OPERON_BATHROOMS_ADMIN_SMOKE_APPROVED=true` is set. It
+does not print the admin token. Smoke records use `@example.com` addresses and are intended as
+admin-visible QA markers, not customer leads.
 
 ## Private estimate data
 
