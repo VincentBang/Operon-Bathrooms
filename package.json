@@ -13,6 +13,7 @@
     "verify:supabase:migrations": "node scripts/verify-supabase-migrations.mjs",
     "qa:supabase:staging": "node scripts/qa-supabase-staging-contract.mjs",
     "qa:email:staging": "tsx scripts/qa-email-staging-contract.ts",
+    "qa:admin:smoke": "node scripts/qa-admin-lead-smoke.mjs",
     "qa:crawl": "node scripts/local-public-crawl.mjs",
     "qa:public-safety": "node scripts/qa-public-safety.mjs",
     "qa:bundle-safety": "node scripts/qa-client-bundle-safety.mjs",
