@@ -21,6 +21,7 @@
     "qa:local": "npm run lint && npm run typecheck && npm run test && npm run build && npm run verify:supabase:migrations && npm run qa:bundle-safety"
   },
   "dependencies": {
+    "@netlify/blobs": "^10.7.9",
     "@supabase/supabase-js": "^2.45.4",
     "next": "^15.5.18",
     "pdf-lib": "^1.17.1",
