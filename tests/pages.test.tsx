@@ -6,8 +6,13 @@ import HomePage from "../app/page";
 import CostGuidePage from "../app/bathroom-renovation-cost-sydney/page";
 import BathroomQuoteSydneyPage from "../app/bathroom-quote-sydney/page";
 import ApartmentStrataGuidePage from "../app/guides/apartment-bathroom-strata-review/page";
+import ComplianceGuidePage from "../app/guides/bathroom-compliance-nsw/page";
+import DepositGuidePage from "../app/guides/bathroom-deposit-limit-nsw/page";
 import PcSumsGuidePage from "../app/guides/bathroom-pc-sums-provisional-sums/page";
 import QuoteChecklistGuidePage from "../app/guides/bathroom-quote-checklist/page";
+import QuoteVsEstimateGuidePage from "../app/guides/bathroom-quote-vs-estimate/page";
+import LicenceGuidePage from "../app/guides/bathroom-renovation-licence-nsw/page";
+import HbcfGuidePage from "../app/guides/home-building-compensation-insurance-bathrooms/page";
 import SiteMeasureChecklistGuidePage from "../app/guides/site-measure-checklist/page";
 import WaterproofingGuidePage from "../app/guides/waterproofing-and-bathroom-quotes/page";
 import ProductSchedulePage from "../app/product-schedule/page";
@@ -82,4 +87,21 @@ test("phase 2 authority guides render safe SEO copy", () => {
   assert.match(quoteChecklist, /"@type":"FAQPage"/);
   assert.match(waterproofing, /Online guidance cannot certify compliance/);
   assert.doesNotMatch(`${quoteChecklist}${waterproofing}${allowances}${strata}${siteMeasure}`, /supplier cost|rate card|final quote online/i);
+});
+
+test("remaining phase 2 NSW prompt guides render source-aware safe copy", () => {
+  const quoteVsEstimate = renderToString(<QuoteVsEstimateGuidePage />);
+  const compliance = renderToString(<ComplianceGuidePage />);
+  const deposit = renderToString(<DepositGuidePage />);
+  const hbcf = renderToString(<HbcfGuidePage />);
+  const licence = renderToString(<LicenceGuidePage />);
+  const combined = `${quoteVsEstimate}${compliance}${deposit}${hbcf}${licence}`;
+
+  assert.match(quoteVsEstimate, /not contract pricing/);
+  assert.match(compliance, /not legal advice or compliance certification/);
+  assert.match(deposit, /10% of the contract price/);
+  assert.match(hbcf, /jobs over \$20,000/);
+  assert.match(licence, /over \$5,000 including GST/);
+  assert.match(combined, /"@type":"FAQPage"/);
+  assert.doesNotMatch(combined, /we provide legal advice|guaranteed compliance|final quote online|supplier cost|rate card/i);
 });

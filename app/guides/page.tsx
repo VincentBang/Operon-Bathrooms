@@ -46,6 +46,31 @@ export default function GuidesPage() {
               "/guides/site-measure-checklist"
             ],
             [
+              "Bathroom quote vs estimate",
+              "Understand planning estimates, quote review and contract-pricing readiness.",
+              "/guides/bathroom-quote-vs-estimate"
+            ],
+            [
+              "Bathroom compliance NSW",
+              "Planning prompts for licence, contract, deposit, HBC/HBCF and written-scope checks.",
+              "/guides/bathroom-compliance-nsw"
+            ],
+            [
+              "Bathroom deposit limit NSW",
+              "Deposit and progress-payment prompts to clarify before signing or paying.",
+              "/guides/bathroom-deposit-limit-nsw"
+            ],
+            [
+              "HBCF insurance for bathrooms",
+              "Home Building Compensation prompts for bathroom renovation quote review.",
+              "/guides/home-building-compensation-insurance-bathrooms"
+            ],
+            [
+              "Bathroom renovation licence NSW",
+              "Licence-name and contract-detail prompts before committing to bathroom work.",
+              "/guides/bathroom-renovation-licence-nsw"
+            ],
+            [
               "Bathroom renovation process",
               "How online planning, quote review and site measure fit together.",
               "/how-it-works"

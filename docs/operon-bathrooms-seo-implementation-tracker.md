@@ -21,4 +21,9 @@
 | PC/provisional sums guide | `/guides/bathroom-pc-sums-provisional-sums` | Authority | bathroom PC sums | Done | Done | Done | Done | Done | Done | Done | No private allowance rates. |
 | Apartment strata guide | `/guides/apartment-bathroom-strata-review` | Authority | apartment bathroom strata review | Done | Done | Done | Done | Done | Done | Done | No legal advice. |
 | Site measure checklist | `/guides/site-measure-checklist` | Authority | bathroom site measure checklist | Done | Done | Done | Done | Done | Done | Done | Contract-pricing guard. |
+| Quote vs estimate guide | `/guides/bathroom-quote-vs-estimate` | Authority | bathroom quote vs estimate | Done | Done | Done | Done | Done | Done | Done | Planning-only distinction. |
+| NSW compliance prompts | `/guides/bathroom-compliance-nsw` | Authority | bathroom compliance NSW | Done | Done | Done | Done | Done | Done | Done | Official-source links; no legal advice. |
+| Deposit prompt guide | `/guides/bathroom-deposit-limit-nsw` | Authority | bathroom deposit limit NSW | Done | Done | Done | Done | Done | Done | Done | Clarify before paying. |
+| HBCF prompt guide | `/guides/home-building-compensation-insurance-bathrooms` | Authority | HBCF insurance bathroom renovation | Done | Done | Done | Done | Done | Done | Done | Check certificate prompt. |
+| Licence prompt guide | `/guides/bathroom-renovation-licence-nsw` | Authority | bathroom renovation licence NSW | Done | Done | Done | Done | Done | Done | Done | Check licence source. |
 | Areas hub | `/areas` | Local | Sydney bathroom areas | Hub | Done | Done | Done | Done | Done | Done | No suburb pages. |

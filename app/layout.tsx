@@ -134,6 +134,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 <Link href="/guides/waterproofing-and-bathroom-quotes">Waterproofing and bathroom quotes</Link>
                 <Link href="/guides/apartment-bathroom-strata-review">Apartment bathroom strata review</Link>
                 <Link href="/guides/site-measure-checklist">Site measure checklist</Link>
+                <Link href="/guides/bathroom-quote-vs-estimate">Quote vs estimate</Link>
+                <Link href="/guides/bathroom-compliance-nsw">NSW compliance prompts</Link>
                 <Link href="/faq">FAQ</Link>
               </div>
               <div className="footer-group">
