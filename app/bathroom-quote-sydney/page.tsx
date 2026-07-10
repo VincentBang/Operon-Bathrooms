@@ -4,7 +4,7 @@ import React from "react";
 import { SeoPage } from "@/components/SeoPage";
 
 export const metadata: Metadata = {
-  title: "Bathroom Renovation Quote Sydney | Planning Estimate First",
+  title: "Bathroom Quote Sydney",
   description:
     "Looking for a bathroom renovation quote in Sydney? Start with a planning estimate, quote review prompts and site-measure preparation before contract pricing.",
   alternates: { canonical: "/bathroom-quote-sydney" },

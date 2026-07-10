@@ -4,7 +4,7 @@ import React from "react";
 import { FaqJsonLd } from "@/components/FaqJsonLd";
 
 export const metadata: Metadata = {
-  title: "Bathroom PC Sums and Provisional Sums | Quote Clarity",
+  title: "Bathroom PC and Provisional Sums",
   description:
     "Learn how PC sums and provisional sums affect bathroom quote certainty and what to clarify before signing.",
   alternates: { canonical: "/guides/bathroom-pc-sums-provisional-sums" },

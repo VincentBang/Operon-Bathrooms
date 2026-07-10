@@ -4,7 +4,7 @@ import React from "react";
 import { SeoPage } from "@/components/SeoPage";
 
 export const metadata: Metadata = {
-  title: "Apartment Bathroom Renovations | Strata & Class 2 Sydney",
+  title: "Apartment Bathroom Renovation Sydney",
   description:
     "Plan an apartment bathroom renovation in Sydney with strata, access, waterproofing and Class 2 prompts before site measure and written scope confirmation.",
   alternates: { canonical: "/services/apartment-bathroom-renovation-sydney" },

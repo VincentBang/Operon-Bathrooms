@@ -4,7 +4,7 @@ import { SeoPage } from "@/components/SeoPage";
 import React from "react";
 
 export const metadata: Metadata = {
-  title: "Bathroom Renovation Costs in Sydney | Planning Ranges & Factors",
+  title: "Bathroom Renovation Cost Sydney",
   description:
     "Learn how bathroom renovation costs in Sydney vary by size, layout, waterproofing, selections and site conditions. Operon provides planning guidance, not fixed quotes.",
   alternates: { canonical: "/bathroom-renovation-cost-sydney" },

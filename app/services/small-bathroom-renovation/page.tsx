@@ -3,7 +3,7 @@ import Link from "next/link";
 import { SeoPage } from "@/components/SeoPage";
 
 export const metadata: Metadata = {
-  title: "Small Bathroom Renovation Sydney | Planning Estimate",
+  title: "Small Bathroom Renovation Sydney",
   description:
     "Plan a small bathroom renovation in Sydney with space, waterproofing, access and selections prompts before site measure.",
   alternates: { canonical: "/services/small-bathroom-renovation" },

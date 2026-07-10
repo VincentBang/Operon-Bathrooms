@@ -6,7 +6,7 @@ import { FaqJsonLd } from "@/components/FaqJsonLd";
 const contractsSource = "https://www.nsw.gov.au/housing-and-construction/building-or-renovating-a-home/preparing/contracts";
 
 export const metadata: Metadata = {
-  title: "HBCF Insurance for Bathroom Renovations | NSW Prompt",
+  title: "HBCF Bathroom Renovation Guide",
   description:
     "Planning prompt for Home Building Compensation cover in NSW bathroom renovation quotes. Check current rules before signing.",
   alternates: { canonical: "/guides/home-building-compensation-insurance-bathrooms" },

@@ -4,7 +4,7 @@ import React from "react";
 import { FaqJsonLd } from "@/components/FaqJsonLd";
 
 export const metadata: Metadata = {
-  title: "Waterproofing and Bathroom Quotes | NSW Planning Guide",
+  title: "Waterproofing and Bathroom Quotes",
   description:
     "Understand why waterproofing scope and certificate prompts matter in bathroom renovation quotes. Planning guidance only, not legal advice.",
   alternates: { canonical: "/guides/waterproofing-and-bathroom-quotes" },

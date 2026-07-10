@@ -4,7 +4,7 @@ import React from "react";
 import { FaqJsonLd } from "@/components/FaqJsonLd";
 
 export const metadata: Metadata = {
-  title: "Bathroom Quote Checklist | Sydney Renovation Planning",
+  title: "Bathroom Quote Checklist",
   description:
     "Use this bathroom quote checklist to clarify inclusions, exclusions, allowances and risk prompts before signing. Planning guidance only.",
   alternates: { canonical: "/guides/bathroom-quote-checklist" },

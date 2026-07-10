@@ -4,7 +4,7 @@ import React from "react";
 import { QuoteReviewForm } from "@/components/QuoteReviewForm";
 
 export const metadata: Metadata = {
-  title: "Bathroom Quote Review | Identify Missing Inclusions & Risk Flags",
+  title: "Bathroom Quote Review",
   description:
     "Submit bathroom renovation quote details to get a clarity score, identify missing inclusions, PC sums, provisional sums and compliance prompts before signing.",
   alternates: { canonical: "/quote/review" },

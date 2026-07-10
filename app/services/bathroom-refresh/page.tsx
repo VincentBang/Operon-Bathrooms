@@ -4,7 +4,7 @@ import React from "react";
 import { SeoPage } from "@/components/SeoPage";
 
 export const metadata: Metadata = {
-  title: "Bathroom Refresh Sydney | Scope Review Before You Commit",
+  title: "Bathroom Refresh Sydney",
   description:
     "Plan a Sydney bathroom refresh with clear scope boundaries, fixture and surface prompts, and site-measure preparation before written pricing.",
   alternates: { canonical: "/services/bathroom-refresh" },

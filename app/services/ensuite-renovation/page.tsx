@@ -3,7 +3,7 @@ import Link from "next/link";
 import { SeoPage } from "@/components/SeoPage";
 
 export const metadata: Metadata = {
-  title: "Ensuite Renovation Sydney | Planning Estimate & Site Measure",
+  title: "Ensuite Renovation Sydney",
   description:
     "Plan a Sydney ensuite renovation with layout, waterproofing, ventilation and fixture prompts before site measure and written scope confirmation.",
   alternates: { canonical: "/services/ensuite-renovation" },

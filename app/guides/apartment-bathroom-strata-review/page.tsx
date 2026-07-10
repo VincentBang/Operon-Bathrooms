@@ -4,7 +4,7 @@ import React from "react";
 import { FaqJsonLd } from "@/components/FaqJsonLd";
 
 export const metadata: Metadata = {
-  title: "Apartment Bathroom Strata Review | Sydney Planning Guide",
+  title: "Apartment Bathroom Strata Guide",
   description:
     "Plan apartment bathroom renovation questions around strata, access, waterproofing, Class 2 prompts and site-measure readiness.",
   alternates: { canonical: "/guides/apartment-bathroom-strata-review" },

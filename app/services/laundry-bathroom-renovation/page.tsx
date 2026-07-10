@@ -4,7 +4,7 @@ import React from "react";
 import { SeoPage } from "@/components/SeoPage";
 
 export const metadata: Metadata = {
-  title: "Laundry Bathroom Renovation Sydney | Wet Area Planning",
+  title: "Laundry Bathroom Renovation",
   description:
     "Plan a laundry bathroom renovation in Sydney with waterproofing, drainage, ventilation, fixtures and access prompts before site measure.",
   alternates: { canonical: "/services/laundry-bathroom-renovation" },

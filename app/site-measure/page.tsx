@@ -4,7 +4,7 @@ import React from "react";
 import { SiteMeasureForm } from "@/components/RequestReviewForm";
 
 export const metadata: Metadata = {
-  title: "Bathroom Site Measure Sydney | Prepare for Written Scope",
+  title: "Bathroom Site Measure Sydney",
   description:
     "Request a site measure to confirm waterproofing condition, substrate, falls, services, ventilation, asbestos and strata requirements.",
   alternates: { canonical: "/site-measure" },

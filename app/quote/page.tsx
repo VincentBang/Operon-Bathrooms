@@ -5,7 +5,7 @@ import { QuoteWizard } from "@/components/QuoteWizard";
 export const metadata: Metadata = {
   title: "Bathroom Renovation Estimate Quote Wizard",
   description:
-    "Get a bathroom renovation planning estimate in minutes. Answer questions about size, property type, age, layout changes and finishes to receive a planning range and confidence score.",
+    "Start a Sydney bathroom planning estimate with range, confidence score, risk prompts and site-measure next steps. Guidance only.",
   alternates: { canonical: "/quote" },
   openGraph: {
     title: "Bathroom renovation estimate wizard",
